@@ -1,3 +1,121 @@
+## User Stories
+
+### MVP
+
+* As a user I want to be able to log in
+* As a user I want to be able to register
+* As a user I want to be able to see myself on a map
+* As a user I want to be able to see nearby birds on a map 
+* As a user I want to be able to see information on birds that I have found in a scrapbook
+    * As a user I want confirmation of things I have or haven’t done. Eg finding a Kereru,
+    * As a user I want to be able to track my progress on how many birds I have or have not seen
+* As a user I want to be able to use this on my phone
+* As a user I want to be able to easily navigate between sections
+* As a user I want to obtain interesting information on the bird I have found (beak my interest)
+
+### Stretch
+
+* As a user I want to obtain awards / medals for spotting various numbers and types of birds
+* As a user I want the bird to fly away if it is too far away
+* As a user I want to be able to donate to wildlife foundations
+* As a user I want to be able to get hints as to potential locations of birds
+* As a user I want to have to sneak up on a bird / get close to the bird in order to obtain it
+* As a user I want to be able to see an avatar of myself on the map
+
+---
+
+## Views (Client Side)
+
+  | name | purpose |
+  | --- | --- |
+  | Login | View for user to enter their login credentials |
+  | Register | View for user to sign up for the App |
+  | Map | View the location map to show user's location and bird's location |
+  | Scrapbook | View all the user's collected birds |
+  | Profile | View an individual bird's information (once it has been collected and added to scrapbook |
+
+
+## Reducers (Client Side) --------------------------------- TO EDIT
+
+  | name | purpose |
+  | --- | --- |
+  | auth | Store information regarding user logins, auth status and auth errors |
+  | foundPets | Store the array of pets that have been found (from db) |
+  | lostPets | Store the array of pets that have been lost (from db) |
+
+
+## Actions (Client Side) --------------------------------- TO EDIT
+
+  | type | data | purpose |
+  | --- | --- | --- |
+  | RECEIVE_FOUND_PETS | pets | For retreving the found pets from the server response |
+  | ADD_FOUND_PET | pet | For adding a found pet to the client store after is had been added to the db |
+  | RECEIVE_LOST_PETS | pets | For retreving the lost pets from the server response |
+  | ADD_LOST_PET | pet | For adding lost a pet to the client store after is had been added to the db |
+  
+  
+## API (Client - Server) --------------------------------- TO EDIT
+
+| Method | Endpoint | Protected | Usage | Response |
+| --- | --- | --- | --- | --- |
+| Post | /api/auth/login | Yes | Log In a User | The Users JWT Token |
+| Post | /api/auth/register | Yes | Register a User | The Users JWT Token |
+| Get | /api/lost | No | Get the list of lost pets | Array of Objects (object = A Lost Pet) |
+| Get | /api/found | No | Get the list of found pets | Array of Objects (object = A Found Pet) |
+| Post | /api/lost | Yes | Add a Lost pet to the db | The Pet that was added (as an object) |
+| Post | /api/lost | Yes | Add a Found pet to the db | The Pet that was added (as an object) |
+
+
+---
+
+
+## DB (Server Side)
+  
+  
+### Users
+
+  | Column Name | Data Type | Purpose |
+  | --- | --- | --- |
+  | id | Integer | Unique identifier for each user |
+  | username | String | Username of user to login |
+  | password | String | Password of user to login |
+  | img_url | string | User profile image |
+  
+  
+### Species
+
+  | Column Name | Data Type | Purpose |
+  | --- | --- | --- |
+  | id | integer | Unique identifier for each bird |
+  | name | string | Māori name of bird |
+  | english_name | string | English name of bird |
+  | img_url | string | Image of bird |
+  | description | string | Short description of bird |
+  | rarity | integer | Rating out of 10 for how rare the bird is |
+  | nocturnal | boolean | Is the bird nocturnal? True/False |
+  | habitat | string | Where the bird likes to hang out |
+
+
+### Scrapbooks
+
+ | Column Name | Data Type | Purpose |
+ | --- | --- | --- |
+ | user_id | integer | ID of the user |
+ | species_id | integer | ID of the species |
+ | date_spotted | string | displayed for contact information |
+ 
+ 
+### Locations
+
+ | Column Name | Data Type | Purpose |
+ | --- | --- | --- |
+ | id | integer | Unique identifier for each location |
+ | lat | decimal | Latitude of the location |
+ | long | decimal |  Longitude of the location |
+
+
+---
+
 # Full Stack Boilerplate
 
 ## The Tech
