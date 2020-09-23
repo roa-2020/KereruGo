@@ -88,8 +88,8 @@ npm run knex seed:run
   | Column Name | Data Type | Purpose |
   | --- | --- | --- |
   | id | Integer | Unique identifier for each user |
-  | user_name | String | Username of user to login |
-  | user_hash | String | Hash/Password of user to login |
+  | username | String | Username of user to login |
+  | hash | String | Hash/Password of user to login |
   | user_img | string | User profile image |
   
   
