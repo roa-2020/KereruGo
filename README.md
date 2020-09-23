@@ -1,12 +1,12 @@
 ## Set up instructions:
 
 * Clone the repo
-* Create branch according to feature
+* Create branch according to feature you are working on
 ```sh
-* npm install
-* cp .env.example .env 
-* npm run knex migrate:latest
-* npm run knex seed:run - codeblock
+npm install
+cp .env.example .env 
+npm run knex migrate:latest
+npm run knex seed:run - codeblock
 ```
 
 ## User Stories
