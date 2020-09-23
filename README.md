@@ -32,7 +32,7 @@
   | Register | View for user to sign up for the App |
   | Map | View the location map to show user's location and bird's location |
   | Scrapbook | View all the user's collected birds |
-  | Profile | View an individual bird's information (once it has been collected and added to scrapbook |
+  | Profile | View an individual bird's information (once it has been collected and added to scrapbook) |
 
 
 ## Reducers (Client Side) --------------------------------- TO EDIT
