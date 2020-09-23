@@ -13,9 +13,9 @@
     "knex": "knex --knexfile server/db/knexfile.js",
     "build": "webpack --mode production",
     "h:deploy": "git push heroku master",
-    "h:migrate": "heroku run npm run knex migrate:latest",    
-    "h:rollback": "heroku run npm run knex migrate:rollback", 
-    "h:seed": "heroku run npm run knex seed:run"              
+    "h:migrate": "heroku run npm run knex migrate:latest",
+    "h:rollback": "heroku run npm run knex migrate:rollback",
+    "h:seed": "heroku run npm run knex seed:run"
   },
   "author": "EDA",
   "license": "ISC",
