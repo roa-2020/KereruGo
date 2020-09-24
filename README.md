@@ -32,6 +32,7 @@ npm run knex seed:run
 * As a user I want to be able to get hints as to potential locations of birds
 * As a user I want to have to sneak up on a bird / get close to the bird in order to obtain it
 * As a user I want to be able to see an avatar of myself on the map
+* As a user I want to view the credits for the creators of the app.
 
 ---
 
@@ -85,8 +86,8 @@ npm run knex seed:run
   | Column Name | Data Type | Purpose |
   | --- | --- | --- |
   | id | Integer | Unique identifier for each user |
-  | user_name | String | Username of user to login |
-  | user_hash | String | Hash/Password of user to login |
+  | username | String | Username of user to login |
+  | hash | String | Hash/Password of user to login |
   | user_img | string | User profile image |
   
   
