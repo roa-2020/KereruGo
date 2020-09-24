@@ -1,18 +1,26 @@
 const express = require("express");
-
+const {getTokenDecoder} = require('authenticare/server')
 const { getAllHabitats, getAllBirdTypes, getAllLocations, getScrapbookEntries } = require('../db/birds')
 
 const router = express.Router();
 
-router.get("/habitats", getHabitats);
-router.get("/birdTypes", getBirdTypes);
-router.get("/locations", getLocations);
-router.get("/scrapbook/:id", getScrapbook);
+router.get("/habitats", getTokenDecoder(), getHabitats);
+router.get("/birdTypes", getTokenDecoder(), getBirdTypes);
+router.get("/locations", getTokenDecoder(), getLocations);
+router.get("/scrapbook/:id", getTokenDecoder(), getScrapbook);
+
+router.use(errorHandler)
 
 function getHabitats(req, res) {
   return getAllHabitats().then((habitats) => {
-      console.log(habitats, "and anthony is cool")
-    return res.json({ body: habitats });
+    const sanitized = habitats.map((habitat) => {
+      return {
+        habitatId: habitat.id,
+        habitatName: habitat.habitat_name,
+      };
+    });
+    
+    return res.json(sanitized);
   });
 }
 
@@ -61,7 +69,15 @@ function getScrapbook(req, res) {
         }
       })
     return res.json(sanitized);
-  });
+  })
 }
 
+function errorHandler(err, req, res, next) {
+  console.log(err)
+  if (err.name === 'UnauthorizedError') {
+    res.status(401).json({message: 'Access denied.'})
+  } else {
+    res.status(500).json({message: 'Something went RATHER wrong. Shame.'})
+  }
+}
 module.exports = router;
