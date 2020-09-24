@@ -8,8 +8,14 @@ router.get("/habitats", getHabitats);
 
 function getHabitats(req, res) {
   return getAllHabitats().then((habitats) => {
-      console.log(habitats, "and anthony is cool")
-    return res.json({ body: habitats });
+    const sanitized = habitats.map((habitat) => {
+      return {
+        habitatId: habitat.id,
+        habitatName: habitat.habitat_name,
+      };
+    });
+    
+    return res.json(sanitized);
   });
 }
 

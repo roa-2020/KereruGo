@@ -71,10 +71,7 @@ npm run knex seed:run
 | --- | --- | --- | --- | --- |
 | Post | /api/auth/login | Yes | Log In a User | The Users JWT Token |
 | Post | /api/auth/register | Yes | Register a User | The Users JWT Token |
-| Get | /api/lost | No | Get the list of lost pets | Array of Objects (object = A Lost Pet) |
-| Get | /api/found | No | Get the list of found pets | Array of Objects (object = A Found Pet) |
-| Post | /api/lost | Yes | Add a Lost pet to the db | The Pet that was added (as an object) |
-| Post | /api/lost | Yes | Add a Found pet to the db | The Pet that was added (as an object) |
+| Get  | /api/v1/birds/habitats | TODO | Provide list of all habitats | array of habitat objects |
 
 
 ---
