@@ -18,7 +18,8 @@ export class App extends React.Component {
     const {auth} = this.props
     return (
         <>
-          <Map />
+          {/* <Map /> */}
+          <BirdProfile />
        </>
     )
   }
