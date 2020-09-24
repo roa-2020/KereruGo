@@ -24,7 +24,7 @@ export default function Map() {
         <GeolocateControl
           positionOptions={{enableHighAccuracy: true}}
           trackUserLocation={true}
-        
+          auto={true}
         />
 
       </ReactMapGL>
