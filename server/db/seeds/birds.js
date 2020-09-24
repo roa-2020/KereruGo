@@ -29,7 +29,7 @@ exports.seed = (knex) =>
         bird_name: "Roa",
         bird_english_name: "Great Spotted Kiwi",
         bird_img: "/images/roa.png",
-        bird_rarity: "rare",
+        bird_rarity: "endangered",
         bird_nocturnal: true,
         bird_tag: "They are fiercely territorial, and fight conspecifics with their sharp claws, resulting in a cloud of feathers on the ground.",
         bird_info: "The female lays just one egg, which both parents then incubate. The great spotted kiwi was first described as Apteryx haastii by Thomas Potts, in 1872. The genus name, Apteryx, comes from the Ancient Greek words a 'without' or 'no', and pteryx, 'wing' and haasti is the Latin form of the last name of Sir Julius von Haast."
@@ -39,7 +39,7 @@ exports.seed = (knex) =>
         bird_name: "Hihi",
         bird_english_name: "Stitchbird",
         bird_img: "/images/hihi.png",
-        bird_rarity: "rare",
+        bird_rarity: "endangered",
         bird_nocturnal: false,
         bird_tag: "Their most common call, a tzit tzit sound, is believed to be the source of their common name, as Buller noted that it 'has a fanciful resemblance to the word stitch'.",
         bird_info: "In 2007 a new passerine family was erected to contain the stitchbird, the Notiomystidae. Before that they thought it was honeyeater. In 2005, 60 stitchbirds were released into Zealandia (wildlife sanctuary) near Wellington and in October that year, three stitchbird chicks hatched there, the first time for more than 120 years that a stitchbird chick had been born in captivity. The stitchbird was relatively common early in the European colonisation of New Zealand, and began to decline relatively quickly afterwards, being extinct on the mainland and many offshore islands by 1885."
@@ -49,7 +49,7 @@ exports.seed = (knex) =>
         bird_name: "Kahu",
         bird_english_name: "Swamp Harrier",
         bird_img: "/images/kahu.png",
-        bird_rarity: "uncommon",
+        bird_rarity: "vulnerable",
         bird_nocturnal: false,
         bird_tag: "Swamp harriers are the only bird of prey used for falconry in New Zealand.",
         bird_info: "They benefit farms and road users by clearing carcasses. However, they can take poultry and game birds where unprotected, and will also kill new-born lambs in some circumstances. Its arrival in New Zealand happened recently within the last 700 years, replacing its extinct larger New Zealand endemic sister. After lowland forests were extensively cleared by the first Polynesian settlers; the Kahu became absent from the fossil record. It has benefited from European settlement, and is now very common, especially in open farmland."
@@ -69,7 +69,7 @@ exports.seed = (knex) =>
         bird_name: "Karearea",
         bird_english_name: "New Zealand Falcon",
         bird_img: "/images/karearea.png",
-        bird_rarity: "uncommon",
+        bird_rarity: "vulnerable",
         bird_nocturnal: false,
         bird_tag: "Capable of flying at speeds over 100 km/h and catching prey larger than itself, the New Zealand falcon is one of our most spectacular birds.",
         bird_info: "Like all falcons, the New Zealand falcon does not build a nest. Rather, it makes a scrape on the ground, under a rocky outcrop or in an epiphyte in an emergent forest tree into which it lays its eggs. Often seen hunting small passerines in dramatic chases, they have long pointed wings and a long tail. They often hunt from a perch ¾ up a tree but also hunt along habitat edges or surprise prey by contour-flying close to the ground."
@@ -79,7 +79,7 @@ exports.seed = (knex) =>
         bird_name: "Pateke",
         bird_english_name: "Brown Teal",
         bird_img: "/images/pateke.png",
-        bird_rarity: "uncommon",
+        bird_rarity: "vulnerable",
         bird_nocturnal: true,
         bird_tag: "Brown teal are endemic to New Zealand and, in pre-human times, may have been the most widespread and numerous of New Zealand’s waterfowl.",
         bird_info: "Brown teal are monogamous and generally fiercely territorial. Most nesting is in late winter (July-September) but broods have been encountered in most months except late autumn. The mature ducklings are forcefully evicted from the territory on or about the time the parents start their post-breeding moult. Brown teal diet is diverse. A study from Great Barrier Island recorded 78 taxa including terrestrial, freshwater and marine invertebrates, fungi, and terrestrial and freshwater vegetation."
@@ -89,7 +89,7 @@ exports.seed = (knex) =>
         bird_name: "Whio",
         bird_english_name: "Blue Duck",
         bird_img: "/images/whio.png",
-        bird_rarity: "rare",
+        bird_rarity: "endangered",
         bird_nocturnal: false,
         bird_tag: "Whio are a taonga (treasured) species that Māori have a strong cultural, spiritual, and historic connection with.",
         bird_info: "They are forever watchful – they will always see you before you see them, and the male will sound the alarm call. Whio are believed to be an ancient species of waterfowl, that appeared at a very early stage in evolutionary history. Their isolation in New Zealand has resulted in unique anatomical and behavioural features. They are a key indicator of healthy rivers and streams. They require clean, fast flowing streams. The more breeding pairs of blue duck the healthier the river."
@@ -99,7 +99,7 @@ exports.seed = (knex) =>
         bird_name: "Kia",
         bird_english_name: "Sacred Kingfisher",
         bird_img: "/images/kia.png",
-        bird_rarity: "uncommon",
+        bird_rarity: "vulnerable",
         bird_nocturnal: true,
         bird_tag: "The endangered kea is the world's only alpine parrot, and one of the most intelligent birds. The kea was crowned Bird of the Year in 2017.",
         bird_info: "Innately curious, kea are attracted to people wherever they enter its mountain domain, and are a feature at South Island ski-fields and mountain huts. That the kea persists despite the shooting of 150,000 birds between 1860 and 1970 indicates a high reproductive potential. Adaptability is a key part of kea ecology. They have benefited from some human-induced modifications to their habitat, including scavenging from dead deer and digging for huhu grubs in forests."
@@ -109,7 +109,7 @@ exports.seed = (knex) =>
         bird_name: "Kakapo",
         bird_english_name: "Kakapo",
         bird_img: "/images/kakapo.png",
-        bird_rarity: "rare",
+        bird_rarity: "endangered",
         bird_nocturnal: true,
         bird_tag: "The kakapo is a large, nocturnal, flightless, lek-breeding parrot – a real oddity.",
         bird_info: "Kakapo are nocturnal and solitary, occupying the same home range for many years. They forage on the ground and climb high into trees. They often leap from trees and flap their wings, but at best manage a controlled plummet. During the 1980s and 1990s the entire known population was transferred to Whenua Hou/Codfish Island off the coast of Stewart Island, Maud Island in the Marlborough Sounds and Hauturu/Little Barrier Island in the Hauraki Gulf. Kakapo are entirely vegetarian. Their diet includes, leaves, buds, flowers, fern fronds, bark, roots, rhizomes, bulbs, fruit and seeds. Diet varies seasonally."
@@ -119,7 +119,7 @@ exports.seed = (knex) =>
         bird_name: "Toutouwai",
         bird_english_name: "North Island robin",
         bird_img: "/images/toutouwai.png",
-        bird_rarity: "uncommon",
+        bird_rarity: "vulnerable",
         bird_nocturnal: false,
         bird_tag: "To attract a female, bachelors will sing a song lasting up to 30 minutes!",
         bird_info: "Where robins are regularly exposed to people, such as along public walking tracks, they become quite confiding, often approaching to within a metre of a person sitting quietly. Naïve juveniles will sometimes stand on a person’s boot. North Island robins start nesting in September. The female builds the nest, the male bringing her food 2-3 times per hour. Pairs remain in their territories most of the time, occasionally sneaking into neighbouring territories to feed or go elsewhere to drink and bathe."
@@ -139,7 +139,7 @@ exports.seed = (knex) =>
         bird_name: "Kakariki",
         bird_english_name: "Red-crowned parakeets",
         bird_img: "/images/kakariki.png",
-        bird_rarity: "uncommon",
+        bird_rarity: "vulnerable",
         bird_nocturnal: false,
         bird_tag: "Kākāriki, meaning ‘small green parrot’ in Māori, are beautiful forest birds. They feed on berries, seeds, fruit and insects, and generally nest in holes in trees.",
         bird_info: "Despite their rather erratic flight they are strong fliers and readily move within island groups searching for seasonal foods. When environmental conditions are good they are able to breed quickly, leading to rapid increases in population size. Although they are widely distributed throughout the New Zealand region, and very common on some islands, they are almost entirely absent from the two main islands. One exception is Wellington city, where birds dispersing from Zealandia and Matiu/Somes Islands are occasionally seen in suburban gardens. Kākāriki are usually solitary or found in pairs, although in autumn and winter they may form small flocks."
@@ -159,7 +159,7 @@ exports.seed = (knex) =>
         bird_name: "Karuhiruhi",
         bird_english_name: "Pied Shag",
         bird_img: "/images/karuhiruhi.png",
-        bird_rarity: "uncommon",
+        bird_rarity: "vulnerable",
         bird_nocturnal: false,
         bird_tag: "Unlike most other shag species, the pied shag is reasonably confiding, allowing close approach when roosting or nesting in trees.",
         bird_info: "While counts of pied shags, along with other coastal species, have been undertaken in a few areas (Wellington Harbour, Marlborough Sounds), no attempt has been made to carry out a national count of the species or the number of pairs at all colonies. Adult pied shags appear to be sedentary, but some juveniles disperse widely. When resting during the day, birds occur on undisturbed beaches, shoreline rocks, trees and artificial structures. Clutches are laid in all months, with peaks during February-April and August-October. Clutch size is typically 2-5 eggs, and both sexes share incubation and care of young."
@@ -169,7 +169,7 @@ exports.seed = (knex) =>
         bird_name: "Tuturuatu",
         bird_english_name: "Shore Plover",
         bird_img: "/images/tuturuatu.png",
-        bird_rarity: "rare",
+        bird_rarity: "endangered",
         bird_nocturnal: false,
         bird_tag: "Shore plover normally allow a close approach. They are very territorial while breeding though.",
         bird_info: "The former range of shore plover is poorly known. They were first sighted in Dusky and Queen Charlotte Sounds on Cook’s second voyage, and at mudflats and sandspits around the North Island in the early 1800s. For more than 100 years, Rangatira in the Chatham Islands had the only known population of around 120 birds. The current (2017) wild population is around 240 birds, more than half of which are in the Chatham Islands. Shore plover are very susceptible to any introduced mammalian predators larger than mice. Captive-bred juveniles released on islands are also susceptible to native avian predators (mainly southern black-backed gull, swamp harrier, and morepork)."
@@ -199,7 +199,7 @@ exports.seed = (knex) =>
         bird_name: "Moa",
         bird_english_name: "Moa",
         bird_img: "/images/moa.png",
-        bird_rarity: "rare",
+        bird_rarity: "extinct",
         bird_nocturnal: false,
         bird_tag: "Females were markedly larger than males, being c.150% the height and c.280% the weight.",
         bird_info: "With 9 types of moa,the South Island giant moa was the biggest of them all. Adult females stood up to 2 metres high at the back, and could reach foliage up to 3.6 metres off the ground, making them the tallest bird species known. It was one of two species of giant moa, the other being the smaller North Island species, which are placed in a separate family from the two families containing the seven smaller moa species."

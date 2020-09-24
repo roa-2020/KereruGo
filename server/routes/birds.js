@@ -53,15 +53,39 @@ function getScrapbook(req, res) {
   const user_id = req.params.id
   return getScrapbookEntries(user_id)
     .then((entries) => {
-      const sanitized = entries.map(entry => {
-        return { 
-          userId: entry.user_id,
-          birdId: entry.bird_id,
-          dateSpotted: entry.date_spotted
-        }
-      })
-    return res.json(sanitized);
+      return getBirdTypes()
+      .then((birdTypes) => {
+        // console.log(entries)
+          console.log(entries)
+          console.log(birdTypes)
+          res.send(birdTypes)
+        })
+      // const sanitized = entries.map(entry => {
+      //   return { 
+      //     userId: entry.user_id,
+      //     birdId: entry.bird_id,
+      //     dateSpotted: entry.date_spotted
+      //   }
+      // })
+      
+    // return res.json(sanitized);
   });
 }
+
+
+// function getScrapbook(req, res) {
+//   const user_id = req.params.id
+//   return getScrapbookEntries(user_id)
+//     .then((entries) => {
+//       const sanitized = entries.map(entry => {
+//         return { 
+//           userId: entry.user_id,
+//           birdId: entry.bird_id,
+//           dateSpotted: entry.date_spotted
+//         }
+//       })
+//     return res.json(sanitized);
+//   });
+// }
 
 module.exports = router;
