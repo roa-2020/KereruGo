@@ -9,6 +9,7 @@ if(!process.env.NODE_ENV || process.env.NODE_ENV == 'development') {
   const path = require('path')
   var https = require('https')
 
+  //PORT = 8443  //for lex
   PORT = 443
   var certOptions = {
     key: fs.readFileSync(path.resolve('server/dev-certs/server.key')),
