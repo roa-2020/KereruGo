@@ -1,3 +1,14 @@
+## Set up instructions:
+
+* Clone the repo
+* Create branch according to feature you are working on
+```sh
+npm install
+cp .env.example .env 
+npm run knex migrate:latest
+npm run knex seed:run
+```
+
 ## User Stories
 
 ### MVP
@@ -72,40 +83,56 @@
 ## DB (Server Side)
   
   
-### Users
+### users
 
   | Column Name | Data Type | Purpose |
   | --- | --- | --- |
   | id | Integer | Unique identifier for each user |
   | username | String | Username of user to login |
-  | password | String | Password of user to login |
-  | img_url | string | User profile image |
+  | hash | String | Hash/Password of user to login |
+  | user_img | string | User profile image |
   
   
-### Species
+### birds
 
   | Column Name | Data Type | Purpose |
   | --- | --- | --- |
   | id | integer | Unique identifier for each bird |
-  | name | string | Māori name of bird |
-  | english_name | string | English name of bird |
-  | img_url | string | Image of bird |
-  | description | string | Short description of bird |
-  | rarity | integer | Rating out of 10 for how rare the bird is |
-  | nocturnal | boolean | Is the bird nocturnal? True/False |
-  | habitat | string | Where the bird likes to hang out |
+  | bird_name | string | Māori name of bird |
+  | bird_english_name | string | English name of bird |
+  | bird_img | string | Image of bird |
+  | bird_tag | string | Tagline for bird |
+  | bird_info | string | Short description of bird |
+  | bird_rarity | string | How rare the bird is - rare/uncommon/common  |
+  | bird_nocturnal | boolean | Is the bird nocturnal? True/False |
 
 
-### Scrapbooks
+### scrapbooks
 
  | Column Name | Data Type | Purpose |
  | --- | --- | --- |
  | user_id | integer | ID of the user |
- | species_id | integer | ID of the species |
- | date_spotted | string | displayed for contact information |
+ | bird_id | integer | ID of the bird |
+ | date_spotted | datetime | Date the user spotted the bird |
  
  
-### Locations
+### habitats
+
+ | Column Name | Data Type | Purpose |
+ | --- | --- | --- |
+ | id | integer | ID of the habitat |
+ | habitat_name | string | Name of habitat |
+ 
+ 
+### birds_habitats
+
+ | Column Name | Data Type | Purpose |
+ | --- | --- | --- |
+ | bird_id | integer | ID of the bird |
+ | habitat_id | integer | ID of the habitat |
+
+
+### locations
 
  | Column Name | Data Type | Purpose |
  | --- | --- | --- |
@@ -115,6 +142,7 @@
 
 
 ---
+
 
 # Full Stack Boilerplate
 
