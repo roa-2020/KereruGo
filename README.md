@@ -72,7 +72,11 @@ npm run knex seed:run
 | --- | --- | --- | --- | --- |
 | Post | /api/auth/login | Yes | Log In a User | The Users JWT Token |
 | Post | /api/auth/register | Yes | Register a User | The Users JWT Token |
-| Get  | /api/v1/birds/habitats | TODO | Provide list of all habitats | array of habitat objects |
+| Get | /api/v1/birds/birdTypes | No | Get all bird types | Array of Objects (object = A bird type) |
+| Get | /api/v1/birds/habitats | No | Get all habitats | Array of Objects (object = A habitat) |
+| Get | /api/v1/birds/locations | No | Get all locations | Array of Objects (object = A location) |
+| Get | /api/v1/birds/scrapbook/:id | No (but should be) | Takes a user_id as last param and gets all scrapbook entries | Array of Objects (object = a bird spotted datetime and bird id) |
+| POST | /api/v1/birds/scrapbook/:id | No (but should be) | Takes user ID as param, and posts bird object, saves encounter | Bird detail page |  
 
 
 ---
