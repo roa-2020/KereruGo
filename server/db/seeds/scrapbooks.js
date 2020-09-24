@@ -3,4 +3,7 @@ exports.seed = (knex) =>
   knex("scrapbooks")
     .del()
 // Inserts seed entries
-    .then(() => knex("scrapbooks").insert([]));
+    .then(() => knex("scrapbooks").insert([
+      {user_id: 1, bird_id: 1},
+      {user_id: 1, bird_id: 2}
+    ]));
