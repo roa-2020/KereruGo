@@ -32,9 +32,6 @@ export class App extends React.Component {
           <Route path="/birdprofile" component={BirdProfile} />
           <Route path="/map" component={Map} />
           <Route path="/scrapbook" component={Scrapbook} />
-
-
-
         </Router>
         {/* <Map /> */}
       </>
