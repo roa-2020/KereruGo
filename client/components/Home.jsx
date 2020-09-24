@@ -10,7 +10,7 @@ class Home extends React.Component {
     render() {
         return (
             <>
-                <h1>KerurūGO!</h1>
+                <h1>KerurūGo!</h1>
                 <div className="buttons">
                
                 <Link to="/login" className="button is-rounded">Login</Link>
