@@ -32,6 +32,7 @@ npm run knex seed:run
 * As a user I want to be able to get hints as to potential locations of birds
 * As a user I want to have to sneak up on a bird / get close to the bird in order to obtain it
 * As a user I want to be able to see an avatar of myself on the map
+* As a user I want to view the credits for the creators of the app.
 
 ---
 
