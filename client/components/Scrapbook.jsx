@@ -1,18 +1,12 @@
-import React from "react";
-import { apiGetUserScrapbook } from "../apis/index";
+import React from "react"
+import { connect } from 'react-redux'
+import { apiGetUserScrapbook } from "../apis/index"
+import { receiveScrapbook } from '../actions/scrapbook'
 
 class Scrapbook extends React.Component {
-  state = {
-    birds: [],
-  };
-
   componentDidMount() {
-    apiGetUserScrapbook(1).then((birds) => {
-      console.log(birds);
-      this.setState({
-        birds: birds,
-      });
-    });
+    apiGetUserScrapbook(1)
+      .then(scrapbook => this.props.dispatch(receiveScrapbook(scrapbook)))
   }
 
   render() {
@@ -28,7 +22,7 @@ class Scrapbook extends React.Component {
           <div className="card mx-4">
             <h2 className="has-text-centered pt-4">SCRAPBOOK</h2>
             <div className="columns">
-              {this.state.birds.map((item) => {
+              {this.props.scrapbook.map((item) => {
                 return (
                   <div key={item.birdId} className="birds column is-half">
                     <img
@@ -48,4 +42,8 @@ class Scrapbook extends React.Component {
   }
 }
 
-export default Scrapbook;
+function mapStateToProps(globalState) {
+  return { scrapbook: globalState.scrapbook }
+}
+
+export default connect(mapStateToProps)(Scrapbook)
