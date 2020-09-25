@@ -14,18 +14,11 @@ class BirdProfile extends React.Component {
    }
 
    componentDidMount() {
-    apiGetOneBird().then((bird) => {
-        this.props.dispatch()
-    })
+       
    }
 
 
     render() {
-        apiGetOneBird(3)
-        .then(bird => {
-            console.log(bird)
-        })
-
         console.log(this)
         return (
           <>

@@ -1,14 +1,25 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import Login from './Login'
+import Register from './Register'
+import {HashRouter as Router, Route, Link} from 'react-router-dom'
 
 class Home extends React.Component {
+
+
     render() {
         return (
             <>
-            <h1>KerurūGO!</h1>
-            <button class="button is-rounded">Rounded</button>
-            <button class="button is-rounded">Rounded</button>
+                <h1>KerurūGo!</h1>
+                <div className="buttons">
+               
+                <Link to="/login" className="button is-rounded">Login</Link>
+                <Link to="/register" className="button is-rounded">Register</Link>
+        
+                    {/* <button className="button is-rounded" onClick={}>Login</button>
+                    <button className="button is-rounded" onClick={}>Register</button> */}
             
+                </div>
             </>
         )
     }
@@ -22,7 +33,7 @@ class Home extends React.Component {
 //       auth
 //     }
 //   }
-  
+
 
 // export default connect(mapStateToProps)(Home) 
 
