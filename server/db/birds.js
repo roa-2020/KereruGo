@@ -22,10 +22,9 @@ function getBirdCount (db = connection) {
   return db('birds')
     .count('id as count')
     .first()
-    .catch(err => err)
 }
 
-function generateRandomBirdID (limit, db = connection) {
+function generateRandomBirdID (limit) {
   return Math.ceil(Math.random() * limit)
 }
 
