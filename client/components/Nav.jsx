@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logoutUser} from '../actions/auth'
+// import {HashRouter as Router, Route, Link} from 'react-router-dom'
 
 class Nav extends React.Component {
   state = {
