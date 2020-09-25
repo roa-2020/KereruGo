@@ -7,34 +7,38 @@ import {  Link } from 'react-router-dom'
 
 class Map extends React.Component {
   
-  state = {
-    latitude: -41.2930,
-    longitude: 174.7839,
-    width: '100vw',
-    height: '90vh',
-    zoom: 10
+  state= {
+    viewport: {
+      latitude: -41.294105529785156,
+      longitude: 174.7752685546875,
+      width: "90vw",
+      height: "90vh",
+      zoom: 15,
+    }
   }
+  
+  viewportChange= (viewport) => {
+    this.setState({viewport})
+  } 
+
   render() {
-  const viewport = this.state
+    // const viewport = this.state
     // latitude: -41.2930,
     // longitude: 174.7839,
     // width: '100vw',
     // height: '90vh',
     // zoom: 10
-  
+  // const setViewport = this.state
 
   const { auth, logout, page } = this.props
-  
+   
   return (
     <div>
       <ReactMapGL
-        {...viewport}
+        {...this.state.viewport}
         mapboxApiAccessToken={'pk.eyJ1IjoibWVldGpvaG5ncmF5IiwiYSI6ImNrZWJ5amJoYzAxeG4zNWs5ankxdHh5MWwifQ.7-Lg9dp4OdYmLML1jy5CDw'}
-        mapStyle="mapbox://styles/meetjohngray/ckffrokn80cth19oe0ek66x9v"
-      //   onViewportChange={viewport => {
-      //     setViewport(viewport)
-      //   }
-      // }
+        mapStyle="mapbox://styles/meetjohngray/ckfho52q60m0q19rriptc4a38"
+        onViewportChange={this.viewportChange}
       >
         <GeolocateControl
           positionOptions={{enableHighAccuracy: true}}
