@@ -71,17 +71,19 @@ npm run knex seed:run
   | ADD_LOST_PET | pet | For adding lost a pet to the client store after is had been added to the db |
   
   
-## API (Client - Server) --------------------------------- TO EDIT
+## API (Client - Server)
+See Team Workspace 'KereruGo' in Postman for example routes and responses.
 
 | Method | Endpoint | Protected | Usage | Response |
 | --- | --- | --- | --- | --- |
-| Post | /api/auth/login | Yes | Log In a User | The Users JWT Token |
+| Post | /api/auth/signin | Yes | Log In a User | The Users JWT Token |
 | Post | /api/auth/register | Yes | Register a User | The Users JWT Token |
-| Get | /api/v1/birds/birdTypes | No | Get all bird types | Array of Objects (object = A bird type) |
-| Get | /api/v1/birds/habitats | No | Get all habitats | Array of Objects (object = A habitat) |
-| Get | /api/v1/birds/locations | No | Get all locations | Array of Objects (object = A location) |
-| Get | /api/v1/birds/scrapbook/:id | No (but should be) | Takes a user_id as last param and gets all scrapbook entries | Array of Objects (object = a bird spotted datetime and bird id) |
-| POST | /api/v1/birds/scrapbook/:id | No (but should be) | Takes user ID as param, and posts bird object, saves encounter | Bird detail page |  
+| Get | /api/v1/birds/birdTypes | Yes | Get all bird types | Array of Objects (object = A bird type) |
+| Get | /api/v1/birds/bird/:id | Yes | Takes bird ID as last param | A bird Object |
+| Get | /api/v1/birds/habitats | Yes | Get all habitats | Array of Objects (object = A habitat) |
+| Get | /api/v1/birds/locations | Yes | Get all locations | Array of Objects (object = A location) |
+| Get | /api/v1/birds/scrapbook/:id | Yes | Takes a user_id as last param and gets all scrapbook entries | Array of Objects (object = a bird spotted datetime and bird id) |
+| Post | /api/v1/birds/scrapbook/ | Yes | Takes user_id and bird_id in req.body, saves encounter | Count of birds |  
 
 
 ---

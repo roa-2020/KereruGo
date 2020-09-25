@@ -8,6 +8,12 @@ function getAllBirdTypes (db = connection) {
   return db('birds').select()
 }
 
+function getBirdById (id, db = connection) {
+  return db('birds')
+    .where('id', id)
+    .first()
+}
+
 function getAllLocations (db = connection) {
   return db('locations').select()
 }
@@ -28,11 +34,18 @@ function generateRandomBirdID (limit) {
   return Math.ceil(Math.random() * limit)
 }
 
+function addScrapbookEntry (entry, db = connection) {
+  return db('scrapbooks')
+  .insert(entry)
+}
+
 module.exports = {
   getAllHabitats,
   getAllBirdTypes,
+  getBirdById,
   getAllLocations,
   getScrapbookEntries,
   getBirdCount,
-  generateRandomBirdID
+  generateRandomBirdID,
+  addScrapbookEntry
 }
