@@ -76,7 +76,7 @@ See Team Workspace 'KereruGo' in Postman for example routes and responses.
 
 | Method | Endpoint | Protected | Usage | Response |
 | --- | --- | --- | --- | --- |
-| Post | /api/auth/login | Yes | Log In a User | The Users JWT Token |
+| Post | /api/auth/signin | Yes | Log In a User | The Users JWT Token |
 | Post | /api/auth/register | Yes | Register a User | The Users JWT Token |
 | Get | /api/v1/birds/birdTypes | Yes | Get all bird types | Array of Objects (object = A bird type) |
 | Get | /api/v1/birds/bird/:id | Yes | Takes bird ID as last param | A bird Object |
