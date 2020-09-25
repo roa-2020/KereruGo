@@ -7,6 +7,7 @@ import Map from './Map'
 // import Register from './Register'
 // import Nav from './Nav'
 // import { checkAuth } from '../actions/auth'
+import BirdProfile from './BirdProfile'
 
 export class App extends React.Component {
   // componentDidMount() {

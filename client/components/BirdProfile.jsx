@@ -2,36 +2,52 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 class BirdProfile extends React.Component {
-    state = {
-        birdImg: '',
-        birdName: '',
-        birdEnglishName: '',
-        birdRarity: '',
-        birdNocturnal: false,
-        birdTag: '',
-        birdInfo: '',
+   state = {
+       birdImg: '',
+       birdName: '',
+       birdEnglishName: '',
+       birdRarity: '',
+       birdNocturnal: false,
+       birdTag: '',
+       birdInfo: '',
+   }
 
-    }
+   componentDidMount() {
+       
+   }
 
-    componentDidMount() {
-        this.getBirdProfile()
-    }
-
-    getBirdProfile = () => {
-        getBird().then((bird) => {
-            this.setState({
-                bird: bird,
-            })
-        })
-    }
 
     render() {
-        const bird = this.state
+        console.log(this)
         return (
           <>
+          <div className="birdProfile">
+            <div className="birdImg">
+                <img src={this.props.img} alt="Image of bird"/>
+            </div>
+            <p className="birdName">Name: {this.birdName}
+            </p>
+            <p className="birdEnglishName">English Name: {this.birdEnglishName}
+            </p>
+            <p className="birdRarity">Status: {this.birdRarity}
+            </p>
+            <p className="birdNocturnal">Nocturnal: {this.birdNocturnal}
+            </p>
+            <p className="birdTag"> {this.birdTag}
+            </p>
+            <p className="birdInfo"> {this.birdInfo}</p>
+
+          </div>
           </>  
         )
     }
 }
 
-export default BirdProfile 
+const mapStateToProps = ({auth}) => {
+        return {
+          auth
+        }
+      }
+
+
+export default connect(mapStateToProps)(BirdProfile)
