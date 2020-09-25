@@ -1,12 +1,16 @@
-import React from 'react'
+import React from "react";
+import "bulma/css/bulma.css";
+
 // import {HashRouter as Router, Route, Link} from 'react-router-dom'
 // import {connect} from 'react-redux'
 
-import Map from './Map'
+import Map from "./Map";
 // import Login from './Login'
 // import Register from './Register'
 // import Nav from './Nav'
 // import { checkAuth } from '../actions/auth'
+
+import Scrapbook from "./Scrapbook";
 
 export class App extends React.Component {
   // componentDidMount() {
@@ -15,12 +19,13 @@ export class App extends React.Component {
   // }
 
   render() {
-    const {auth} = this.props
+    const { auth } = this.props;
     return (
-        <>
-          <Map />
-       </>
-    )
+      <>
+        {/* <Map /> */}
+        <Scrapbook />
+      </>
+    );
   }
 }
 
@@ -31,4 +36,4 @@ export class App extends React.Component {
 // }
 
 // export default connect(mapStateToProps)(App)
-export default App
+export default App;

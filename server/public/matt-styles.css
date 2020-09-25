@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+#scrapbook {
+  height: 100vh;
+  width: 100vw;
+}
+
+.card {
+  min-height: 80vh;
+}
+/*# sourceMappingURL=matt-styles.css.map */
