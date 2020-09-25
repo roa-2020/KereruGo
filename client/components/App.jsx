@@ -1,4 +1,5 @@
 import React from 'react'
+import "bulma/css/bulma.css";
 import { HashRouter as Router, Route, Link, Redirect } from 'react-router-dom'
 import {connect} from 'react-redux'
 import Nav from './Nav'
@@ -33,7 +34,7 @@ export class App extends React.Component {
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             {/* <Route path="/birdprofile" component={BirdProfile} /> */}
-            {/* <Route path="/scrapbook" component={Scrapbook} /> */}
+            <Route path="/scrapbook" component={Scrapbook} />
           </div>  
         </Router>
       </>
@@ -48,4 +49,3 @@ const mapStateToProps = ({auth}) => {
 }
 
 export default connect(mapStateToProps)(App)
-// export default App
