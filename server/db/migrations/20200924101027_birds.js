@@ -7,7 +7,7 @@ exports.up = function(knex) {
     table.string('bird_rarity')
     table.boolean('bird_nocturnal')
     table.string('bird_tag')
-    table.string('bird_info')
+    table.string('bird_info', 5000)
   })
 };
 
