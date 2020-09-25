@@ -22,11 +22,16 @@ npm run knex seed:run
     * As a user I want to be able to track my progress on how many birds I have or have not seen
 * As a user I want to be able to use this on my phone
 * As a user I want to be able to easily navigate between sections
-* As a user I want to obtain interesting information on the bird I have found (beak my interest)
+* As a user I want to click on bird and all the bird’s information card will show up
+
+### MVP/Stretch
+
+* As a user I want to click on a bird and view just their image, name and tagline, and click on a 'find out more' button that takes me to another card with the bird's full information.
 
 ### Stretch
 
 * As a user I want to obtain awards / medals for spotting various numbers and types of birds
+* As a user I want to display images in the scrapbook that are different to the actual bird images, for example, a feather.
 * As a user I want the bird to fly away if it is too far away
 * As a user I want to be able to donate to wildlife foundations
 * As a user I want to be able to get hints as to potential locations of birds
