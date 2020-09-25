@@ -20,8 +20,18 @@ function getAllLocations (db = connection) {
 
 function getScrapbookEntries (user_id, db = connection) {
   return db('scrapbooks')
-  .where('user_id', user_id)
-  .select()
+    .where('user_id', user_id)
+    .select()
+}
+
+function getBirdCount (db = connection) {
+  return db('birds')
+    .count('id as count')
+    .first()
+}
+
+function generateRandomBirdID (limit) {
+  return Math.ceil(Math.random() * limit)
 }
 
 function addScrapbookEntry (entry, db = connection) {
@@ -35,5 +45,7 @@ module.exports = {
   getBirdById,
   getAllLocations,
   getScrapbookEntries,
+  getBirdCount,
+  generateRandomBirdID,
   addScrapbookEntry
 }

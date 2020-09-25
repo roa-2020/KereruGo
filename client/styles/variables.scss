@@ -14,3 +14,11 @@ $family-sans-serif: "Lato", sans-serif;
 * {
     font-family: 'Raleway', sans-serif;
 }
+
+.buttons {
+    display: flex;
+}
+
+.button {
+    text-transform: uppercase;
+}
