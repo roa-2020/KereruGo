@@ -29,6 +29,14 @@ export function apiGetAllLocations () {
     .catch(errorHandler)
 }
 
+export function apiGetUserScrapbook (user_id) {
+  return request
+    .get(apiUrl + '/scrapbook/' + user_id)
+    .set(headers)
+    .then(res => res.body)
+    .catch(errorHandler)
+}
+
 // Global error handler for front end api's
 function errorHandler (err) {
   console.error(err)
