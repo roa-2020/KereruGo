@@ -21,7 +21,6 @@ if(!process.env.NODE_ENV || process.env.NODE_ENV == 'development') {
   })
 
 } else {
-  console.log(process.env.NODE_ENV)
   const server = require('./server')
 
   server.listen(PORT, function () {
