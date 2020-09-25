@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { logoutUser } from '../actions/auth'
 import {  Link } from 'react-router-dom'
+import { apiGetAllLocations } from '../apis/index'
 
 class Map extends React.Component {
   
@@ -16,12 +17,23 @@ class Map extends React.Component {
       zoom: 15,
     }
   }
+
+  componentDidMount() {
+    apiGetAllLocations()
+    .then(locations => { 
+      console.log(locations)
+      this.setState({locations: locations})})
+    .catch((err) => console.log(err))
+  }
+
+ 
   
   viewportChange= (viewport) => {
     this.setState({viewport})
   } 
 
-  render() {
+  render() { 
+   
     // const viewport = this.state
     // latitude: -41.2930,
     // longitude: 174.7839,
