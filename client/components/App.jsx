@@ -7,7 +7,7 @@ import Login from './Login'
 // import Register from './Register'
 // import Nav from './Nav'
 // import { checkAuth } from '../actions/auth'
-
+import BirdProfile from './BirdProfile'
 export class App extends React.Component {
   // componentDidMount() {
   //   const confirmSuccess = () => { }
@@ -19,6 +19,7 @@ export class App extends React.Component {
     return (
         <>
           <Map />
+          <BirdProfile />
        </>
     )
   }
