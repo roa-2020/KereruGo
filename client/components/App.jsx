@@ -5,7 +5,7 @@ import Nav from './Nav'
 import Home from './Home'
 import Login from './Login'
 import Register from './Register'
-// import BirdProfile from './BirdProfile'
+import BirdProfile from './BirdProfile'
 import Map from './Map'
 import Scrapbook from './Scrapbook'
 
@@ -36,7 +36,6 @@ export class App extends React.Component {
             {/* <Route path="/scrapbook" component={Scrapbook} /> */}
           </div>  
         </Router>
-        {/* <Map /> */}
       </>
     )
   }
