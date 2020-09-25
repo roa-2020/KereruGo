@@ -1,40 +1,40 @@
-import request from 'superagent'
+import request from "superagent";
 
-import { getEncodedToken } from 'authenticare/client'
+import { getEncodedToken } from "authenticare/client";
 
-const headers = { 
-  Accept: 'application/json' ,
-  Authorization: `Bearer ${getEncodedToken()}`
-}
+const headers = {
+  Accept: "application/json",
+  Authorization: `Bearer ${getEncodedToken()}`,
+};
 
-const apiUrl = '/api/v1/birds'
+const apiUrl = "/api/v1/birds";
 
 // The following two lines need to be set immediately after the request (get/post/patch/delete) to access secure routes
 // .set(jsonHeader)
 // .set(authHeader)
 
-export function apiGetAllBirds () {
+export function apiGetAllBirds() {
   return request
-    .get(apiUrl + '/birdTypes')
+    .get(apiUrl + "/birdTypes")
     .set(headers)
-    .then(res => res.body)
-    .catch(errorHandler)
+    .then((res) => res.body)
+    .catch(errorHandler);
 }
 
-export function apiGetAllLocations () {
+export function apiGetAllLocations() {
   return request
-    .get(apiUrl + '/locations')
+    .get(apiUrl + "/locations")
     .set(headers)
-    .then(res => res.body)
-    .catch(errorHandler)
+    .then((res) => res.body)
+    .catch(errorHandler);
 }
 
-export function apiGetUserScrapbook (user_id) {
+export function apiGetUserScrapbook(user_id) {
   return request
-    .get(apiUrl + '/scrapbook/' + user_id)
+    .get(apiUrl + "/scrapbook/" + user_id)
     .set(headers)
-    .then(res => res.body)
-    .catch(errorHandler)
+    .then((res) => res.body)
+    .catch(errorHandler);
 }
 
 export function apiAddScrapbookEntry (user_id, bird_id) {
@@ -47,6 +47,6 @@ export function apiAddScrapbookEntry (user_id, bird_id) {
 }
 
 // Global error handler for front end api's
-function errorHandler (err) {
-  console.error(err)
+function errorHandler(err) {
+  console.error(err);
 }
