@@ -1,6 +1,6 @@
 const express = require("express");
 const {getTokenDecoder} = require('authenticare/server')
-const { getAllHabitats, getAllBirdTypes, getBirdById, getAllLocations, getScrapbookEntries } = require('../db/birds')
+const { getAllHabitats, getAllBirdTypes, getBirdById, getAllLocations, getScrapbookEntries, addScrapbookEntry } = require('../db/birds')
 
 const router = express.Router();
 
@@ -9,6 +9,7 @@ router.get("/birdTypes", getTokenDecoder(), getBirdTypes);
 router.get("/bird/:id", getTokenDecoder(), getBird);
 router.get("/locations", getTokenDecoder(), getLocations);
 router.get("/scrapbook/:id", getTokenDecoder(), getScrapbook);
+router.post("/scrapbook", getTokenDecoder(), addEntry);
 
 router.use(errorHandler)
 
@@ -108,6 +109,15 @@ function getScrapbook(req, res) {
         })
         .catch(errorHandler)
   });
+}
+
+function addEntry(req, res) {
+  const entry = {
+    user_id: req.body.user_id,
+    bird_id: req.body.bird_id,
+  }
+  addScrapbookEntry(entry)
+      .then((count) => res.json(count[0]))
 }
 
 function errorHandler(err, req, res, next) {
