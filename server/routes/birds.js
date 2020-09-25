@@ -81,7 +81,6 @@ function getLocations (req, res) {
           birdId: generateRandomBirdID(count)
         }
       })
-      res.json(sanitized)
       return res.json(sanitized)
     })
   })
