@@ -1,13 +1,15 @@
 const express = require("express");
 const {getTokenDecoder} = require('authenticare/server')
-const { getAllHabitats, getAllBirdTypes, getAllLocations, getScrapbookEntries } = require('../db/birds')
+const { getAllHabitats, getAllBirdTypes, getBirdById, getAllLocations, getScrapbookEntries, addScrapbookEntry } = require('../db/birds')
 
 const router = express.Router();
 
 router.get("/habitats", getTokenDecoder(), getHabitats);
 router.get("/birdTypes", getTokenDecoder(), getBirdTypes);
+router.get("/bird/:id", getTokenDecoder(), getBird);
 router.get("/locations", getTokenDecoder(), getLocations);
 router.get("/scrapbook/:id", getTokenDecoder(), getScrapbook);
+router.post("/scrapbook", getTokenDecoder(), addEntry);
 
 router.use(errorHandler)
 
@@ -22,6 +24,24 @@ function getHabitats(req, res) {
     
     return res.json(sanitized);
   });
+}
+
+function getBird(req, res) {
+  const id = req.params.id
+  return getBirdById(id)
+    .then(bird => {
+      const sanitized = {
+        birdId: bird.id,
+        birdName: bird.bird_name,
+        birdEnglishName: bird.bird_english_name,
+        birdImg: bird.bird_img,
+        birdRarity: bird.bird_rarity,
+        birdNocturnal: bird.bird_nocturnal,
+        birdTag: bird.bird_tag,
+        birdInfo: bird.bird_info
+      }
+      return res.json(sanitized);
+    })
 }
 
 function getBirdTypes(req, res) {
@@ -89,6 +109,15 @@ function getScrapbook(req, res) {
         })
         .catch(errorHandler)
   });
+}
+
+function addEntry(req, res) {
+  const entry = {
+    user_id: req.body.user_id,
+    bird_id: req.body.bird_id,
+  }
+  addScrapbookEntry(entry)
+      .then((count) => res.json(count[0]))
 }
 
 function errorHandler(err, req, res, next) {

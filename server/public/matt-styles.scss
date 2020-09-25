@@ -13,3 +13,16 @@
   min-height: 90vh;
   border-radius: 15px;
 }
+
+.img {
+  border-radius: 100%;
+}
+.birds {
+  width: 50%;
+}
+
+.flex-wrap-columns {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}

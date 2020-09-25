@@ -14,4 +14,24 @@
   min-height: 90vh;
   border-radius: 15px;
 }
+
+.img {
+  border-radius: 100%;
+}
+
+.birds {
+  width: 50%;
+}
+
+.flex-wrap-columns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
 /*# sourceMappingURL=matt-styles.css.map */
