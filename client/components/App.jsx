@@ -5,7 +5,7 @@ import Nav from './Nav'
 import Home from './Home'
 import Login from './Login'
 import Register from './Register'
-import BirdProfile from './BirdProfile'
+// import BirdProfile from './BirdProfile'
 import Map from './Map'
 import Scrapbook from './Scrapbook'
 
@@ -29,7 +29,7 @@ export class App extends React.Component {
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
-          <Route path="/birdprofile" component={BirdProfile} />
+          {/* <Route path="/birdprofile" component={BirdProfile} /> */}
           <Route path="/map" component={Map} />
           <Route path="/scrapbook" component={Scrapbook} />
         </Router>

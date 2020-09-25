@@ -5,8 +5,8 @@ import {loginError, registerUserRequest} from '../actions/auth'
 class Register extends React.Component {
   state = {
     username: '',
-    first_name: '',
-    last_name: '',
+    // first_name: '',
+    // last_name: '',
     password: '',
     confirm_password: ''
   }
@@ -23,6 +23,7 @@ class Register extends React.Component {
     e.preventDefault()
     e.target.reset()
     let {username, password, confirm_password, first_name, last_name} = this.state
+    console.log(this.state)
     if (confirm_password != password) return this.props.dispatch(loginError("Passwords don't match"))
     const confirmSuccess = () => { this.props.history.push('/') }
     this.props.dispatch(registerUserRequest({username, password, first_name, last_name}, confirmSuccess))
