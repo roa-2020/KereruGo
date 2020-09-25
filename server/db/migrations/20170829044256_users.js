@@ -3,6 +3,7 @@ exports.up = function(knex) {
     table.increments('id')
     table.string('username')
     table.string('hash')
+    table.string('user_img')
     table.timestamps(true,true)
   })
 };

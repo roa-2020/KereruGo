@@ -2,8 +2,8 @@ node_modules
 static
 npm-debug.log
 dev.sqlite3
-bundle.js
-bundle.js.map
+bundle.js*
 .env
 coverage
-public/styles.css*
+server/public/styles*
+client/styles/variables.css*
