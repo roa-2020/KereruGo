@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {loginUser, loginError} from '../actions/auth'
+import { HashRouter as Router, Route, Link, Redirect } from 'react-router-dom'
 
 class Login extends React.Component {
   state = {
@@ -22,6 +23,7 @@ class Login extends React.Component {
   render() {
     const {auth} = this.props
     return (
+      <>
       <form className="form box" onSubmit={this.handleSubmit}>
         <h1 className="title is-2">Login</h1>
         <hr />
@@ -34,6 +36,11 @@ class Login extends React.Component {
         </label>
         <input className="button is-large is-fullwidth is-success" value='Login' type="submit" />
       </form>
+
+      <div className="login-redirect">
+        <p>Not a registered user?</p> <Link to='/register'>Register here</Link>
+      </div>
+      </>
     )
   }
 }
