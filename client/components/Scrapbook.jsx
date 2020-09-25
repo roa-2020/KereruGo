@@ -1,17 +1,21 @@
 import React from "react";
 
 class Scrapbook extends React.Component {
+  state = {
+    birds: [],
+  };
+
   render() {
     return (
       <>
         <div
           id="scrapbook"
-          className="container is-full has-background-primary"
+          className="container content is-full has-background-primary"
         >
-          <h2 className="has-text-white">Kereru Go!</h2>
-          <section className="section is-four-fifths">
-            <div className="card">here's some content</div>
-          </section>
+          <h1 className="has-text-white pt-3 has-text-centered">Kereru Go!</h1>
+          <div className="card mx-4">
+            <h2 className="has-text-centered pt-4">SCRAPBOOK</h2>
+          </div>
         </div>
       </>
     );
