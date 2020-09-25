@@ -14,23 +14,19 @@ function getAllLocations (db = connection) {
 
 function getScrapbookEntries (user_id, db = connection) {
   return db('scrapbooks')
-  .where('user_id', user_id)
-  .select()
+    .where('user_id', user_id)
+    .select()
 }
 
-function getBirdCount(db= connection) {
+function getBirdCount (db = connection) {
   return db('birds')
-  .count('id as count')
-  .first()
-  .catch(err => err)
+    .count('id as count')
+    .first()
+    .catch(err => err)
 }
 
-function generateRandomBirdID(db = connection) {
- return getBirdCount(db)
-  .then(({count})=>{
-    return Math.ceil(Math.random()*count)
-  })
-  .catch(err => err)
+function generateRandomBirdID (limit, db = connection) {
+  return Math.ceil(Math.random() * limit)
 }
 
 module.exports = {
