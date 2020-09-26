@@ -14,35 +14,24 @@ class Scrapbook extends React.Component {
   render() {
     return (
       <>
-        <div
-          id="scrapbook"
-          className="container content is-full has-background-primary"
-        >
-          <h1 className="has-text-white pt-3 has-text-centered">
-            <i>Kereru Go!</i>
-          </h1>
-          <div className="card is-centered mx-4">
-            <h2 className="has-text-centered pt-4">SCRAPBOOK</h2>
-            <div className="birds">
-              {this.props.scrapbook.map((item) => {
-                return (
-                  <Link
-                    key={item.birdId}
-                    to={`birds/scrapbook/:${item.birdId}`}
-                  >
-                    <div className="scrapbook-entry">
-                      <img
-                        className="img"
-                        src={`${item.birdImg}`}
-                        alt={`${item.birdName}`}
-                      />
-                      <h5 className="has-text-centered">{item.birdName}</h5>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
+        <h2 className="has-text-centered pt-4">SCRAPBOOK</h2>
+        <div className="birds">
+          {this.props.scrapbook.map((item) => {
+            return (
+              <Link key={item.birdId} to={`birds/scrapbook/${item.birdId}`}>
+                <div className="scrapbook-entry">
+                  <div className="image-container">
+                    <img
+                      className="img"
+                      src={`${item.birdImg}`}
+                      alt={`${item.birdName}`}
+                    />
+                  </div>
+                  <h5 className="has-text-centered">{item.birdName}</h5>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </>
     );
