@@ -27,7 +27,6 @@ export class App extends React.Component {
     return (
       <>
         <Router>
-          <Nav/>
           <div
             id="body-content"
             className="container content is-full has-background-primary"
@@ -35,9 +34,9 @@ export class App extends React.Component {
             <h1 className="has-text-white pt-3 has-text-centered">
               <Link to="/">KererūGo</Link>
             </h1>
-            
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
+              <Route path="/nav" component={Nav} />
               {auth.isAuthenticated && (
                 <>
                   <Route exact path="/" component={Map} />
@@ -46,18 +45,9 @@ export class App extends React.Component {
                   <Route path="/scrapbook" component={Scrapbook} />
                 </>
               )}
-              <Route exact path="/" component={Home} />
+              {!auth.isAuthenticated && <Route exact path="/" component={Nav} />}
             
           </div>
-          {/* {auth.isAuthenticated && (
-            <Link
-              to="/"
-              className="button is-rounded"
-              onClick={() => this.logout()}
-            >
-              Logout
-            </Link> */}
-          {/* )} */}
         </Router>
       </>
     );

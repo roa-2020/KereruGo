@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { HashRouter as Router, Link } from "react-router-dom";
 import { apiGetUserScrapbook } from "../apis/index";
 import { receiveScrapbook } from "../actions/scrapbook";
+import BackLink from './BackLink'
 
 class Scrapbook extends React.Component {
   componentDidMount() {
@@ -33,6 +34,11 @@ class Scrapbook extends React.Component {
             );
           })}
         </div>
+        <BackLink
+          action={() => {
+            this.props.history.goBack();
+          }}
+        />
       </div>
     );
   }
