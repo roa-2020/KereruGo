@@ -18,6 +18,7 @@ class Nav extends React.Component {
             </Link>
             <Link to="/map">Map</Link>
             <Link to="/scrapbook">Scrapbook</Link>
+            <a href="https://www.forestandbird.org.nz/projects/project-kereru-dunedin" target="_blank">Donate  <i className="fas fa-donate"></i></a>
             <BackLink
               action={() => {
                 this.props.history.goBack();
