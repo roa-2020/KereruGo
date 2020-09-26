@@ -10,7 +10,7 @@ class Home extends React.Component {
     render() {
         return (
             <>
-                <div className="buttons">
+                {/* <div className="buttons">
                
                 <Link to="/login" className="button is-rounded">Login</Link>
                 <Link to="/register" className="button is-rounded">Register</Link>
@@ -18,7 +18,7 @@ class Home extends React.Component {
                     {/* <button className="button is-rounded" onClick={}>Login</button>
                     <button className="button is-rounded" onClick={}>Register</button> */}
             
-                </div>
+                {/* </div> */} 
             </>
         )
     }

@@ -32,7 +32,7 @@ export class App extends React.Component {
             className="container content is-full has-background-primary"
           >
             <h1 className="has-text-white pt-3 has-text-centered">
-              <Link to="/">Kereru Go!</Link>
+              <Link to="/">KererūGo</Link>
             </h1>
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
