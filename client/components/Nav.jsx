@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logoutUser} from '../actions/auth'
+import Home from './Home'
 // import {HashRouter as Router, Route, Link} from 'react-router-dom'
 
 class Nav extends React.Component {
@@ -31,7 +32,11 @@ class Nav extends React.Component {
           <div className="navbar-end">
             { auth.isAuthenticated
               ? (
+                <>
                   <Link to='/' className="navbar-item is-large" onClick={() => logout()}>Logout</Link>
+                  <Link onClick={this.toggleBurger} className="navbar-item" to='/map'>Map</Link>
+                  <Link onClick={this.toggleBurger} className="navbar-item" to='/scrapbook'>Scrapbook</Link>
+                  </>
                 )
               : (
                 <>
