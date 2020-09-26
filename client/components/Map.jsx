@@ -6,7 +6,6 @@ import { logoutUser } from '../actions/auth'
 import {  Link } from 'react-router-dom'
 
 class Map extends React.Component {
-  
   state= {
     viewport: {
       latitude: -41.294105529785156,

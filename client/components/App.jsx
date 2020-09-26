@@ -22,10 +22,11 @@ export class App extends React.Component {
     const { auth } = this.props
     return (
       <>
+      <button href="./bird/2">Hello</button>
         <Router>
           <div className="bodyContent">
             {auth.isAuthenticated ? (
-              <Redirect to = '/map'/>
+              <Redirect to = '/bird/2'/>
             ) : (
               <Redirect to = '/' />
             )}
@@ -33,7 +34,7 @@ export class App extends React.Component {
             <Route path="/map" component={Map} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
-            {/* <Route path="/birdprofile" component={BirdProfile} /> */}
+            <Route path="/bird/:id" component={BirdProfile} />
             <Route path="/scrapbook" component={Scrapbook} />
           </div>  
         </Router>
@@ -44,7 +45,9 @@ export class App extends React.Component {
 
 const mapStateToProps = ({auth}) => {
   return {
-    auth
+    auth,
+    Scrapbook,
+    BirdProfile
   }
 }
 

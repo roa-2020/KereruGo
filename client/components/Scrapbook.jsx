@@ -17,7 +17,7 @@ class Scrapbook extends React.Component {
           className="container content is-full has-background-primary"
         >
           <h1 className="has-text-white pt-3 has-text-centered">
-            <i>Kereru Go!</i>
+            <i>Kererū Go!</i>
           </h1>
           <div className="card mx-4">
             <h2 className="has-text-centered pt-4">SCRAPBOOK</h2>

@@ -1,53 +1,50 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { apiGetOneBird } from '../apis'
+import { receiveBirdProfile } from '../actions/bird_profile'
 
 class BirdProfile extends React.Component {
-   state = {
-    //    birdImg: '',
-    //    birdName: '',
-    //    birdEnglishName: '',
-    //    birdRarity: '',
-    //    birdNocturnal: false,
-    //    birdTag: '',
-    //    birdInfo: '',
-        bird: {}
-   }
-
    componentDidMount() {
+     console.log("This is hard")
     apiGetOneBird(3)
-    .then((bird) => {
-        this.setState({
-            bird
-        })
-    })
+    .then(bird_profile => this.props.dispatch(receiveBirdProfile(bird_profile)))
    }
 
     render() {
-        apiGetOneBird(3)
-        .then(bird => {
-            console.log(bird)
-        })
-
+      console.log("Stevie is awesome!", this.props)
         return (
           <>
-          <div className="birdProfile">
-            <div className="birdImg">
-                <img src={this.state.birdImg} alt="Image of bird"/>
-            </div>
-            <p className="birdName">{this.state.birdName}
-            </p>
-            <p className="birdEnglishName"> {this.state.birdEnglishName}
-            </p>
-            <p className="birdRarity"> {this.state.birdRarity}
-            </p>
-            <p className="birdNocturnal"> {this.state.birdNocturnal}
-            </p>
-            <p className="birdTag"> {this.state.birdTag}
-            </p>
-            <p className="birdInfo"> {this.state.birdInfo}</p>
-
-          </div>
+            <div 
+            id="bird-profile"
+            className="container content is-full has-background-primary">
+                <h1 className="has-text-white pt-3 has-text-centered">
+                  <i>Kererū Go!</i>
+                </h1>
+             
+                {this.props.birdId.map((item) => {
+                  return (
+                    <>
+                <div key={item.bird_profile}
+                className="bird-profile-img">
+                    <img src={item.birdImg} alt="Image of bird"
+                    ></img>
+                </div>
+                
+                <h3 className="birdName">{item.birdName}
+                </h3>
+                <h3 className="birdEnglishName"> {item.birdEnglishName}
+                </h3>
+                <h3 className="birdRarity"> {item.birdRarity}
+                </h3>
+                <h3 className="birdNocturnal"> {item.birdNocturnal}
+                </h3>
+                <h3 className="birdTag"> {item.birdTag}
+                </h3>
+                <h3 className="birdInfo"> {item.birdInfo}</h3>
+                </>
+                  )
+                  })}
+              </div>
           </>  
         )
     }
@@ -55,9 +52,11 @@ class BirdProfile extends React.Component {
 
 const mapStateToProps = ({auth}) => {
         return {
-          auth
-        }
+          auth,
+          //  bird_profile
+          //check return statement - use scrapbook.jsx for reference
       }
+    }
 
 
 export default connect(mapStateToProps)(BirdProfile)
