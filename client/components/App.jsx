@@ -18,9 +18,9 @@ export class App extends React.Component {
     this.props.dispatch(checkAuth(confirmSuccess));
   }
   logout = () => {
-    const confirmSuccess = () => ownProps.history.push('/')
-    this.props.dispatch(logoutUser(confirmSuccess))
-  }
+    const confirmSuccess = () => ownProps.history.push("/");
+    this.props.dispatch(logoutUser(confirmSuccess));
+  };
 
   render() {
     const { auth } = this.props;
@@ -32,24 +32,28 @@ export class App extends React.Component {
             className="container content is-full has-background-primary"
           >
             <h1 className="has-text-white pt-3 has-text-centered">
-              <i>Kereru Go!</i>
+              <Link to="/">Kereru Go!</Link>
             </h1>
-            <div className="card is-centered mx-4">
-              {auth.isAuthenticated ? (
-                <Redirect to="/map" />
-              ) : (
-                <Redirect to="/" />
-              )}
-              <Route exact path="/" component={Home} />
-              <Route path="/map" component={Map} />
-              <Route path="/birdprofile" component={BirdProfile} />
-              <Route path="/scrapbook" component={Scrapbook} />
+            
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
-            </div>
+              {auth.isAuthenticated && (
+                <>
+                  <Route exact path="/" component={Map} />
+                  <Route path="/map" component={Map} />
+                  <Route path="/bird/:id" component={BirdProfile} />
+                  <Route path="/scrapbook" component={Scrapbook} />
+                </>
+              )}
+              <Route exact path="/" component={Home} />
+            
           </div>
           {auth.isAuthenticated && (
-            <Link to="/" className="button is-rounded" onClick={() => this.logout()}>
+            <Link
+              to="/"
+              className="button is-rounded"
+              onClick={() => this.logout()}
+            >
               Logout
             </Link>
           )}
@@ -59,9 +63,11 @@ export class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => {
+const mapStateToProps = (globalState) => {
   return {
-    auth,
+    auth: globalState.auth,
+    Scrapbook: globalState.Scrapbook,
+    BirdProfile: globalState.BirdProfile,
   };
 };
 

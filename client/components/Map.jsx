@@ -6,13 +6,12 @@ import { logoutUser } from '../actions/auth'
 import {  Link } from 'react-router-dom'
 
 class Map extends React.Component {
-  
   state= {
     viewport: {
       latitude: -41.294105529785156,
       longitude: 174.7752685546875,
-      width: "100vw",
-      height: "100vh",
+      width: "100%",
+      height: "100%",
       zoom: 15,
     }
   }
@@ -33,7 +32,7 @@ class Map extends React.Component {
   const { auth, logout, page } = this.props
    
   return (
-    <div>
+    <div className='card is-centered mx-4'>
       <ReactMapGL
         {...this.state.viewport}
         mapboxApiAccessToken={'pk.eyJ1IjoibWVldGpvaG5ncmF5IiwiYSI6ImNrZWJ5amJoYzAxeG4zNWs5ankxdHh5MWwifQ.7-Lg9dp4OdYmLML1jy5CDw'}

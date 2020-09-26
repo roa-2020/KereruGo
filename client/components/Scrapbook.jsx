@@ -6,19 +6,19 @@ import { receiveScrapbook } from "../actions/scrapbook";
 
 class Scrapbook extends React.Component {
   componentDidMount() {
-    apiGetUserScrapbook(1).then((scrapbook) =>
+    apiGetUserScrapbook(this.props.auth.user.id).then((scrapbook) =>
       this.props.dispatch(receiveScrapbook(scrapbook))
     );
   }
 
   render() {
     return (
-      <>
+      <div className='card is-centered mx-4 scrollable'>
         <h2 className="has-text-centered pt-4">SCRAPBOOK</h2>
         <div className="birds">
           {this.props.scrapbook.map((item) => {
             return (
-              <Link key={item.birdId} to={`birds/scrapbook/${item.birdId}`}>
+              <Link key={item.birdId} to={`/bird/${item.birdId}`}>
                 <div className="scrapbook-entry">
                   <div className="image-container">
                     <img
@@ -33,13 +33,13 @@ class Scrapbook extends React.Component {
             );
           })}
         </div>
-      </>
+      </div>
     );
   }
 }
 
 function mapStateToProps(globalState) {
-  return { scrapbook: globalState.scrapbook };
+  return { auth: globalState.auth, scrapbook: globalState.scrapbook };
 }
 
 export default connect(mapStateToProps)(Scrapbook);
