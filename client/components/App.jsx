@@ -27,6 +27,7 @@ export class App extends React.Component {
     return (
       <>
         <Router>
+          <Nav/>
           <div
             id="body-content"
             className="container content is-full has-background-primary"
