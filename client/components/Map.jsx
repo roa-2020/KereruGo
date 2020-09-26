@@ -15,16 +15,16 @@ class Map extends React.Component {
       height: "100%",
       zoom: 15,
     },
-    // locations: []
+    locations: []
   }
 
   componentDidMount() {
     apiGetAllLocations()
    
-    .then(locations => (this.props.dispatch(receiveLocations(locations))))
+    // .then(locations => (this.props.dispatch(receiveLocations(locations))))
     // console.log(locations)
-    // (locations => { 
-    //   this.setState({locations: locations})})
+    .then(locations => { 
+      this.setState({locations: locations})})
     .catch((err) => console.log(err))
   }
 
@@ -37,13 +37,6 @@ class Map extends React.Component {
   const { auth, logout, page } = this.props
   // console.log('Line 44:',this.state.locations)
 
- 
-//  const locations = [
-//       "{birdId: 10, lat: -41.296926, locId: 1, long: 174.7…}",
-//       "{birdId: 3, lat: -41.297769, locId: 2, long: 174.77…}",
-//       "{birdId: 13, lat: -41.296201, locId: 3, long: 174.7…}"
-//     ]
-  
   return (
     <div className='card is-centered mx-4'>
       <ReactMapGL
@@ -52,12 +45,13 @@ class Map extends React.Component {
         mapStyle="mapbox://styles/meetjohngray/ckfho52q60m0q19rriptc4a38"
         onViewportChange={this.viewportChange}
       >
-         {/* {console.log('Line 53:', locations)} */}
-        
-        {/* {locations.map((location) => (
-            // <li><h1 className='title'>location.locId</h1></li>
+         {/* {console.log('Line 53:', this.state.locations[0])} */}
+        {/* <ul> */}
+        {this.state.locations.map((location) => {
+          return  (
             <Marker 
-              key={location.lociId}
+
+              key={location.locId}
               latitude={location.lat}
               longitude={location.long}
             >
@@ -71,10 +65,12 @@ class Map extends React.Component {
                   this.changelocation(location)
                 }}
               >
+                This is a button
+                {this.state.location}
                </button>
-            </Marker> */}
-         {/* ))}  */}
-        
+            </Marker> 
+        )})} 
+        {/* </ul> */}
         <GeolocateControl
           positionOptions={{enableHighAccuracy: true}}
           trackUserLocation={true}
@@ -98,10 +94,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-const mapStateToProps = ({ auth }) => {
+const mapStateToProps = ({ auth, locations }) => {
   return {
     auth,
+    locations
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Map)
+export default connect(mapStateToProps, mapDispatchToProps )(Map)
