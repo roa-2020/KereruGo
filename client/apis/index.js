@@ -26,7 +26,7 @@ export function apiGetOneBird (id) {
     .get(apiUrl + '/bird/' + id)
     .set(headers)
     .then(res => res.body)
-    .catch(errorHandler)
+    .catch(errorHandler);
 }
 
 export function apiGetAllLocations () {

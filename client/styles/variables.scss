@@ -6,19 +6,12 @@
 // $beige-lighter: #EFF0EB;
 
 // Update Bulma's global variables
-$family-sans-serif: "Lato", sans-serif;
+$family-sans-serif: "Raleway", sans-serif;
+$color-semi-transparent: rgba(88, 210, 178, 0.6);
 
 
 // Update some of Bulma's component variables
 
 * {
-    font-family: 'Raleway', sans-serif;
-}
-
-.buttons {
-    display: flex;
-}
-
-.button {
-    text-transform: uppercase;
+    font-family: $family-sans-serif;
 }
