@@ -10,12 +10,16 @@ import BirdProfile from "./BirdProfile";
 import Map from "./Map";
 import Scrapbook from "./Scrapbook";
 
-import { checkAuth } from "../actions/auth";
+import { checkAuth, logoutUser } from "../actions/auth";
 
 export class App extends React.Component {
   componentDidMount() {
     const confirmSuccess = () => {};
     this.props.dispatch(checkAuth(confirmSuccess));
+  }
+  logout = () => {
+    const confirmSuccess = () => ownProps.history.push('/')
+    this.props.dispatch(logoutUser(confirmSuccess))
   }
 
   render() {
@@ -23,19 +27,32 @@ export class App extends React.Component {
     return (
       <>
         <Router>
-          <div className="bodyContent">
-            {auth.isAuthenticated ? (
-              <Redirect to="/map" />
-            ) : (
-              <Redirect to="/" />
-            )}
-            <Route exact path="/" component={Home} />
-            <Route path="/map" component={Map} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
-            <Route path="/birdprofile" component={BirdProfile} />
-            <Route path="/scrapbook" component={Scrapbook} />
+          <div
+            id="body-content"
+            className="container content is-full has-background-primary"
+          >
+            <h1 className="has-text-white pt-3 has-text-centered">
+              <i>Kereru Go!</i>
+            </h1>
+            <div className="card is-centered mx-4">
+              {auth.isAuthenticated ? (
+                <Redirect to="/map" />
+              ) : (
+                <Redirect to="/" />
+              )}
+              <Route exact path="/" component={Home} />
+              <Route path="/map" component={Map} />
+              <Route path="/birdprofile" component={BirdProfile} />
+              <Route path="/scrapbook" component={Scrapbook} />
+              <Route path="/login" component={Login} />
+              <Route path="/register" component={Register} />
+            </div>
           </div>
+          {auth.isAuthenticated && (
+            <Link to="/" className="button is-rounded" onClick={() => this.logout()}>
+              Logout
+            </Link>
+          )}
         </Router>
       </>
     );
