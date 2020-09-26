@@ -22,7 +22,6 @@ export class App extends React.Component {
     const { auth } = this.props
     return (
       <>
-      <button href="./bird/2">Hello</button>
         <Router>
           <div className="bodyContent">
             {auth.isAuthenticated ? (
