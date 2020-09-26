@@ -74,15 +74,24 @@ function getLocations (req, res) {
   return getBirdCount().then(({ count }) => {
     return getAllLocations().then(locations => {
       const sanitized = locations.map((location, i) => {
-        return {
-          locId: location.id,
-          lat: location.latitude,
-          long: location.longitude,
-          birdId: generateRandomBirdID(count)
-        }
+          getBirdById(generateRandomBirdID(count)).then(bird => {
+            console.log({
+              locId: location.id,
+              lat: location.latitude,
+              long: location.longitude,
+              birdId: bird.id,
+              birdName: bird.bird_name,
+              birdEnglishName: bird.bird_english_name,
+              birdImg: bird.bird_img,
+              birdRarity: bird.bird_rarity,
+              birdNocturnal: bird.bird_nocturnal,
+              birdTag: bird.bird_tag,
+              birdInfo: bird.bird_info
+            })
+          })
+        })
+        return res.json(sanitized)
       })
-      return res.json(sanitized)
-    })
   })
 }
 
