@@ -21,13 +21,13 @@ export function apiGetAllBirds() {
     .catch(errorHandler);
 }
 
-// export function apiGetOneBird (id) {
-//   return request
-//     .get(apiUrl + '/bird/' + id)
-//     .set(headers)
-//     .then(res => res.body)
-//     .catch(errorHandler);
-// }
+export function apiGetOneBird (id) {
+  return request
+    .get(apiUrl + '/bird/' + id)
+    .set(headers)
+    .then(res => res.body)
+    .catch(errorHandler);
+}
 
 export function apiGetAllLocations () {
   return request
@@ -50,14 +50,6 @@ export function apiAddScrapbookEntry (user_id, bird_id) {
     .post(apiUrl + '/scrapbook')
     .set(headers)
     .send({user_id: user_id, bird_id: bird_id})
-    .then(res => res.body)
-    .catch(errorHandler)
-}
-
-export function apiGetBirdById(bird_id){
-  return request
-    .get(apiUrl + '/bird/' + bird_id)
-    .set(headers)
     .then(res => res.body)
     .catch(errorHandler)
 }
