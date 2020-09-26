@@ -129,7 +129,7 @@ function getScrapbook (req, res) {
             return {
               birdId: bird.id,
               birdName: '???',
-              birdImg: '/image/mystery-bird.png',
+              birdImg: '/images/mystery-bird.png',
               birdHint: 'Look in that bush over there!'
             }
           }
