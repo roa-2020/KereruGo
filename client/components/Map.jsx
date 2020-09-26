@@ -5,7 +5,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import { logoutUser } from '../actions/auth'
 import {  Link } from 'react-router-dom'
 import { apiGetAllLocations } from '../apis/index'
-
+import { receiveLocations } from '../actions/locations'
 class Map extends React.Component {
   state= {
     viewport: {
@@ -18,12 +18,15 @@ class Map extends React.Component {
     // locations: []
   }
 
-  // componentDidMount() {
-  //   apiGetAllLocations()
-  //   .then(locations => { 
-  //     this.setState({locations: locations})})
-  //   .catch((err) => console.log(err))
-  // }
+  componentDidMount() {
+    apiGetAllLocations()
+   
+    .then(locations => (this.props.dispatch(receiveLocations(locations))))
+    // console.log(locations)
+    // (locations => { 
+    //   this.setState({locations: locations})})
+    .catch((err) => console.log(err))
+  }
 
   viewportChange= (viewport) => {
     this.setState({viewport})
@@ -35,11 +38,11 @@ class Map extends React.Component {
   // console.log('Line 44:',this.state.locations)
 
  
- const locations = [
-      "{birdId: 10, lat: -41.296926, locId: 1, long: 174.7…}",
-      "{birdId: 3, lat: -41.297769, locId: 2, long: 174.77…}",
-      "{birdId: 13, lat: -41.296201, locId: 3, long: 174.7…}"
-    ]
+//  const locations = [
+//       "{birdId: 10, lat: -41.296926, locId: 1, long: 174.7…}",
+//       "{birdId: 3, lat: -41.297769, locId: 2, long: 174.77…}",
+//       "{birdId: 13, lat: -41.296201, locId: 3, long: 174.7…}"
+//     ]
   
   return (
     <div className='card is-centered mx-4'>
@@ -49,29 +52,29 @@ class Map extends React.Component {
         mapStyle="mapbox://styles/meetjohngray/ckfho52q60m0q19rriptc4a38"
         onViewportChange={this.viewportChange}
       >
-         {console.log('Line 53:', locations)}
-        <ul>
-        {locations.map((location) => (
-            <li><h1 className='title'>location.locId</h1></li>
-            // <Marker 
-            //   key={location.lociId}
-            //   latitude={location.lat}
-            //   longitude={location.long}
-            // >
-            //   <button className="marker-btn" 
-            //     onClick={e => {
-            //       e.preventDefault()
-            //       // setSelectedlocation(location)
-            //       // this.setState({
-            //       //   selectedlocation: location
-            //       // })
-            //       this.changelocation(location)
-            //     }}
-            //   >
-            //    </button>
-            // </Marker>
-         ))} 
-         </ul>
+         {/* {console.log('Line 53:', locations)} */}
+        
+        {/* {locations.map((location) => (
+            // <li><h1 className='title'>location.locId</h1></li>
+            <Marker 
+              key={location.lociId}
+              latitude={location.lat}
+              longitude={location.long}
+            >
+              <button className="marker-btn" 
+                onClick={e => {
+                  e.preventDefault()
+                  // setSelectedlocation(location)
+                  // this.setState({
+                  //   selectedlocation: location
+                  // })
+                  this.changelocation(location)
+                }}
+              >
+               </button>
+            </Marker> */}
+         {/* ))}  */}
+        
         <GeolocateControl
           positionOptions={{enableHighAccuracy: true}}
           trackUserLocation={true}
