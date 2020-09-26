@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import ReactMapGL, {GeolocateControl} from 'react-map-gl'
+import ReactMapGL, {GeolocateControl, Marker, Popup} from 'react-map-gl'
 import { connect } from 'react-redux'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { logoutUser } from '../actions/auth'
@@ -15,35 +15,25 @@ class Map extends React.Component {
       width: "90vw",
       height: "90vh",
       zoom: 15,
-    }
+    },
+    locations: []
   }
 
   componentDidMount() {
     apiGetAllLocations()
     .then(locations => { 
-      console.log(locations)
       this.setState({locations: locations})})
     .catch((err) => console.log(err))
   }
 
- 
-  
   viewportChange= (viewport) => {
     this.setState({viewport})
-  } 
+  }
 
   render() { 
-   
-    // const viewport = this.state
-    // latitude: -41.2930,
-    // longitude: 174.7839,
-    // width: '100vw',
-    // height: '90vh',
-    // zoom: 10
-  // const setViewport = this.state
 
   const { auth, logout, page } = this.props
-   
+  // console.log('Line 44:',this.state.locations)
   return (
     <div>
       <ReactMapGL
@@ -52,6 +42,28 @@ class Map extends React.Component {
         mapStyle="mapbox://styles/meetjohngray/ckfho52q60m0q19rriptc4a38"
         onViewportChange={this.viewportChange}
       >
+         {console.log('Line 53:',this.state.locations)}
+        
+        {this.state.locations.map((location) => (
+            <Marker 
+              key={location.lociId}
+              latitude={location.lat[0]}
+              longitude={location.long[0]}
+            >
+              <button className="marker-btn" 
+                onClick={e => {
+                  e.preventDefault()
+                  // setSelectedlocation(location)
+                  // this.setState({
+                  //   selectedlocation: location
+                  // })
+                  this.changelocation(location)
+                }}
+              >
+               </button>
+            </Marker>
+         ))} 
+         
         <GeolocateControl
           positionOptions={{enableHighAccuracy: true}}
           trackUserLocation={true}
@@ -59,7 +71,6 @@ class Map extends React.Component {
         />
       </ReactMapGL>
       <Link to='/' className="button is-rounded" onClick={() => logout()}>Logout</Link>
-
     </div>
   )}
 }
