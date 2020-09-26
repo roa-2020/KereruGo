@@ -73,24 +73,34 @@ function getBird (req, res) {
 function getLocations (req, res) {
   return getBirdCount().then(({ count }) => {
     return getAllLocations().then(locations => {
-      const sanitized = locations.map((location, i) => {
-          getBirdById(generateRandomBirdID(count)).then(bird => {
-            console.log({
+      const fetchBirds = async (locations) => {
+        const birds = locations.map(() => {
+              return getBirdById(generateRandomBirdID(count))
+                .then((bird) => {
+                return bird
+                })
+            })
+        return Promise.all(birds)
+      }
+      fetchBirds(locations)
+        .then(birds => {
+          const sanitized = locations.map((location, i) => {
+            return ({
               locId: location.id,
               lat: location.latitude,
               long: location.longitude,
-              birdId: bird.id,
-              birdName: bird.bird_name,
-              birdEnglishName: bird.bird_english_name,
-              birdImg: bird.bird_img,
-              birdRarity: bird.bird_rarity,
-              birdNocturnal: bird.bird_nocturnal,
-              birdTag: bird.bird_tag,
-              birdInfo: bird.bird_info
+              birdId: birds[i].id,
+              birdName: birds[i].bird_name,
+              birdEnglishName: birds[i].bird_english_name,
+              birdImg: birds[i].bird_img,
+              birdRarity: birds[i].bird_rarity,
+              birdNocturnal: birds[i].bird_nocturnal,
+              birdTag: birds[i].bird_tag,
+              birdInfo: birds[i].bird_info
             })
           })
+          res.json(sanitized)
         })
-        return res.json(sanitized)
       })
   })
 }
