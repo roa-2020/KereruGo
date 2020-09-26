@@ -1,21 +1,21 @@
 @charset "utf-8";
 
 // Import a Google Font
-@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700");
 
 // Import custom variables and Bulma overides
-@import './variables.scss';
+@import "./variables.scss";
 
 // Import only what you need from Bulma
-@import 'bulma/sass/utilities/_all.sass';
-@import 'bulma/sass/base/_all.sass';
-@import 'bulma/sass/elements/button.sass';
-@import 'bulma/sass/elements/container.sass';
-@import 'bulma/sass/elements/title.sass';
-@import 'bulma/sass/form/_all.sass';
-@import 'bulma/sass/components/navbar.sass';
-@import 'bulma/sass/layout/hero.sass';
-@import 'bulma/sass/layout/section.sass';
+@import "../../node_modules/bulma/sass/utilities/_all.sass";
+@import "../../node_modules/bulma/sass/base/_all.sass";
+@import "../../node_modules/bulma/sass/elements/button.sass";
+@import "../../node_modules/bulma/sass/elements/container.sass";
+@import "../../node_modules/bulma/sass/elements/title.sass";
+@import "../../node_modules/bulma/sass/form/_all.sass";
+@import "../../node_modules/bulma/sass/components/navbar.sass";
+@import "../../node_modules/bulma/sass/layout/hero.sass";
+@import "../../node_modules/bulma/sass/layout/section.sass";
 
 // Fix for transparent background on active nav items
 a.navbar-item:focus,
@@ -29,31 +29,69 @@ a.navbar-item.is-active,
   background-color: inherit;
 }
 
-* {
+*, #app {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-#scrapbook {
+#app {
+  height: 100%;
+  width: 100%;
+}
+
+#body-content {
   height: 100vh;
   width: 100vw;
 }
 
 .card {
   min-height: 90vh;
+  max-height: 90.1vh;
   border-radius: 15px;
+  overflow: scroll;
+}
+
+.image-container {
+  width: 115px;
+  height: 115px;
+  place-content: center;
 }
 
 .img {
   border-radius: 100%;
+  width: 115px;
+  height: auto;
+  margin: auto;
 }
 .birds {
-  width: 50%;
-}
-
-.flex-wrap-columns {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: column;
+  padding: 0.5em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.scrapbook-entry {
+  display: grid;
+  place-items: center;
+  position: relative;
+  cursor: pointer;
+  left: 25px;
+  margin: 1em;
+}
+
+// .mapboxgl-map button {
+//   display: block;
+//   width: 2em !important;
+// }
+.buttons {
+  margin-top: 1em;
+  justify-content: space-around;
+}
+.button {
+  text-transform: uppercase;
+}
+.login-redirect, .register-redirect {
+  text-align: center;
 }

@@ -6,4 +6,4 @@ bundle.js*
 .env
 coverage
 server/public/styles*
-client/styles/variables.css*
+client/styles/*.css

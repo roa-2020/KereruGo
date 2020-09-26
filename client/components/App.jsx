@@ -10,44 +10,64 @@ import BirdProfile from "./BirdProfile";
 import Map from "./Map";
 import Scrapbook from "./Scrapbook";
 
-import { checkAuth } from "../actions/auth";
+import { checkAuth, logoutUser } from "../actions/auth";
 
 export class App extends React.Component {
   componentDidMount() {
     const confirmSuccess = () => {};
     this.props.dispatch(checkAuth(confirmSuccess));
   }
+  logout = () => {
+    const confirmSuccess = () => ownProps.history.push("/");
+    this.props.dispatch(logoutUser(confirmSuccess));
+  };
 
   render() {
     const { auth } = this.props;
     return (
       <>
         <Router>
-          <div className="bodyContent">
-           
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
-            {auth.isAuthenticated && (
-              <>
-                <Route exact path="/" component={Map} />
-                <Route path="/map" component={Map} />
-                <Route path="/bird/:id" component={BirdProfile} />
-                <Route path="/scrapbook" component={Scrapbook} />
-              </>
-            )}
-             <Route exact path="/" component={Home} />
+          <div
+            id="body-content"
+            className="container content is-full has-background-primary"
+          >
+            <h1 className="has-text-white pt-3 has-text-centered">
+              <i>Kereru Go!</i>
+            </h1>
+            <div className="card is-centered mx-4">
+              <Route path="/login" component={Login} />
+              <Route path="/register" component={Register} />
+              {auth.isAuthenticated && (
+                <>
+                  <Route exact path="/" component={Map} />
+                  <Route path="/map" component={Map} />
+                  <Route path="/bird/:id" component={BirdProfile} />
+                  <Route path="/scrapbook" component={Scrapbook} />
+                </>
+              )}
+              <Route exact path="/" component={Home} />
+            </div>
           </div>
+          {auth.isAuthenticated && (
+            <Link
+              to="/"
+              className="button is-rounded"
+              onClick={() => this.logout()}
+            >
+              Logout
+            </Link>
+          )}
         </Router>
       </>
     );
   }
 }
 
-const mapStateToProps = ({ auth }) => {
+const mapStateToProps = (globalState) => {
   return {
-    auth,
-    Scrapbook,
-    BirdProfile,
+    auth: globalState.auth,
+    Scrapbook: globalState.Scrapbook,
+    BirdProfile: globalState.BirdProfile,
   };
 };
 

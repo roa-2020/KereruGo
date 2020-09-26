@@ -10,8 +10,8 @@ class Map extends React.Component {
     viewport: {
       latitude: -41.294105529785156,
       longitude: 174.7752685546875,
-      width: "90vw",
-      height: "90vh",
+      width: "100vw",
+      height: "100vh",
       zoom: 15,
     }
   }
@@ -45,8 +45,6 @@ class Map extends React.Component {
           auto={true}
         />
       </ReactMapGL>
-      <Link to='/' className="button is-rounded" onClick={() => logout()}>Logout</Link>
-
     </div>
   )}
 }
