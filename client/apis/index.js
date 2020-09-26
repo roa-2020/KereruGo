@@ -54,6 +54,14 @@ export function apiAddScrapbookEntry (user_id, bird_id) {
     .catch(errorHandler)
 }
 
+export function apiGetBirdById(bird_id){
+  return request
+    .get(apiUrl + '/bird/' + bird_id)
+    .set(headers)
+    .then(res => res.body)
+    .catch(errorHandler)
+}
+
 // Global error handler for front end api's
 function errorHandler(err) {
   console.error(err);

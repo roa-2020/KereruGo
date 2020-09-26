@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { apiGetUserScrapbook } from "../apis/index"
-import { receiveScrapbook } from '../actions/scrapbook'
+import { apiGetBirdById } from "../apis/index"
+// import { receiveScrapbook } from '../actions/scrapbook'
 
   class BirdProfile extends React.Component {
     state = {
@@ -10,11 +10,12 @@ import { receiveScrapbook } from '../actions/scrapbook'
     }
 
    componentDidMount() {
-    apiGetUserScrapbook(this.props.auth.user.id)
-      .then(scrapbook => {
-        this.props.dispatch(receiveScrapbook(scrapbook))
+    apiGetBirdById(this.props.match.params.id)
+      .then(bird => {
+        console.log(bird)
+        // this.props.dispatch(receiveScrapbook(scrapbook))
         this.setState({
-          bird: this.props.scrapbook[0]
+          bird: bird
         })
       })
    }
@@ -26,11 +27,8 @@ import { receiveScrapbook } from '../actions/scrapbook'
             <div 
             id="bird-profile"
             className="container content is-full has-background-primary">
-                <h1 className="has-text-white pt-3 has-text-centered">
-                  <i>Kererū Go!</i>
-                </h1>
                 <div className="bird-profile-img">
-                    <img src={bird.birdImg && bird.birdImg} alt="Image of bird"
+                    <img src={this.state.bird.birdImg && this.state.bird.birdImg} alt="Image of bird"
                     ></img>
                 </div>
                 <h3 className="birdName">{bird.birdName && bird.birdName}
