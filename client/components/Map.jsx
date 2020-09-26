@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { logoutUser } from '../actions/auth'
 import {  Link } from 'react-router-dom'
+import NavLink from './NavLink'
 
 class Map extends React.Component {
   state= {
@@ -33,6 +34,8 @@ class Map extends React.Component {
    
   return (
     <div className='card is-centered mx-4'>
+      <NavLink />
+
       <ReactMapGL
         {...this.state.viewport}
         mapboxApiAccessToken={'pk.eyJ1IjoibWVldGpvaG5ncmF5IiwiYSI6ImNrZWJ5amJoYzAxeG4zNWs5ankxdHh5MWwifQ.7-Lg9dp4OdYmLML1jy5CDw'}
