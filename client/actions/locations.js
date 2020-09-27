@@ -8,10 +8,10 @@ export const receiveLocations = locations => {
   }
 }
 
-export const removeLocations = (locations, locId) => {
-  console.log("action:", location, locId)
+export const removeLocations = (locId) => {
+  console.log("action:", locId)
   return {
     type: REMOVE_LOCATIONS,
-    location, locId
+    locId
   }
 }
