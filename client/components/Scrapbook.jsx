@@ -35,6 +35,7 @@ class Scrapbook extends React.Component {
           })}
         </div>
         <BackLink
+        inline='inline'
           action={() => {
             this.props.history.goBack();
           }}
