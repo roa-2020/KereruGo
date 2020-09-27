@@ -1,9 +1,11 @@
-import React, {useState} from 'react'
-import ReactMapGL, {GeolocateControl} from 'react-map-gl'
+import React, {useEffect} from 'react'
+import ReactMapGL, {GeolocateControl, Marker, Popup} from 'react-map-gl'
 import { connect } from 'react-redux'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { logoutUser } from '../actions/auth'
 import {  Link } from 'react-router-dom'
+import { apiGetAllLocations } from '../apis/index'
+import { receiveLocations } from '../actions/locations'
 import NavLink from './NavLink'
 
 class Map extends React.Component {
@@ -14,24 +16,48 @@ class Map extends React.Component {
       width: "100%",
       height: "100%",
       zoom: 15,
-    }
+    },
+    locations: [],
+    selectedLocation: null
   }
-  
+
+  componentDidMount() {
+    apiGetAllLocations()
+   
+    // .then(locations => (this.props.dispatch(receiveLocations(locations))))
+    // console.log(locations)
+    .then(locations => { 
+      this.setState({locations: locations})})
+    .catch((err) => console.log(err))
+  }
+
   viewportChange= (viewport) => {
     this.setState({viewport})
-  } 
+  }
 
-  render() {
-    // const viewport = this.state
-    // latitude: -41.2930,
-    // longitude: 174.7839,
-    // width: '100vw',
-    // height: '90vh',
-    // zoom: 10
-  // const setViewport = this.state
+  // changeLocation = (location) => {
+  //   console.log(location)
+  //   this.setState({selectedLocation: location})
+  // }
 
+  setSelectedLocation = object => {
+    this.setState({
+       selectedLocation: object
+    });
+  };
+
+  closePopup = () => {
+    this.setState({
+      selectedLocation: null
+    }); 
+  };
+  
+  render() { 
+  // const selectedLocation = this.state.selectedLocation
+  // console.log(selectedLocation)
   const { auth, logout, page } = this.props
-   
+  // console.log('Line 44:',this.state.locations)
+
   return (
     <div className='card is-centered mx-4'>
       <NavLink />
@@ -39,15 +65,53 @@ class Map extends React.Component {
       <ReactMapGL
         {...this.state.viewport}
         mapboxApiAccessToken={'pk.eyJ1IjoibWVldGpvaG5ncmF5IiwiYSI6ImNrZWJ5amJoYzAxeG4zNWs5ankxdHh5MWwifQ.7-Lg9dp4OdYmLML1jy5CDw'}
-        mapStyle="mapbox://styles/meetjohngray/ckfho52q60m0q19rriptc4a38"
+        mapStyle="mapbox://styles/meetjohngray/ckfk9geqz34xv19po854t66dz"
         onViewportChange={this.viewportChange}
       >
+         
+        {this.state.locations.map((location) => {
+          return  (
+            <Marker className="marker-btn"
+              key={location.locId}
+              latitude={location.lat}
+              longitude={location.long}
+            >
+            
+                {/* <img src={location.birdImg} /> */}
+                {/* <p><i className="fas fa-kiwi-bird" 
+                  onClick={() =>
+                    this.setSelectedLocation(location)
+                  }>
+                </i>bird</p> */}
+                <img src="/images/hihi.png" 
+                  onClick={() =>
+                    this.setSelectedLocation(location)
+                  }/>
+            </Marker> 
+        )})}
+
+        {this.state.selectedLocation !== null ? (
+          <Popup
+             latitude={this.state.selectedLocation.lat} 
+             longitude={this.state.selectedLocation.long}
+             onClose={this.closePopup}
+          >
+              <div>
+                <img src={this.state.selectedLocation.birdImg} />
+                <p className="title is-5">You found a {this.state.selectedLocation.birdName}!</p>
+                <p className="title is-6"><a>Find out more</a></p>
+                {/* <p className="subtitle is-6">{selectedScrap.description}</p> */}
+             </div> 
+          </Popup>
+        ) : null}
+        
         <GeolocateControl
           positionOptions={{enableHighAccuracy: true}}
           trackUserLocation={true}
           auto={true}
         />
       </ReactMapGL>
+      <Link to='/' className="button is-rounded" onClick={() => logout()}>Logout</Link>
     </div>
   )}
 }
@@ -70,4 +134,4 @@ const mapStateToProps = ({ auth }) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Map)
+export default connect(mapStateToProps, mapDispatchToProps )(Map)
