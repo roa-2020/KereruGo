@@ -47,7 +47,7 @@ class Profile extends React.Component {
             <h5 className="has-text-centered">{userInfo.username}'s Badges</h5>
           </div>
           <div className="image-container"></div>
-          <p>{medal}</p>
+          {/* <p>{medal}</p> */}
       </div>
       </>
     );
