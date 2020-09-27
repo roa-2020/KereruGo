@@ -33,7 +33,7 @@ class Map extends React.Component {
     .catch((err) => console.log(err))
     }
   }
-  
+
   viewportChange = (viewport) => {
     this.setState({ viewport });
   };
@@ -78,7 +78,7 @@ class Map extends React.Component {
           mapStyle="mapbox://styles/meetjohngray/ckfk9geqz34xv19po854t66dz"
           onViewportChange={this.viewportChange}
         >
-          {this.state.locations.map((location) => {
+          {this.props.locations.map((location) => {
             return (
               <Marker
                 className="marker-btn"
@@ -143,7 +143,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(togglePage("list", 1))
     },
     saveLocations: (locations) => {
-      dispatch(saveLocations(locations))
+      dispatch(receiveLocations(locations))
     }
   }
 }
