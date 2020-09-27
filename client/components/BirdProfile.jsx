@@ -64,6 +64,7 @@ class BirdProfile extends React.Component {
           </>
         )}
         <BackLink
+        inline='inline'
           action={() => {
             this.props.history.goBack();
           }}
