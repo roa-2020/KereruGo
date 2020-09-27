@@ -29,10 +29,8 @@ class Map extends React.Component {
   componentDidMount() {
     if (this.props.auth.isAuthenticated){
     apiGetAllLocations()
-      .then((locations) => {
-        this.setState({ locations: locations });
-      })
-      .catch((err) => console.log(err));
+    .then(locations => this.props.saveLocations(locations))
+    .catch((err) => console.log(err))
     }
   }
 
@@ -80,7 +78,7 @@ class Map extends React.Component {
           mapStyle="mapbox://styles/meetjohngray/ckfk9geqz34xv19po854t66dz"
           onViewportChange={this.viewportChange}
         >
-          {this.state.locations.map((location) => {
+          {this.props.locations.map((location) => {
             return (
               <Marker
                 className="marker-btn"
@@ -131,7 +129,7 @@ class Map extends React.Component {
         </ReactMapGL>
         {/* <Link to='/' className="button is-rounded" onClick={() => logout()}>Logout</Link> */}
       </div>
-    );
+    )
   }
 }
 
@@ -142,15 +140,19 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(logoutUser(confirmSuccess));
     },
     page: () => {
-      dispatch(togglePage("list", 1));
+      dispatch(togglePage("list", 1))
     },
-  };
-};
+    saveLocations: (locations) => {
+      dispatch(receiveLocations(locations))
+    }
+  }
+}
 
-const mapStateToProps = ({ auth }) => {
+const mapStateToProps = ({ auth, locations }) => {
   return {
     auth,
-  };
-};
+    locations
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);
