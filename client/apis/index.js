@@ -7,6 +7,7 @@ const headers = {
   Authorization: `Bearer ${getEncodedToken()}`,
 };
 
+
 const apiUrl = "/api/v1/birds";
 
 // The following two lines need to be set immediately after the request (get/post/patch/delete) to access secure routes
@@ -16,7 +17,7 @@ const apiUrl = "/api/v1/birds";
 export function apiGetAllBirds() {
   return request
     .get(apiUrl + "/birdTypes")
-    .set(headers)
+    .set(prepHeaders())
     .then((res) => res.body)
     .catch(errorHandler);
 }
@@ -24,15 +25,15 @@ export function apiGetAllBirds() {
 export function apiGetOneBird (id) {
   return request
     .get(apiUrl + '/bird/' + id)
-    .set(headers)
+    .set(prepHeaders())
     .then(res => res.body)
     .catch(errorHandler);
 }
 
-export function apiGetAllLocations () {
+export function apiGetAllLocations () {  
   return request
     .get(apiUrl + "/locations")
-    .set(headers)
+    .set(prepHeaders())
     .then((res) => res.body)
     .catch(errorHandler);
 }
@@ -40,7 +41,7 @@ export function apiGetAllLocations () {
 export function apiGetUserScrapbook(user_id) {
   return request
     .get(apiUrl + "/scrapbook/" + user_id)
-    .set(headers)
+    .set(prepHeaders())
     .then((res) => res.body)
     .catch(errorHandler);
 }
@@ -48,10 +49,17 @@ export function apiGetUserScrapbook(user_id) {
 export function apiAddScrapbookEntry (user_id, bird_id) {
   return request
     .post(apiUrl + '/scrapbook')
-    .set(headers)
+    .set(prepHeaders())
     .send({user_id: user_id, bird_id: bird_id})
     .then(res => res.body)
     .catch(errorHandler)
+}
+
+function prepHeaders(){
+  return {
+    Accept: "application/json",
+    Authorization: `Bearer ${getEncodedToken()}`,
+  }
 }
 
 // Global error handler for front end api's

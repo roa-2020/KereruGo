@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {loginUser, loginError} from '../actions/auth'
-import { HashRouter as Router, Route, Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 class Login extends React.Component {
   state = {
