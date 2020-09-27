@@ -7,6 +7,7 @@ import Home from "./Home";
 import Login from "./Login";
 import Register from "./Register";
 import BirdProfile from "./BirdProfile";
+import Profile from "./Profile";
 import Map from "./Map";
 import Scrapbook from "./Scrapbook";
 
@@ -43,6 +44,7 @@ export class App extends React.Component {
                   <Route path="/map" component={Map} />
                   <Route path="/bird/:id" component={BirdProfile} />
                   <Route path="/scrapbook" component={Scrapbook} />
+                  <Route path="/profile" component={Profile} />
                 </>
               )}
               {!auth.isAuthenticated && <Route exact path="/" component={Nav} />}
