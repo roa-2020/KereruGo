@@ -64,7 +64,7 @@ class Profile extends React.Component {
             </div>
             {/* <h5 className="has-text-centered">{userInfo.username}'s Badges</h5> */}
           </div>
-          {/* <div className="image-container"></div> */}
+          <div className="image-container bronze-medal"><i class="fas fa-medal fa-3x"></i></div>
           {/* <p>{medal}</p> */}
           <BackLink
           action={() => {
