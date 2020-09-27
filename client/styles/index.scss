@@ -47,14 +47,16 @@ a.navbar-item.is-active,
 }
 
 .card {
+  position: relative;
   min-height: 90vh;
   height: 90vh;
   max-height: 90.1vh;
   border-radius: 15px;
-  overflow-y: scroll;
+  
 
   @media screen and (min-width: 600px) {
     &.scrollable {
+      overflow-y: scroll;
       &::-webkit-scrollbar-track {
         -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
         background-color: rgba(255, 255, 255, 0);
@@ -158,6 +160,54 @@ h1.has-text-white {
   text-align: center;
 }
 
+.navigation {
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  justify-content: center;
+  width: auto;
+
+  a {
+    width: 200px;
+    padding: 0.5em;
+    border-radius: 10px;
+    border: solid 1px $color-semi-transparent;
+    background-color: $color-semi-transparent;
+    margin: 1em;
+    text-align: center;
+    color: #232323;
+  }
+}
+
+.navLink {
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 50px;
+  bottom: 20px;
+  left: 50%;
+  z-index: 2;
+  background-color: white;
+  border-radius: 50%;
+  border: solid 2px $color-semi-transparent;
+  box-sizing: content-box;
+  transform: translateX(-50%);
+
+  a {
+    display: block;
+    width: 50px;
+    height: 50px;
+    font-size: 2em;
+    text-align: center;
+    line-height: 50px;
+    color: #232323;
+    padding: 0px;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    margin: 0px;
+   
+  }
+}
 
 a {
   &:hover {
