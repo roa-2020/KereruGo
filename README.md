@@ -1,3 +1,8 @@
+# KererūGo
+
+Gotta collect 'em all!
+
+
 ## Set up instructions:
 
 * Clone the repo

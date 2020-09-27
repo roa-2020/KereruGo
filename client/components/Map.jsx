@@ -1,12 +1,16 @@
 import React, {useEffect} from 'react'
 import ReactMapGL, {GeolocateControl, Marker, Popup} from 'react-map-gl'
+import { HashRouter as Router, Route, Link, Redirect } from "react-router-dom";
+
 import { connect } from 'react-redux'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { logoutUser } from '../actions/auth'
-import {  Link } from 'react-router-dom'
-import { apiGetAllLocations } from '../apis/index'
+// import {  Link } from 'react-router-dom'
+import { apiGetAllLocations, apiAddScrapbookEntry } from '../apis/index'
 import { receiveLocations } from '../actions/locations'
+import { receiveBirdProfile } from '../actions/bird_profile'
 import NavLink from './NavLink'
+import BirdProfile from './BirdProfile'
 
 class Map extends React.Component {
   state= {
@@ -40,23 +44,30 @@ class Map extends React.Component {
   //   this.setState({selectedLocation: location})
   // }
 
-  setSelectedLocation = object => {
-    this.setState({
-       selectedLocation: object
-    });
-  };
+  addToScrapbook = (location) => {
+    apiAddScrapbookEntry(this.props.auth.user.id, location.birdId)
+      .then(
+        this.setState({
+          selectedLocation: location
+       })
+      )
+  }
 
   closePopup = () => {
     this.setState({
       selectedLocation: null
-    }); 
-  };
+    }) 
+  }
+    
+  closePopup = () => {
+    this.setState({
+      selectedLocation: null
+    })
+  }
   
   render() { 
-  // const selectedLocation = this.state.selectedLocation
-  // console.log(selectedLocation)
+  
   const { auth, logout, page } = this.props
-  // console.log('Line 44:',this.state.locations)
 
   return (
     <div className='card is-centered mx-4'>
@@ -76,17 +87,11 @@ class Map extends React.Component {
               latitude={location.lat}
               longitude={location.long}
             >
-            
-                {/* <img src={location.birdImg} /> */}
-                {/* <p><i className="fas fa-kiwi-bird" 
-                  onClick={() =>
-                    this.setSelectedLocation(location)
-                  }>
-                </i>bird</p> */}
-                <img src="/images/hihi.png" 
-                  onClick={() =>
-                    this.setSelectedLocation(location)
-                  }/>
+              <img src="/images/mystery-bird.png" 
+                onClick={(e) =>
+                  this.addToScrapbook(location)
+                }
+              />
             </Marker> 
         )})}
 
@@ -94,13 +99,16 @@ class Map extends React.Component {
           <Popup
              latitude={this.state.selectedLocation.lat} 
              longitude={this.state.selectedLocation.long}
-             onClose={this.closePopup}
+            //  onClose={this.closePopup}
           >
               <div>
                 <img src={this.state.selectedLocation.birdImg} />
                 <p className="title is-5">You found a {this.state.selectedLocation.birdName}!</p>
-                <p className="title is-6"><a>Find out more</a></p>
-                {/* <p className="subtitle is-6">{selectedScrap.description}</p> */}
+                <p className="title is-6">
+                <Link to={`/bird/${this.state.selectedLocation.birdId}`}>Learn More</Link>
+                {/* <Redirect to={`/bird/${this.state.selectedLocation.birdId}`}>Learn More</Redirect>  */}
+                </p>
+                <button onClick={this.closePopup} className='button is-small is-rounded'>Close</button>
              </div> 
           </Popup>
         ) : null}
