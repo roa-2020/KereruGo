@@ -111,7 +111,7 @@ class Map extends React.Component {
           auto={true}
         />
       </ReactMapGL>
-      <Link to='/' className="button is-rounded" onClick={() => logout()}>Logout</Link>
+      {/* <Link to='/' className="button is-rounded" onClick={() => logout()}>Logout</Link> */}
     </div>
   )}
 }
