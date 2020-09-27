@@ -7,7 +7,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import { logoutUser } from "../actions/auth";
 // import {  Link } from 'react-router-dom'
 import { apiGetAllLocations, apiAddScrapbookEntry } from "../apis/index";
-import { receiveLocations } from "../actions/locations";
+import { receiveLocations, removeLocations } from "../actions/locations";
 import { receiveBirdProfile } from "../actions/bird_profile";
 import NavLink from "./NavLink";
 import BirdProfile from "./BirdProfile";
