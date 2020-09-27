@@ -6,7 +6,7 @@ exports.seed = (knex) =>
     .then(() => knex("birds").insert([
       { 
         id: 1,
-        bird_name: "Kotare",
+        bird_name: "Kōtare",
         bird_english_name: "Sacred Kingfisher",
         bird_img: "/images/kotare.png",
         bird_rarity: "common",
@@ -16,7 +16,7 @@ exports.seed = (knex) =>
       },
       {
         id: 2,
-        bird_name: "Piwakawaka",
+        bird_name: "Pīwakawaka",
         bird_english_name: "Fantail",
         bird_img: "/images/piwakawaka.png",
         bird_rarity: "common",
@@ -46,27 +46,27 @@ exports.seed = (knex) =>
       },
       {
         id: 5,
-        bird_name: "Kahu",
+        bird_name: "Kāhu",
         bird_english_name: "Swamp Harrier",
         bird_img: "/images/kahu.png",
         bird_rarity: "vulnerable",
         bird_nocturnal: false,
         bird_tag: "Swamp harriers are the only bird of prey used for falconry in New Zealand.",
-        bird_info: "They benefit farms and road users by clearing carcasses. However, they can take poultry and game birds where unprotected, and will also kill new-born lambs in some circumstances. Its arrival in New Zealand happened recently within the last 700 years, replacing its extinct larger New Zealand endemic sister. After lowland forests were extensively cleared by the first Polynesian settlers; the Kahu became absent from the fossil record. It has benefited from European settlement, and is now very common, especially in open farmland."
+        bird_info: "They benefit farms and road users by clearing carcasses. However, they can take poultry and game birds where unprotected, and will also kill new-born lambs in some circumstances. Its arrival in New Zealand happened recently within the last 700 years, replacing its extinct larger New Zealand endemic sister. After lowland forests were extensively cleared by the first Polynesian settlers; the Kāhu became absent from the fossil record. It has benefited from European settlement, and is now very common, especially in open farmland."
       },
       {
         id: 6,
-        bird_name: "Kereru",
+        bird_name: "Kererū",
         bird_english_name: "New Zealand Pigeon",
         bird_img: "/images/kereru.png",
         bird_rarity: "common",
         bird_nocturnal: false,
         bird_tag: "Chicks are fed 'pigeon milk', a protein-rich milky secretion from the walls of the parents' crops, mixed with fruit pulp.",
-        bird_info: "Since the extinction of the moa, the kererū and parea are now the only bird species that are big enough to swallow large fruit and disperse the seed over long distances. Only where pests are not present (predator-free islands) or are controlled to low levels do kereru populations thrive. Kereru have been recorded breeding in all months, but most eggs are laid in September-April."
+        bird_info: "Since the extinction of the moa, the kererū and parea are now the only bird species that are big enough to swallow large fruit and disperse the seed over long distances. Only where pests are not present (predator-free islands) or are controlled to low levels do Kererū populations thrive. Kererū have been recorded breeding in all months, but most eggs are laid in September-April."
       },
       {
         id: 7,
-        bird_name: "Karearea",
+        bird_name: "Kārearea",
         bird_english_name: "New Zealand Falcon",
         bird_img: "/images/karearea.png",
         bird_rarity: "vulnerable",
@@ -76,7 +76,7 @@ exports.seed = (knex) =>
       },
       {
         id: 8,
-        bird_name: "Pateke",
+        bird_name: "Pāteke",
         bird_english_name: "Brown Teal",
         bird_img: "/images/pateke.png",
         bird_rarity: "vulnerable",
@@ -96,9 +96,9 @@ exports.seed = (knex) =>
       },
       {
         id: 10,
-        bird_name: "Kia",
+        bird_name: "Kea",
         bird_english_name: "Sacred Kingfisher",
-        bird_img: "/images/kia.png",
+        bird_img: "/images/kea.png",
         bird_rarity: "vulnerable",
         bird_nocturnal: true,
         bird_tag: "The endangered kea is the world's only alpine parrot, and one of the most intelligent birds. The kea was crowned Bird of the Year in 2017.",
@@ -106,13 +106,13 @@ exports.seed = (knex) =>
       },
       {
         id: 11,
-        bird_name: "Kakapo",
-        bird_english_name: "Kakapo",
+        bird_name: "Kākāpō",
+        bird_english_name: "Kākāpō",
         bird_img: "/images/kakapo.png",
         bird_rarity: "endangered",
         bird_nocturnal: true,
-        bird_tag: "The kakapo is a large, nocturnal, flightless, lek-breeding parrot – a real oddity.",
-        bird_info: "Kakapo are nocturnal and solitary, occupying the same home range for many years. They forage on the ground and climb high into trees. They often leap from trees and flap their wings, but at best manage a controlled plummet. During the 1980s and 1990s the entire known population was transferred to Whenua Hou/Codfish Island off the coast of Stewart Island, Maud Island in the Marlborough Sounds and Hauturu/Little Barrier Island in the Hauraki Gulf. Kakapo are entirely vegetarian. Their diet includes, leaves, buds, flowers, fern fronds, bark, roots, rhizomes, bulbs, fruit and seeds. Diet varies seasonally."
+        bird_tag: "The Kākāpō is a large, nocturnal, flightless, lek-breeding parrot – a real oddity.",
+        bird_info: "Kākāpō are nocturnal and solitary, occupying the same home range for many years. They forage on the ground and climb high into trees. They often leap from trees and flap their wings, but at best manage a controlled plummet. During the 1980s and 1990s the entire known population was transferred to Whenua Hou/Codfish Island off the coast of Stewart Island, Maud Island in the Marlborough Sounds and Hauturu/Little Barrier Island in the Hauraki Gulf. Kākāpō are entirely vegetarian. Their diet includes, leaves, buds, flowers, fern fronds, bark, roots, rhizomes, bulbs, fruit and seeds. Diet varies seasonally."
       },
       {
         id: 12,
@@ -126,17 +126,17 @@ exports.seed = (knex) =>
       },
       {
         id: 13,
-        bird_name: "Tui",
-        bird_english_name: "Tui",
+        bird_name: "Tūī",
+        bird_english_name: "Tūī",
         bird_img: "/images/tui.png",
         bird_rarity: "common",
         bird_nocturnal: false,
-        bird_tag: "Tui are boisterous, medium-sized, common and widespread bird of forest and suburbia – unless you live in Canterbury.",
-        bird_info: "Tui are notoriously aggressive, and will defend a flowering or fruiting tree, or a small part of a large tree, from all-comers, whether another tui or another bird species. Their preferred diet is nectar and honeydew, and they will often shift to, or commute daily or more frequently to, good nectar sources, such as stands of puriri, kowhai, fuchsia, rewarewa, flax, rata, pohutukawa, gums and banksias. They sing a loud and complicated mix of tuneful notes interspersed with coughs, grunts and wheezes. In flight, tui maintain contact and harass raptors with a repetitive scream."
+        bird_tag: "Tūī are boisterous, medium-sized, common and widespread bird of forest and suburbia – unless you live in Canterbury.",
+        bird_info: "Tūī are notoriously aggressive, and will defend a flowering or fruiting tree, or a small part of a large tree, from all-comers, whether another Tūī or another bird species. Their preferred diet is nectar and honeydew, and they will often shift to, or commute daily or more frequently to, good nectar sources, such as stands of puriri, kowhai, fuchsia, rewarewa, flax, rata, pohutukawa, gums and banksias. They sing a loud and complicated mix of tuneful notes interspersed with coughs, grunts and wheezes. In flight, Tūī maintain contact and harass raptors with a repetitive scream."
       },
       {
         id: 14,
-        bird_name: "Kakariki",
+        bird_name: "Kākāriki",
         bird_english_name: "Red-crowned parakeets",
         bird_img: "/images/kakariki.png",
         bird_rarity: "vulnerable",
@@ -146,17 +146,17 @@ exports.seed = (knex) =>
       },
       {
         id: 15,
-        bird_name: "Pukeko",
-        bird_english_name: "Pukeko",
+        bird_name: "Pūkeko",
+        bird_english_name: "Pūkeko",
         bird_img: "/images/pukeko.png",
         bird_rarity: "common",
         bird_nocturnal: false,
-        bird_tag: "The pūkeko is probably one of the most recognised native birds in New Zealand with its distinctive colourings and habit of feeding on the ground.",
-        bird_info: "Although they're not great flyers, they are good waders, swimmers and runners. Pūkeko are cooperative breeders, with multiple male and female birds often sharing a nest and responsibility for incubating eggs and raising chicks. Pukeko are very vocal with a variety of calls. Territorial ‘crowing’ is the loudest and most frequently heard call. A variety of contact calls including ‘’n’yip’, ‘hiccup’ and ‘squawk’ are used between adults, and between adults and chicks. Pukeko have a highly variable mating system. Birds may nest as monogamous pairs but can also form polyandrous, polygynandrous and, more rarely, polygynous groups. Any of these groups may also have non-breeding helpers."
+        bird_tag: "The Pūkeko is probably one of the most recognised native birds in New Zealand with its distinctive colourings and habit of feeding on the ground.",
+        bird_info: "Although they're not great flyers, they are good waders, swimmers and runners. Pūkeko are cooperative breeders, with multiple male and female birds often sharing a nest and responsibility for incubating eggs and raising chicks. Pūkeko are very vocal with a variety of calls. Territorial ‘crowing’ is the loudest and most frequently heard call. A variety of contact calls including ‘’n’yip’, ‘hiccup’ and ‘squawk’ are used between adults, and between adults and chicks. Pūkeko have a highly variable mating system. Birds may nest as monogamous pairs but can also form polyandrous, polygynandrous and, more rarely, polygynous groups. Any of these groups may also have non-breeding helpers."
       },
       {
         id: 16,
-        bird_name: "Karuhiruhi",
+        bird_name: "Kāruhiruhi",
         bird_english_name: "Pied Shag",
         bird_img: "/images/karuhiruhi.png",
         bird_rarity: "vulnerable",
