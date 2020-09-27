@@ -28,10 +28,7 @@ class Map extends React.Component {
   componentDidMount() {
     apiGetAllLocations()
    
-    // .then(locations => (this.props.dispatch(receiveLocations(locations))))
-    // console.log(locations)
-    .then(locations => { 
-      this.setState({locations: locations})})
+    .then(locations => this.props.saveLocations(locations))
     .catch((err) => console.log(err))
   }
 
@@ -132,13 +129,17 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     page: () => {
       dispatch(togglePage("list", 1))
+    },
+    saveLocations: (locations) => {
+      dispatch(saveLocations(locations))
     }
   }
 }
 
-const mapStateToProps = ({ auth }) => {
+const mapStateToProps = ({ auth, locations }) => {
   return {
     auth,
+    locations
   }
 }
 
