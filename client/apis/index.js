@@ -55,6 +55,14 @@ export function apiAddScrapbookEntry (user_id, bird_id) {
     .catch(errorHandler)
 }
 
+export function apiGetAllHabitats () {
+  return request
+    .get(apiUrl + '/habitats')
+    .set(prepHeaders())
+    .then(res => res.body)
+    .catch(errorHandler)
+}
+
 // Global error handler for front end api's
 function errorHandler (err) {
   console.error(err)

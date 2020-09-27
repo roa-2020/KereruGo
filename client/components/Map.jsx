@@ -7,7 +7,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import { logoutUser } from "../actions/auth";
 // import {  Link } from 'react-router-dom'
 import { apiGetAllLocations, apiAddScrapbookEntry } from "../apis/index";
-import { receiveLocations } from "../actions/locations";
+import { receiveLocations, removeLocations } from "../actions/locations";
 import { receiveBirdProfile } from "../actions/bird_profile";
 import NavLink from "./NavLink";
 import BirdProfile from "./BirdProfile";
@@ -48,21 +48,18 @@ class Map extends React.Component {
       this.setState({
         selectedLocation: location,
       })
-    );
-  };
+    )
+  }
 
-  closePopup = () => {
+  closePopup = (id) => {
     this.setState({
       selectedLocation: null,
-    });
-  };
+    })
+    console.log("Close Pop:", id )
+    this.props.removeLocations(id)
+  }
 
-  closePopup = () => {
-    this.setState({
-      selectedLocation: null,
-    });
-  };
-
+  
   render() {
     const { auth, logout, page } = this.props;
 
@@ -112,7 +109,7 @@ class Map extends React.Component {
                   {/* <Redirect to={`/bird/${this.state.selectedLocation.birdId}`}>Learn More</Redirect>  */}
                 </p>
                 <button
-                  onClick={this.closePopup}
+                  onClick={() => this.closePopup(this.state.selectedLocation.locId)}
                   className="button is-small is-rounded"
                 >
                   Close
@@ -144,6 +141,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     saveLocations: (locations) => {
       dispatch(receiveLocations(locations))
+    },
+    removeLocations: (locId) => {
+      dispatch(removeLocations(locId))
     }
   }
 }
