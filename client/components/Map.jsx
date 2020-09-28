@@ -19,7 +19,7 @@ class Map extends React.Component {
       longitude: 174.7752685546875,
       width: "100%",
       height: "100%",
-      zoom: 15,
+      zoom: 30,
     },
     locations: [],
     selectedLocation: null,
