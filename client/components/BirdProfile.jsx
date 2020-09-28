@@ -31,13 +31,13 @@ class BirdProfile extends React.Component {
     const bird = this.state.bird;
     let rarityIcon = ''
       if(this.state.bird.birdRarity == 'common'){
-      rarityIcon = <i className="fas fa-smile"></i>
+      rarityIcon = <i className="fas fa-smile mb-3"></i>
     } else if (bird.birdRarity == 'vulnerable'){
-      rarityIcon = <i className="fas fa-meh"></i>
+      rarityIcon = <i className="fas fa-meh mb-3"></i>
     } else if (bird.birdRarity == 'extinct'){
-      rarityIcon = <i className="fas fa-grimace"></i>
+      rarityIcon = <i className="fas fa-grimace mb-3"></i>
     } else {
-      rarityIcon = <i className="fas fa-frown"></i>
+      rarityIcon = <i className="fas fa-frown mb-3"></i>
     } 
 
     return (
@@ -57,9 +57,9 @@ class BirdProfile extends React.Component {
               <h2 className="subtitle is-5 has-text-centered is-italic has-text-weight-light">
                 {bird.birdEnglishName}
               </h2>
-              <div className="birdIcons">
+              <div className="birdIcons mb-4">
                 <div className="icon-group">
-                  {bird.birdNocturnal === 0 ? <i className="fas fa-sun"></i> : <i class="fas fa-moon"></i>}
+                  {bird.birdNocturnal === 0 ? <i className="fas fa-sun mb-3"></i> : <i class="fas fa-moon mb-3"></i>}
                   <p>AM/PM</p>
                 </div>
                 <div className="icon-group">
@@ -67,7 +67,7 @@ class BirdProfile extends React.Component {
                   <p>Rarity</p>
                 </div>
                 <div className="icon-group">
-                  <i className="fab fa-pagelines"></i>
+                  <i className="fab fa-pagelines mb-3"></i>
                   <p>Habitat</p>
                 </div>
               </div>
