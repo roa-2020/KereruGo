@@ -93,8 +93,8 @@ class Map extends React.Component {
 
           {this.state.selectedLocation !== null ? (
             <Popup
-              latitude={this.state.selectedLocation.lat}
-              longitude={this.state.selectedLocation.long}
+              latitude={Number(this.state.selectedLocation.lat)}
+              longitude={Number(this.state.selectedLocation.long)}
               //  onClose={this.closePopup}
             >
               <div>
