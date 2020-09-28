@@ -24,6 +24,7 @@ class Login extends React.Component {
     const {auth} = this.props
     return (
       <>
+      <div className="card is-centered mx-4">
       <form className="form box" onSubmit={this.handleSubmit}>
         <h1 className="title is-2">Login</h1>
         <hr />
@@ -39,6 +40,7 @@ class Login extends React.Component {
 
       <div className="login-redirect">
         <p>Not a registered user?</p> <Link to='/register'>Register here</Link>
+      </div>
       </div>
       </>
     )
