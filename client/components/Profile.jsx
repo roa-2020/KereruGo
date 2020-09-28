@@ -16,8 +16,7 @@ class Profile extends React.Component {
     apiGetUserScrapbook(this.props.auth.user.id).then((scrapbook) => {
       this.props.dispatch(receiveScrapbook(scrapbook));
       const total = scrapbook.length;
-      const found = scrapbook.filter((entry) => entry.birdName !== "???")
-        .length;
+      const found = scrapbook.filter((entry) => entry.birdName !== "Unknown").length;
       this.props.dispatch(saveProgress(found, total));
     });
   }
