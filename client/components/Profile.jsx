@@ -62,6 +62,16 @@ class Profile extends React.Component {
                 {this.props.progress.totalBirds}
               </span>
             </div>
+            {/* <div className="progress">
+              <progress
+                max={this.props.progress.totalBirds}
+                value={this.props.progress.foundCount}
+              ></progress>
+              <span className="value">
+                {this.props.progress.foundCount} /{" "}
+                {this.props.progress.totalBirds}
+              </span>
+            </div> */}
             {/* <h5 className="has-text-centered">{userInfo.username}'s Badges</h5> */}
           </div>
           {/* <div className="image-container"></div> */}
