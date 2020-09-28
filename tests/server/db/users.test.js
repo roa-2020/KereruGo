@@ -1,4 +1,4 @@
-const testDb = require('./connection')
+const testDb = require('../../../server/db/connection')
 const users = require('../../../server/db/users')
 
 beforeAll(() => {

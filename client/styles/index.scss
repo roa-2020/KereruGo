@@ -55,6 +55,12 @@ a.navbar-item.is-active,
   border-radius: 15px;
   background-color: rgb(246, 255, 206);
 
+  &.auth {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
   &.scrollable {
     overflow-y: scroll;
 
@@ -83,6 +89,77 @@ a.navbar-item.is-active,
         transparent 75%,
         transparent
       );
+    }
+  }
+}
+
+.authForm {
+  width: 90%;
+  margin: 0 auto;
+
+  .columns {
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @media screen and (min-width: 840px) {
+      flex-direction: row;
+      input:nth-of-type(2) {
+        margin-left: 1em;
+      }
+    }
+  }
+
+  input {
+    font-family: inherit;
+    margin-bottom: 1em;
+    border-radius: 15px;
+    background-color: $card-bg;
+    color: $bg-color;
+
+    &::placeholder {
+      color: $bg-color-transparent;
+    }
+
+    &.button {
+      border: solid 1px $color-semi-transparent;
+      background-color: $color-semi-transparent;
+      color: $light-color;
+      font-weight: bold;
+      &:hover,
+      &:active {
+        background-color: $color-mostly-transparent;
+        color: $light-color;
+      }
+    }
+  }
+}
+
+.redirect {
+  
+  text-align: center;
+  font-size: 0.9em;
+  place-self: center;
+  margin-bottom: 2em;
+  
+
+  a {
+    display: block;
+    background-color: $color-mostly-transparent;
+    border: solid 1px $color-semi-transparent;
+    border-radius: 15px;
+    color: $light-color;
+    padding: 0.5em;
+
+    &:hover, &:active {
+      opacity: 0.8;
+    }
+
+    p {
+      padding: 0em;
+      margin: 0px !important;
     }
   }
 }
@@ -164,10 +241,6 @@ h1.has-text-white {
 .button {
   text-transform: uppercase;
 }
-.login-redirect,
-.register-redirect {
-  text-align: center;
-}
 
 .navigation {
   display: flex;
@@ -175,12 +248,7 @@ h1.has-text-white {
   place-items: center;
   justify-content: center;
   width: auto;
-  background-image: linear-gradient(
-      rgba(121, 38, 5, 0.404),
-      rgba(121, 38, 5, 0.404)
-    ),
-    url('/images/navImage.jpg');
-  background-size: cover;
+
   a {
     width: 100px;
     padding: 0.5em;
@@ -412,3 +480,11 @@ a {
 //     padding-top: 0px;
 //   }
 // }
+.birdBackground {
+  background-image: linear-gradient(
+      rgba(121, 38, 5, 0.404),
+      rgba(121, 38, 5, 0.404)
+    ),
+    url('/images/navImage.jpg');
+  background-size: cover;
+}
