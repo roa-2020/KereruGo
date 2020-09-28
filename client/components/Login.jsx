@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {loginUser, loginError} from '../actions/auth'
-import { HashRouter as Router, Route, Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 class Login extends React.Component {
   state = {
@@ -16,7 +16,7 @@ class Login extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     let {username, password} = this.state
-    console.log(this.state)
+    // console.log(this.state)
     const confirmSuccess = () => { this.props.history.push('/map') }
     this.props.dispatch(loginUser({username, password}, confirmSuccess))
   }
@@ -24,6 +24,7 @@ class Login extends React.Component {
     const {auth} = this.props
     return (
       <>
+      <div className="card is-centered mx-4">
       <form className="form box" onSubmit={this.handleSubmit}>
         <h1 className="title is-2">Login</h1>
         <hr />
@@ -39,6 +40,7 @@ class Login extends React.Component {
 
       <div className="login-redirect">
         <p>Not a registered user?</p> <Link to='/register'>Register here</Link>
+      </div>
       </div>
       </>
     )

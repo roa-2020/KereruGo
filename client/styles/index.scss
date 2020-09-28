@@ -1,21 +1,21 @@
 @charset "utf-8";
 
 // Import a Google Font
-@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700");
 
 // Import custom variables and Bulma overides
-@import './variables.scss';
+@import "./variables.scss";
 
 // Import only what you need from Bulma
-@import 'bulma/sass/utilities/_all.sass';
-@import 'bulma/sass/base/_all.sass';
-@import 'bulma/sass/elements/button.sass';
-@import 'bulma/sass/elements/container.sass';
-@import 'bulma/sass/elements/title.sass';
-@import 'bulma/sass/form/_all.sass';
-@import 'bulma/sass/components/navbar.sass';
-@import 'bulma/sass/layout/hero.sass';
-@import 'bulma/sass/layout/section.sass';
+@import "../../node_modules/bulma/sass/utilities/_all.sass";
+@import "../../node_modules/bulma/sass/base/_all.sass";
+@import "../../node_modules/bulma/sass/elements/button.sass";
+@import "../../node_modules/bulma/sass/elements/container.sass";
+@import "../../node_modules/bulma/sass/elements/title.sass";
+@import "../../node_modules/bulma/sass/form/_all.sass";
+@import "../../node_modules/bulma/sass/components/navbar.sass";
+@import "../../node_modules/bulma/sass/layout/hero.sass";
+@import "../../node_modules/bulma/sass/layout/section.sass";
 
 // Fix for transparent background on active nav items
 a.navbar-item:focus,
@@ -29,31 +29,307 @@ a.navbar-item.is-active,
   background-color: inherit;
 }
 
-* {
+*,
+#app {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  
 }
 
-#scrapbook {
+#app {
+  height: 100%;
+  width: 100%;
+  background-color: $bg-color;
+}
+
+#body-content {
   height: 100vh;
   width: 100vw;
 }
 
 .card {
+  position: relative;
   min-height: 90vh;
+  height: 90vh;
+  max-height: 90.1vh;
   border-radius: 15px;
+  // background-color: #7e8055;
+  background-color: rgb(238, 255, 206);
+
+
+  @media screen and (max-width: 600px) {
+    &.scrollable {
+      overflow-y: scroll;
+
+      &::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        background-color: rgba(255, 255, 255, 0);
+        margin: 1em 0px;
+        border-radius: 10px;
+      }
+
+      &::-webkit-scrollbar {
+        width: 10px;
+        background-color: rgba(255, 255, 255, 0);
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $color-mostly-transparent;
+        border-radius: 10px;
+        background-image: -webkit-linear-gradient(
+          0deg,
+          rgba(255, 255, 255, 0.5) 25%,
+          transparent 25%,
+          transparent 50%,
+          rgba(255, 255, 255, 0.5) 50%,
+          rgba(255, 255, 255, 0.5) 75%,
+          transparent 75%,
+          transparent
+        );
+      }
+    }
+  }
+}
+
+h1.has-text-white {
+  color: white;
+  font-style: italic;
+
+  a {
+    color: inherit;
+  }
+}
+
+.image-container {
+  width: 115px;
+  height: 115px;
+  place-content: center;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5em;
 }
 
 .img {
-  border-radius: 100%;
-}
-.birds {
-  width: 50%;
+  max-width: 115px;
+  max-height: 115px;
 }
 
-.flex-wrap-columns {
+.birds {
   display: flex;
   flex-wrap: wrap;
+  padding: 0.5em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  justify-content: space-evenly;
+}
+
+.scrapbook-entry {
+  display: grid;
+  place-items: center;
+  position: relative;
+  cursor: pointer;
+  margin: 0.5em;
+  padding: 0.5em;
+  border: solid 1px lightgrey;
+  border-radius: 1em;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  background-color: rgba(225, 225, 225, 0.6);
+
+  &:hover {
+    background-color: #dedede;
+  }
+}
+
+.bird-profile-img {
+  display: flex;
+  width: 300px;
+  height: 300px;
+  justify-content: center;
+  margin: 1em auto;
+  img {
+    max-width: 300px;
+    max-height: 300px;
+  }
+}
+.birdDetails {
+  padding: 1em;
+}
+// .mapboxgl-map button {
+//   display: block;
+//   width: 2em !important;
+// }
+.buttons {
+  margin-top: 1em;
+  justify-content: space-around;
+}
+.button {
+  text-transform: uppercase;
+}
+.login-redirect,
+.register-redirect {
+  text-align: center;
+}
+
+.navigation {
+  display: flex;
   flex-direction: column;
+  place-items: center;
+  justify-content: center;
+  width: auto;
+  background-image: linear-gradient(
+      rgba(121, 38, 5, 0.404),
+      rgba(121, 38, 5, 0.404)
+    ),
+    url("/images/navImage.jpg");
+    background-size: cover;
+  a {
+    width: 100px;
+    padding: 0.5em;
+    border-radius: 10px;
+    border: solid 1px $color-semi-transparent;
+    background-color: $color-semi-transparent;
+    margin: 1em;
+    text-align: center;
+    color: $light-color;
+  }
+}
+
+.navLink {
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 50px;
+  bottom: 20px;
+  left: 50%;
+  z-index: 2;
+  background-color: $color-semi-transparent;
+  border-radius: 50%;
+
+  box-sizing: content-box;
+  transform: translateX(-50%);
+
+  &.inline {
+    position: relative;
+  }
+
+  a {
+    display: block;
+    width: 50px;
+    height: 50px;
+    font-size: 2em;
+    text-align: center;
+    line-height: 50px;
+    color: $light-color;
+    padding: 0px;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    margin: 0px;
+  }
+}
+
+a {
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.marker-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.marker-btn img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%)
+}
+
+.mapboxgl-popup-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -25vh;
+  margin-left: -25vw;
+  width: 75vw;
+  height: 50vh;
+  background: #fff;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  padding: 10px 10px 15px;
+  pointer-events: auto;
+}
+
+.progress {
+  display: flex;
+  position: relative;
+  height: auto;
+  justify-content: center;
+
+  progress {
+    background-color: #f3f3f3;
+    border: solid 1px $color-semi-transparent;
+    height: 50px;
+    width: 50%;
+    min-width: 200px;
+    border-radius: 1em;
+
+    &::-webkit-progress-bar {
+      background-color: #f3f3f3;
+      border: solid 1px $color-semi-transparent;
+      border-radius: 1em;
+    }
+
+    &::-webkit-progress-value {
+      background-color: $color-semi-transparent;
+      border-radius: 1em;
+    }
+  }
+
+  .value {
+    position: absolute;
+    font-size: 2em;
+    font-weight: bold;
+    height: 50px;
+    line-height: 50px;
+  }
+}
+
+.capitalized {
+  text-transform: capitalize;
+}
+
+.mapboxgl-popup-content {
+  div {
+    img {
+      width: 200px;
+      height: auto;
+    }
+  }
+}
+
+.content h1.birdName {
+  border-bottom: solid 1px lightgrey;
+  margin-bottom: 0px;
+}
+.subtitle {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.4em;
+  font-weight: bold;
+  p {
+    margin-top: 0px;
+    padding-top: 0px;
+  }
+}
+
+.mapboxgl-popup-close-button {
+  display: none;
 }

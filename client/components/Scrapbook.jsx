@@ -1,51 +1,52 @@
 import React from "react";
+import { connect } from "react-redux";
+import { HashRouter as Router, Link } from "react-router-dom";
 import { apiGetUserScrapbook } from "../apis/index";
+import { receiveScrapbook } from "../actions/scrapbook";
+import BackLink from './BackLink'
 
 class Scrapbook extends React.Component {
-  state = {
-    birds: [],
-  };
-
   componentDidMount() {
-    apiGetUserScrapbook(1).then((birds) => {
-      console.log(birds);
-      this.setState({
-        birds: birds,
-      });
-    });
+    apiGetUserScrapbook(this.props.auth.user.id).then((scrapbook) =>
+      this.props.dispatch(receiveScrapbook(scrapbook))
+    );
   }
 
   render() {
     return (
-      <>
-        <div
-          id="scrapbook"
-          className="container content is-full has-background-primary"
-        >
-          <h1 className="has-text-white pt-3 has-text-centered">
-            <i>Kereru Go!</i>
-          </h1>
-          <div className="card mx-4">
-            <h2 className="has-text-centered pt-4">SCRAPBOOK</h2>
-            <div className="columns">
-              {this.state.birds.map((item) => {
-                return (
-                  <div key={item.birdId} className="birds column is-half">
+      <div className='card is-centered mx-4 scrollable scrapbook'>
+        <h2 className="has-text-centered pt-4">SCRAPBOOK</h2>
+        <div className="birds">
+          {this.props.scrapbook.map((item) => {
+            return (
+              <Link key={item.birdId} to={`/bird/${item.birdId}`}>
+                <div className="scrapbook-entry">
+                  <div className="image-container">
                     <img
                       className="img"
-                      src="https://via.placeholder.com/100"
+                      src={`${item.birdImg}`}
                       alt={`${item.birdName}`}
                     />
-                    <h3>{item.birdName}</h3>
                   </div>
-                );
-              })}
-            </div>
-          </div>
+                  <h5 className="has-text-centered">{item.birdName}</h5>
+                </div>
+              </Link>
+            );
+          })}
         </div>
-      </>
+        <BackLink
+        inline='inline'
+          action={() => {
+            this.props.history.goBack();
+          }}
+        />
+      </div>
     );
   }
 }
 
-export default Scrapbook;
+function mapStateToProps(globalState) {
+  return { auth: globalState.auth, scrapbook: globalState.scrapbook };
+}
+
+export default connect(mapStateToProps)(Scrapbook);

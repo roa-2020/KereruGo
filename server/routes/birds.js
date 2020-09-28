@@ -73,16 +73,35 @@ function getBird (req, res) {
 function getLocations (req, res) {
   return getBirdCount().then(({ count }) => {
     return getAllLocations().then(locations => {
-      const sanitized = locations.map((location, i) => {
-        return {
-          locId: location.id,
-          lat: location.latitude,
-          long: location.longitude,
-          birdId: generateRandomBirdID(count)
-        }
+      const fetchBirds = async (locations) => {
+        const birds = locations.map(() => {
+              return getBirdById(generateRandomBirdID(count))
+                .then((bird) => {
+                return bird
+                })
+            })
+        return Promise.all(birds)
+      }
+      fetchBirds(locations)
+        .then(birds => {
+          const sanitized = locations.map((location, i) => {
+            return ({
+              locId: location.id,
+              lat: location.latitude,
+              long: location.longitude,
+              birdId: birds[i].id,
+              birdName: birds[i].bird_name,
+              birdEnglishName: birds[i].bird_english_name,
+              birdImg: birds[i].bird_img,
+              birdRarity: birds[i].bird_rarity,
+              birdNocturnal: birds[i].bird_nocturnal,
+              birdTag: birds[i].bird_tag,
+              birdInfo: birds[i].bird_info
+            })
+          })
+          res.json(sanitized)
+        })
       })
-      return res.json(sanitized)
-    })
   })
 }
 
@@ -109,9 +128,9 @@ function getScrapbook (req, res) {
           } else {
             return {
               birdId: bird.id,
-              birdName: '???',
-              birdImg: '/image/mystery-bird.png',
-              birdHint: 'Look in that bush over there!'
+              birdName: 'Unknown',
+              birdImg: '/images/mystery-bird.png',
+              birdTag: 'Look in that bush over there!'
             }
           }
         })

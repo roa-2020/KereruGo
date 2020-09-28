@@ -1,51 +1,62 @@
-import React from 'react'
+import React from "react";
 import "bulma/css/bulma.css";
-import { HashRouter as Router, Route, Link, Redirect } from 'react-router-dom'
-import {connect} from 'react-redux'
-import Nav from './Nav'
-import Home from './Home'
-import Login from './Login'
-import Register from './Register'
-import BirdProfile from './BirdProfile'
-import Map from './Map'
-import Scrapbook from './Scrapbook'
+import { HashRouter as Router, Route, Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import Nav from "./Nav";
+import Home from "./Home";
+import Login from "./Login";
+import Register from "./Register";
+import BirdProfile from "./BirdProfile";
+import Profile from "./Profile";
+import Map from "./Map";
+import Scrapbook from "./Scrapbook";
 
-import { checkAuth } from '../actions/auth'
+import { checkAuth } from "../actions/auth";
 
 export class App extends React.Component {
   componentDidMount() {
-    const confirmSuccess = () => { }
-    this.props.dispatch(checkAuth(confirmSuccess))
+    const confirmSuccess = () => {};
+    this.props.dispatch(checkAuth(confirmSuccess));
   }
 
   render() {
-    const { auth } = this.props
+    const { auth } = this.props;
     return (
       <>
         <Router>
-          <div className="bodyContent">
-            {auth.isAuthenticated ? (
-              <Redirect to = '/map'/>
-            ) : (
-              <Redirect to = '/' />
-            )}
-            <Route exact path="/" component={Home} />
-            <Route path="/map" component={Map} />
+          <div
+            id="body-content"
+            className="container content is-full"
+          >
+            <h1 className="has-text-white pt-3 has-text-centered">
+              <Link to="/">KererūGo</Link>
+            </h1>
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
-            {/* <Route path="/birdprofile" component={BirdProfile} /> */}
-            <Route path="/scrapbook" component={Scrapbook} />
-          </div>  
+            <Route path="/nav" component={Nav} />
+            {auth.isAuthenticated && (
+              <>
+                <Route exact path="/" component={Map} />
+                <Route path="/map" component={Map} />
+                <Route path="/bird/:id" component={BirdProfile} />
+                <Route path="/scrapbook" component={Scrapbook} />
+                <Route path="/profile" component={Profile} />
+              </>
+            )}
+            {!auth.isAuthenticated && <Route exact path="/" component={Nav} />}
+          </div>
         </Router>
       </>
-    )
+    );
   }
 }
 
-const mapStateToProps = ({auth}) => {
+const mapStateToProps = (globalState) => {
   return {
-    auth
-  }
-}
+    auth: globalState.auth,
+    Scrapbook: globalState.Scrapbook,
+    BirdProfile: globalState.BirdProfile,
+  };
+};
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps)(App);
