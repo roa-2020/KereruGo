@@ -80,8 +80,8 @@ class Map extends React.Component {
               <Marker
                 className="marker-btn"
                 key={location.locId}
-                latitude={location.lat}
-                longitude={location.long}
+                latitude={Number(location.lat)}
+                longitude={Number(location.long)}
               >
                 <img
                   src="/images/mystery-bird.png"
@@ -93,8 +93,8 @@ class Map extends React.Component {
 
           {this.state.selectedLocation !== null ? (
             <Popup
-              latitude={this.state.selectedLocation.lat}
-              longitude={this.state.selectedLocation.long}
+              latitude={Number(this.state.selectedLocation.lat)}
+              longitude={Number(this.state.selectedLocation.long)}
               //  onClose={this.closePopup}
             >
               <div>
