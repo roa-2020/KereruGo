@@ -14,7 +14,7 @@ class Scrapbook extends React.Component {
 
   render() {
     return (
-      <div className='card is-centered mx-4 scrollable'>
+      <div className='card is-centered mx-4 scrollable scrapbook'>
         <h2 className="has-text-centered pt-4">SCRAPBOOK</h2>
         <div className="birds">
           {this.props.scrapbook.map((item) => {

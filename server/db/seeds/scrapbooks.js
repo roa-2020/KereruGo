@@ -11,5 +11,4 @@ exports.seed = (knex) =>
       {user_id: 1, bird_id: 3},
       {user_id: 1, bird_id: 4},
       {user_id: 1, bird_id: 6},
-      {user_id: 2, bird_id: 1}
     ]));
