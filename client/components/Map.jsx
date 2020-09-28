@@ -74,6 +74,8 @@ class Map extends React.Component {
           }
           mapStyle="mapbox://styles/meetjohngray/ckfk9geqz34xv19po854t66dz"
           onViewportChange={this.viewportChange}
+          width="100%"
+          height="100%"
         >
           {this.props.locations.map((location) => {
             return (
