@@ -153,9 +153,11 @@ h1.has-text-white {
     max-height: 300px;
   }
 }
+
 .birdDetails {
   padding: 1em;
 }
+
 // .mapboxgl-map button {
 //   display: block;
 //   width: 2em !important;
@@ -315,21 +317,33 @@ a {
   }
 }
 
-.content h1.birdName {
-  border-bottom: solid 1px lightgrey;
-  margin-bottom: 0px;
-}
-.subtitle {
+.birdIcons {
+  height: 4rem;
   display: flex;
-  justify-content: space-between;
-  font-size: 1.4em;
-  font-weight: bold;
-  p {
-    margin-top: 0px;
-    padding-top: 0px;
+  align-items: center;
+  justify-content: space-around;
+  i {
+    font-size: 2rem;
   }
 }
 
-.mapboxgl-popup-close-button {
-  display: none;
+.icon-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+// .content h1.birdName {
+//   border-bottom: solid 1px lightgrey;
+//   margin-bottom: 0px;
+// }
+// .subtitle {
+//   display: flex;
+//   justify-content: space-between;
+//   font-size: 1.4em;
+//   font-weight: bold;
+//   p {
+//     margin-top: 0px;
+//     padding-top: 0px;
+//   }
+// }
