@@ -72,6 +72,14 @@ export function apiCurrentCount (userId, badgeId) {
   .catch(errorHandler)
 }
 
+export function apiGetUserBadges (userId) {
+  return request
+  .get(apiUrl + '/badges/' + userId)
+  .set(prepHeaders())
+  .then(res => res.body)
+  .catch(errorHandler)
+}
+
 // Global error handler for front end api's
 function errorHandler (err) {
   console.error(err)

@@ -20,7 +20,8 @@ router.get('/bird/:id', getTokenDecoder(), getBird)
 router.get('/locations', getTokenDecoder(), getLocations)
 router.get('/scrapbook/:id', getTokenDecoder(), getScrapbook)
 router.post('/scrapbook', getTokenDecoder(), addEntry)
-router.post('/badges/:id', getTokenDecoder(), getBadges)
+router.post('/badges/:id', getTokenDecoder(), addCurrentCount)
+router.get('/badges/:id', getTokenDecoder(), getBadges)
 
 router.use(errorHandler)
 
@@ -142,7 +143,7 @@ function getScrapbook(req, res) {
   })
 }
 
-function getBadges(req, res) {
+function addCurrentCount(req, res) {
 
   const user_id = parseInt(req.params.id)
   const badgeId = req.body.badgeId
@@ -151,31 +152,50 @@ function getBadges(req, res) {
     .then(badges => {
       badges.filter(badge => badge.badge_id == badgeId)
       const badge = badges[0]
-      console.log('this is badge', badge)
 
 
       if (badge) {
         const newCount = badge.current_count + 1
-        console.log('this is new count', newCount, badge)
 
         return addToCount(newCount, badge.id)
-        .then(res.send('add1'))
+          .then(res.send('add1'))
 
       } else {
-        console.log('this is else')
+
         const newBadge = {
           user_id: user_id,
           badge_id: 1,
           current_count: 1
         }
         return addBadge(newBadge)
-        .then(res.send('addbadge'))
+          .then(res.send('addbadge'))
       }
 
     })
     .catch(errorHandler)
 }
 
+function getBadges(req, res) {
+  const user_id = parseInt(req.params.id)
+  return getUserBadges(user_id)
+    .then(badges => {
+      const sanitized = badges.map(badge => {
+        return {
+          badgeId: badge.id,
+          badgeName: badge.badge_name,
+          badgeTag: badge.badge_tag,
+          badgeBronze: badge.badge_bronze,
+          badgeSilver: badge.badge_silver,
+          badgeGold: badge.badge_gold,
+          bronzeReq: badge.bronze_req,
+          silverReq: badge.silver_req,
+          goldReq: badge.gold_req,
+          currentCount: badge.current_count
+        }
+      })
+      return res.json(sanitized)
+    })
+}
 
 
 function addEntry(req, res) {

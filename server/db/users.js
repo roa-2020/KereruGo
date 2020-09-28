@@ -24,9 +24,9 @@ function getUserByUsername (username, db = connection) {
 }
 
 function getUserBadges (user_id, db = connection) {
-  return db('badges_users')
-  .where('user_id', user_id)
-  .select()
+  return db('badges')
+  .join('badges_users', 'badges.id', 'badges_users.badge_id')
+  .where('badges_users.user_id', user_id)
 }
 
 function addToCount (newCount, id, db = connection) {
