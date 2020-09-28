@@ -17,8 +17,8 @@ class Map extends React.Component {
     viewport: {
       latitude: -41.294105529785156,
       longitude: 174.7752685546875,
-      width: "100%",
-      height: "100%",
+      width: 100,
+      height: 100,
       zoom: 30,
     },
     locations: [],
@@ -74,8 +74,6 @@ class Map extends React.Component {
           }
           mapStyle="mapbox://styles/meetjohngray/ckfk9geqz34xv19po854t66dz"
           onViewportChange={this.viewportChange}
-          width="100%"
-          height="100%"
         >
           {this.props.locations.map((location) => {
             return (
