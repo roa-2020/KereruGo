@@ -2,8 +2,8 @@
 exports.up = function(knex) {
   return knex.schema.createTable('locations', table => {
       table.increments('id').primary()
-      table.decimal('latitude', 10,8)
-      table.decimal('longitude', 10,8)
+      table.decimal('latitude', 12,8)
+      table.decimal('longitude', 12,8)
   })
 };
 
