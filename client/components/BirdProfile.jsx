@@ -59,7 +59,7 @@ class BirdProfile extends React.Component {
               </h2>
               <div className="birdIcons mb-4">
                 <div className="icon-group">
-                  {bird.birdNocturnal === 0 ? <i className="fas fa-sun mb-3"></i> : <i class="fas fa-moon mb-3"></i>}
+                  {bird.birdNocturnal === 0 ? <i className="fas fa-sun mb-3"></i> : <i className="fas fa-moon mb-3"></i>}
                   <p>AM/PM</p>
                 </div>
                  <div className="icon-group">
