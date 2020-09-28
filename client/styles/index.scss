@@ -1,21 +1,21 @@
 @charset "utf-8";
 
 // Import a Google Font
-@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700");
 
 // Import custom variables and Bulma overides
-@import './variables.scss';
+@import "./variables.scss";
 
 // Import only what you need from Bulma
-@import '../../node_modules/bulma/sass/utilities/_all.sass';
-@import '../../node_modules/bulma/sass/base/_all.sass';
-@import '../../node_modules/bulma/sass/elements/button.sass';
-@import '../../node_modules/bulma/sass/elements/container.sass';
-@import '../../node_modules/bulma/sass/elements/title.sass';
-@import '../../node_modules/bulma/sass/form/_all.sass';
-@import '../../node_modules/bulma/sass/components/navbar.sass';
-@import '../../node_modules/bulma/sass/layout/hero.sass';
-@import '../../node_modules/bulma/sass/layout/section.sass';
+@import "../../node_modules/bulma/sass/utilities/_all.sass";
+@import "../../node_modules/bulma/sass/base/_all.sass";
+@import "../../node_modules/bulma/sass/elements/button.sass";
+@import "../../node_modules/bulma/sass/elements/container.sass";
+@import "../../node_modules/bulma/sass/elements/title.sass";
+@import "../../node_modules/bulma/sass/form/_all.sass";
+@import "../../node_modules/bulma/sass/components/navbar.sass";
+@import "../../node_modules/bulma/sass/layout/hero.sass";
+@import "../../node_modules/bulma/sass/layout/section.sass";
 
 // Fix for transparent background on active nav items
 a.navbar-item:focus,
@@ -52,7 +52,6 @@ a.navbar-item.is-active,
   height: 90vh;
   max-height: 90.1vh;
   border-radius: 15px;
-  
 
   @media screen and (max-width: 600px) {
     &.scrollable {
@@ -95,7 +94,6 @@ h1.has-text-white {
   a {
     color: inherit;
   }
-  
 }
 
 .image-container {
@@ -103,7 +101,6 @@ h1.has-text-white {
   height: 115px;
   place-content: center;
   border-radius: 50%;
-  border: solid 4px $color-semi-transparent;
   display: flex;
   align-items: center;
   margin-bottom: 0.5em;
@@ -132,19 +129,17 @@ h1.has-text-white {
   padding: 0.5em;
   border: solid 1px lightgrey;
   border-radius: 1em;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 
   &:hover {
     background-color: #dedede;
   }
 }
 
-
 .bird-profile-img {
   display: flex;
   width: 300px;
   height: 300px;
-  border-radius: 100%;
-  border: solid 4px $color-semi-transparent;
   justify-content: center;
   margin: 1em auto;
   img {
@@ -177,6 +172,11 @@ h1.has-text-white {
   place-items: center;
   justify-content: center;
   width: auto;
+  background-image: linear-gradient(
+      rgba(121, 38, 5, 0.404),
+      rgba(121, 38, 5, 0.404)
+    ),
+    url("/images/navImage.jpg");
 
   a {
     width: 200px;
@@ -220,7 +220,6 @@ h1.has-text-white {
     background-color: rgba(255, 255, 255, 0);
     border: none;
     margin: 0px;
-   
   }
 }
 
@@ -237,7 +236,7 @@ a {
 .marker-btn {
   background: none;
   border: none;
-  cursor: pointer
+  cursor: pointer;
 }
 
 .marker-btn img {
@@ -303,7 +302,7 @@ a {
 .mapboxgl-popup-content {
   div {
     img {
-      width: 200px; 
+      width: 200px;
       height: auto;
     }
   }
