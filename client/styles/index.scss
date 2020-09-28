@@ -143,8 +143,6 @@ h1.has-text-white {
   display: flex;
   width: 300px;
   height: 300px;
-  border-radius: 100%;
-  border: solid 4px $color-semi-transparent;
   justify-content: center;
   margin: 1em auto;
   img {
@@ -152,6 +150,7 @@ h1.has-text-white {
     max-height: 300px;
   }
 }
+
 .birdDetails {
   padding: 1em;
 }
@@ -309,17 +308,17 @@ a {
   }
 }
 
-.content h1.birdName {
-  border-bottom: solid 1px lightgrey;
-  margin-bottom: 0px;
-}
-.subtitle {
-  display: flex;
-  justify-content: space-between;
-  font-size: 1.4em;
-  font-weight: bold;
-  p {
-    margin-top: 0px;
-    padding-top: 0px;
-  }
-}
+// .content h1.birdName {
+//   border-bottom: solid 1px lightgrey;
+//   margin-bottom: 0px;
+// }
+// .subtitle {
+//   display: flex;
+//   justify-content: space-between;
+//   font-size: 1.4em;
+//   font-weight: bold;
+//   p {
+//     margin-top: 0px;
+//     padding-top: 0px;
+//   }
+// }

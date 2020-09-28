@@ -32,18 +32,23 @@ class BirdProfile extends React.Component {
     return (
       <div className="card is-centered mx-4 scrollable">
         {this.state.bird && (
-          <>
+            <>
             <div className="bird-profile-img">
               <img
                 src={this.state.bird.birdImg && this.state.bird.birdImg}
-                alt="Image of bird"
-              ></img>
+                alt="Image of bird">
+              </img>
             </div>
             <div className="birdDetails">
-              <h1 className="birdName has-text-centered capitalized">
+              <h1 className="birdName title is-3 has-text-centered is-capitalized">
                 {bird.birdName && bird.birdName}
               </h1>
-              <div className="subtitle">
+              <h2 className="subtitle is-5 has-text-centered is-italic has-text-weight-light">
+                {bird.birdEnglishName}
+              </h2>
+              <div className="birdIcons">
+              
+              {/* <div className="subtitle">
                 {bird.birdEnglishName && (
                   <p className="capitalized">
                     English Name: {bird.birdEnglishName}
@@ -56,12 +61,13 @@ class BirdProfile extends React.Component {
                   Active Period:{" "}
                   {bird.birdNocturnal === 0 ? "Daylight" : "Night"}
                 </p>
-              </div>
+              </div> */}
 
               <p className="birdTag"> {bird.birdTag && bird.birdTag}</p>
-              <p className="birdInfo"> {bird.birdInfo && bird.birdInfo}</p>
+              {/* <p className="birdInfo"> {bird.birdInfo && bird.birdInfo}</p> */}
             </div>
-          </>
+           </div>
+           </>
         )}
         <BackLink
         inline='inline'
