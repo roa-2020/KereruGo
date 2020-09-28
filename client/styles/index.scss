@@ -326,6 +326,13 @@ a {
     font-size: 2rem;
   }
 }
+
+.icon-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 // .content h1.birdName {
 //   border-bottom: solid 1px lightgrey;
 //   margin-bottom: 0px;

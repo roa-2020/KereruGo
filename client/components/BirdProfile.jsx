@@ -58,9 +58,18 @@ class BirdProfile extends React.Component {
                 {bird.birdEnglishName}
               </h2>
               <div className="birdIcons">
-                {bird.birdNocturnal === 0 ? <i className="fas fa-sun"></i> : <i class="fas fa-moon"></i>}
-                {rarityIcon}
-                <i className="fab fa-pagelines"></i>
+                <div className="icon-group">
+                  {bird.birdNocturnal === 0 ? <i className="fas fa-sun"></i> : <i class="fas fa-moon"></i>}
+                  <p>AM/PM</p>
+                </div>
+                <div className="icon-group">
+                  {rarityIcon}
+                  <p>Rarity</p>
+                </div>
+                <div className="icon-group">
+                  <i className="fab fa-pagelines"></i>
+                  <p>Habitat</p>
+                </div>
               </div>
               {/* <div className="subtitle">
                 {bird.birdEnglishName && (
