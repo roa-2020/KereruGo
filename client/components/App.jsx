@@ -11,17 +11,13 @@ import Profile from "./Profile";
 import Map from "./Map";
 import Scrapbook from "./Scrapbook";
 
-import { checkAuth, logoutUser } from "../actions/auth";
+import { checkAuth } from "../actions/auth";
 
 export class App extends React.Component {
   componentDidMount() {
     const confirmSuccess = () => {};
     this.props.dispatch(checkAuth(confirmSuccess));
   }
-  logout = () => {
-    const confirmSuccess = () => ownProps.history.push("/");
-    this.props.dispatch(logoutUser(confirmSuccess));
-  };
 
   render() {
     const { auth } = this.props;
@@ -30,25 +26,24 @@ export class App extends React.Component {
         <Router>
           <div
             id="body-content"
-            className="container content is-full has-background-primary"
+            className="container content is-full"
           >
             <h1 className="has-text-white pt-3 has-text-centered">
               <Link to="/">KererūGo</Link>
             </h1>
-              <Route path="/login" component={Login} />
-              <Route path="/register" component={Register} />
-              <Route path="/nav" component={Nav} />
-              {auth.isAuthenticated && (
-                <>
-                  <Route exact path="/" component={Map} />
-                  <Route path="/map" component={Map} />
-                  <Route path="/bird/:id" component={BirdProfile} />
-                  <Route path="/scrapbook" component={Scrapbook} />
-                  <Route path="/profile" component={Profile} />
-                </>
-              )}
-              {!auth.isAuthenticated && <Route exact path="/" component={Nav} />}
-            
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+            <Route path="/nav" component={Nav} />
+            {auth.isAuthenticated && (
+              <>
+                <Route exact path="/" component={Map} />
+                <Route path="/map" component={Map} />
+                <Route path="/bird/:id" component={BirdProfile} />
+                <Route path="/scrapbook" component={Scrapbook} />
+                <Route path="/profile" component={Profile} />
+              </>
+            )}
+            {!auth.isAuthenticated && <Route exact path="/" component={Nav} />}
           </div>
         </Router>
       </>

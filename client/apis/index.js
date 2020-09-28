@@ -55,6 +55,31 @@ export function apiAddScrapbookEntry (user_id, bird_id) {
     .catch(errorHandler)
 }
 
+export function apiGetAllHabitats () {
+  return request
+    .get(apiUrl + '/habitats')
+    .set(prepHeaders())
+    .then(res => res.body)
+    .catch(errorHandler)
+}
+
+export function apiCurrentCount (userId, badgeId) {
+  return request
+  .post(apiUrl + '/badges/' + userId)
+  .set(prepHeaders())
+  .send({userId: userId, badgeId: badgeId})
+  .then(res => res.body)
+  .catch(errorHandler)
+}
+
+export function apiGetUserBadges (userId) {
+  return request
+  .get(apiUrl + '/badges/' + userId)
+  .set(prepHeaders())
+  .then(res => res.body)
+  .catch(errorHandler)
+}
+
 // Global error handler for front end api's
 function errorHandler (err) {
   console.error(err)

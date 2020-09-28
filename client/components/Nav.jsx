@@ -10,16 +10,16 @@ class Nav extends React.Component {
   render() {
     const { auth, logout } = this.props;
     return (
-      <div className="card is-centered mx-4 navigation">
+      <div className="card is-centered mx-4 navigation birdBackground">
         {auth.isAuthenticated ? (
           <>
-            <Link to="/" onClick={() => logout()}>
-              Logout
-            </Link>
             <Link to="/map">Map</Link>
             <Link to="/scrapbook">Scrapbook</Link>
             <Link to="/profile">Profile</Link>
-            <a href="https://www.forestandbird.org.nz/projects/project-kereru-dunedin" target="_blank">Donate  <i className="fas fa-donate"></i></a>
+            <a href="https://www.visitzealandia.com/Donate" target="_blank">Donate  <i className="fas fa-donate"></i></a>
+            <Link to="/" onClick={() => logout()}>
+              Logout
+            </Link>
             <BackLink
               action={() => {
                 this.props.history.goBack();

@@ -6,8 +6,8 @@ import { connect } from "react-redux";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { logoutUser } from "../actions/auth";
 // import {  Link } from 'react-router-dom'
-import { apiGetAllLocations, apiAddScrapbookEntry } from "../apis/index";
-import { receiveLocations } from "../actions/locations";
+import { apiGetAllLocations, apiAddScrapbookEntry, apiCurrentCount } from "../apis/index";
+import { receiveLocations, removeLocations } from "../actions/locations";
 import { receiveBirdProfile } from "../actions/bird_profile";
 import NavLink from "./NavLink";
 import BirdProfile from "./BirdProfile";
@@ -19,7 +19,7 @@ class Map extends React.Component {
       longitude: 174.7752685546875,
       width: "100%",
       height: "100%",
-      zoom: 15,
+      zoom: 30,
     },
     locations: [],
     selectedLocation: null,
@@ -27,12 +27,10 @@ class Map extends React.Component {
   };
 
   componentDidMount() {
-    if (this.props.auth.isAuthenticated){
-    apiGetAllLocations()
-      .then((locations) => {
-        this.setState({ locations: locations });
-      })
-      .catch((err) => console.log(err));
+    if (this.props.auth.isAuthenticated) {
+      apiGetAllLocations()
+        .then((locations) => this.props.saveLocations(locations))
+        .catch((err) => console.log(err));
     }
   }
 
@@ -50,86 +48,86 @@ class Map extends React.Component {
       this.setState({
         selectedLocation: location,
       })
-    );
-  };
+    )
+    const badgeId = 1
+    apiCurrentCount(this.props.auth.user.id, badgeId)
+  }
 
-  closePopup = () => {
+  
+
+  closePopup = (id) => {
     this.setState({
       selectedLocation: null,
     });
-  };
-
-  closePopup = () => {
-    this.setState({
-      selectedLocation: null,
-    });
+    this.props.removeLocations(id);
   };
 
   render() {
     const { auth, logout, page } = this.props;
 
     return (
-      <div className="card is-centered mx-4">
-        <NavLink />
-
-        <ReactMapGL
-          {...this.state.viewport}
-          mapboxApiAccessToken={
-            "pk.eyJ1IjoibWVldGpvaG5ncmF5IiwiYSI6ImNrZWJ5amJoYzAxeG4zNWs5ankxdHh5MWwifQ.7-Lg9dp4OdYmLML1jy5CDw"
-          }
-          mapStyle="mapbox://styles/meetjohngray/ckfk9geqz34xv19po854t66dz"
-          onViewportChange={this.viewportChange}
-        >
-          {this.state.locations.map((location) => {
-            return (
-              <Marker
-                className="marker-btn"
-                key={location.locId}
-                latitude={location.lat}
-                longitude={location.long}
-              >
-                <img
-                  src="/images/mystery-bird.png"
-                  onClick={(e) => this.addToScrapbook(location)}
-                />
-              </Marker>
-            );
-          })}
-
-          {this.state.selectedLocation !== null ? (
-            <Popup
-              latitude={this.state.selectedLocation.lat}
-              longitude={this.state.selectedLocation.long}
-              //  onClose={this.closePopup}
-            >
-              <div>
-                <img src={this.state.selectedLocation.birdImg} />
-                <p className="title is-5">
-                  You found a {this.state.selectedLocation.birdName}!
-                </p>
-                <p className="title is-6">
-                  <Link to={`/bird/${this.state.selectedLocation.birdId}`}>
-                    Learn More
-                  </Link>
-                  {/* <Redirect to={`/bird/${this.state.selectedLocation.birdId}`}>Learn More</Redirect>  */}
-                </p>
-                <button
-                  onClick={this.closePopup}
-                  className="button is-small is-rounded"
+      <div className="card is-centered mx-4 mapContainer">
+        
+          <ReactMapGL
+            {...this.state.viewport}
+            mapboxApiAccessToken={
+              "pk.eyJ1IjoibWVldGpvaG5ncmF5IiwiYSI6ImNrZWJ5amJoYzAxeG4zNWs5ankxdHh5MWwifQ.7-Lg9dp4OdYmLML1jy5CDw"
+            }
+            mapStyle="mapbox://styles/meetjohngray/ckfk9geqz34xv19po854t66dz"
+            onViewportChange={this.viewportChange}
+          >
+            {this.props.locations.map((location) => {
+              return (
+                <Marker
+                  className="marker-btn"
+                  key={location.locId}
+                  latitude={Number(location.lat)}
+                  longitude={Number(location.long)}
                 >
-                  Close
-                </button>
-              </div>
-            </Popup>
-          ) : null}
+                  <img
+                    src="/images/mystery-bird.png"
+                    onClick={(e) => this.addToScrapbook(location)}
+                  />
+                </Marker>
+              );
+            })}
 
-          <GeolocateControl
-            positionOptions={{ enableHighAccuracy: true }}
-            trackUserLocation={true}
-            auto={true}
-          />
-        </ReactMapGL>
-        {/* <Link to='/' className="button is-rounded" onClick={() => logout()}>Logout</Link> */}
+            {this.state.selectedLocation !== null ? (
+              <Popup
+                latitude={Number(this.state.selectedLocation.lat)}
+                longitude={Number(this.state.selectedLocation.long)}
+                //  onClose={this.closePopup}
+              >
+                <>
+                  <img src={this.state.selectedLocation.birdImg} />
+                  <p className="title is-5">
+                    You found a {this.state.selectedLocation.birdName}!
+                  </p>
+                  <p className="title is-6">
+                    <Link to={`/bird/${this.state.selectedLocation.birdId}`}>
+                      Learn More
+                    </Link>
+                    {/* <Redirect to={`/bird/${this.state.selectedLocation.birdId}`}>Learn More</Redirect>  */}
+                  </p>
+                  <a
+                    onClick={() =>
+                      this.closePopup(this.state.selectedLocation.locId)
+                    }
+                    className="closePopup"
+                  >
+                    <i className="fas fa-times"></i>
+                  </a>
+                </>
+              </Popup>
+            ) : null}
+
+            <GeolocateControl
+              positionOptions={{ enableHighAccuracy: true }}
+              trackUserLocation={true}
+              auto={true}
+            />
+          </ReactMapGL>
+          <NavLink />
       </div>
     );
   }
@@ -144,12 +142,19 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     page: () => {
       dispatch(togglePage("list", 1));
     },
+    saveLocations: (locations) => {
+      dispatch(receiveLocations(locations));
+    },
+    removeLocations: (locId) => {
+      dispatch(removeLocations(locId));
+    },
   };
 };
 
-const mapStateToProps = ({ auth }) => {
+const mapStateToProps = ({ auth, locations }) => {
   return {
     auth,
+    locations,
   };
 };
 

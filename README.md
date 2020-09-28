@@ -57,23 +57,28 @@ npm run knex seed:run
   | Profile | View an individual bird's information (once it has been collected and added to scrapbook) |
 
 
-## Reducers (Client Side) --------------------------------- TO EDIT
+## Reducers (Client Side)
 
   | name | purpose |
   | --- | --- |
   | auth | Store information regarding user logins, auth status and auth errors |
-  | foundPets | Store the array of pets that have been found (from db) |
-  | lostPets | Store the array of pets that have been lost (from db) |
+  | userProgress | Store information about user progress - how many birds found, badges |
+  | locations | Store the array of locations with random bird info (from db) |
+  | scrapbook | Store the array ofa user's scrapbook items  - found/unknown birds (from db) |
+  | bird_profile | Store the bird_profile info |
 
 
-## Actions (Client Side) --------------------------------- TO EDIT
+## Actions (Client Side)
 
   | type | data | purpose |
   | --- | --- | --- |
-  | RECEIVE_FOUND_PETS | pets | For retreving the found pets from the server response |
-  | ADD_FOUND_PET | pet | For adding a found pet to the client store after is had been added to the db |
-  | RECEIVE_LOST_PETS | pets | For retreving the lost pets from the server response |
-  | ADD_LOST_PET | pet | For adding lost a pet to the client store after is had been added to the db |
+  | LOGIN_REQUEST | auth | For when a login is in progress |
+  | LOGIN_SUCCESS | auth | Ends login in progress, and makes user authenticated |
+  | LOGIN_FAILURE | auth | For when there is an error with login |
+  | LOGOUT_REQUEST | auth | For when a logout is in progress |
+  | LOGOUT_SUCCESS | auth | Ends logout process, change user to not authenticated |
+  | RECEIVE_LOCATIONS | locations | For receiving locations from the server response |
+  | RECEIVE_SCRAPBOOK | scrapbook | For receiving scrapbook from the server response |
   
   
 ## API (Client - Server)
