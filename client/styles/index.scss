@@ -157,6 +157,7 @@ h1.has-text-white {
 .birdDetails {
   padding: 1em;
 }
+
 // .mapboxgl-map button {
 //   display: block;
 //   width: 2em !important;
@@ -316,6 +317,15 @@ a {
   }
 }
 
+.birdIcons {
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  i {
+    font-size: 2rem;
+  }
+}
 // .content h1.birdName {
 //   border-bottom: solid 1px lightgrey;
 //   margin-bottom: 0px;

@@ -26,9 +26,20 @@ class BirdProfile extends React.Component {
       });
     }
   }
-
+  
   render() {
     const bird = this.state.bird;
+    let rarityIcon = ''
+      if(this.state.bird.birdRarity == 'common'){
+      rarityIcon = <i className="fas fa-smile"></i>
+    } else if (bird.birdRarity == 'vulnerable'){
+      rarityIcon = <i className="fas fa-meh"></i>
+    } else if (bird.birdRarity == 'extinct'){
+      rarityIcon = <i className="fas fa-grimace"></i>
+    } else {
+      rarityIcon = <i className="fas fa-frown"></i>
+    } 
+
     return (
       <div className="card is-centered mx-4 scrollable">
         {this.state.bird && (
@@ -39,7 +50,7 @@ class BirdProfile extends React.Component {
                 alt="Image of bird">
               </img>
             </div>
-            <div className="birdDetails">
+            <div className="birdDetails mb-6">
               <h1 className="birdName title is-3 has-text-centered is-capitalized">
                 {bird.birdName && bird.birdName}
               </h1>
@@ -47,7 +58,10 @@ class BirdProfile extends React.Component {
                 {bird.birdEnglishName}
               </h2>
               <div className="birdIcons">
-              
+                {bird.birdNocturnal === 0 ? <i className="fas fa-sun"></i> : <i class="fas fa-moon"></i>}
+                {rarityIcon}
+                <i className="fab fa-pagelines"></i>
+              </div>
               {/* <div className="subtitle">
                 {bird.birdEnglishName && (
                   <p className="capitalized">
@@ -65,7 +79,7 @@ class BirdProfile extends React.Component {
 
               <p className="birdTag"> {bird.birdTag && bird.birdTag}</p>
               {/* <p className="birdInfo"> {bird.birdInfo && bird.birdInfo}</p> */}
-            </div>
+            
            </div>
            </>
         )}
