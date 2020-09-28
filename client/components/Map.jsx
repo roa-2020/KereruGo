@@ -80,8 +80,8 @@ class Map extends React.Component {
               <Marker
                 className="marker-btn"
                 key={location.locId}
-                latitude={location.lat}
-                longitude={location.long}
+                latitude={Number(location.lat)}
+                longitude={Number(location.long)}
               >
                 <img
                   src="/images/mystery-bird.png"
