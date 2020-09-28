@@ -10,7 +10,7 @@ class Nav extends React.Component {
   render() {
     const { auth, logout } = this.props;
     return (
-      <div className="card is-centered mx-4 navigation">
+      <div className="card is-centered mx-4 navigation birdBackground">
         {auth.isAuthenticated ? (
           <>
             <Link to="/map">Map</Link>
