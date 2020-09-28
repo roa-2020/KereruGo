@@ -62,6 +62,10 @@ class Profile extends React.Component {
                 {this.props.progress.totalBirds}
               </span>
             </div>
+
+            
+
+
             {/* <h5 className="has-text-centered">{userInfo.username}'s Badges</h5> */}
           </div>
           <div className="image-container bronze-medal"><i class="fas fa-medal fa-3x"></i></div>
