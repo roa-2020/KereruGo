@@ -9,7 +9,6 @@ export const receiveLocations = locations => {
 }
 
 export const removeLocations = (locId) => {
-  console.log("action:", locId)
   return {
     type: REMOVE_LOCATIONS,
     locId
