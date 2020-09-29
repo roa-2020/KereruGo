@@ -6,8 +6,8 @@ exports.seed = (knex) =>
     .then(() => knex("locations").insert([
 
       //COASTAL
-      {latitude: -41.287201, longitude: 174.779317},
-      {latitude: -41.290510, longitude: 174.783867},
+      {latitude: -41.287201, longitude: 174.779317, bird_density: 12, metres_rad: 500},
+      {latitude: -41.290510, longitude: 174.783867, bird_density: 12, metres_rad: 500},
       {latitude: -41.291122, longitude: 174.794124},
       {latitude: -41.291541, longitude: 174.803823},
       {latitude: -41.293703, longitude: 174.822347},
@@ -74,9 +74,10 @@ exports.seed = (knex) =>
       {latitude: -41.293033, longitude: 174.717651},
 
       // TINAKORI HILL
-      {latitude: -41.272846, longitude: 174.768477},
-      {latitude: -41.268074, longitude: 174.770277},
+      {latitude: -41.272846, longitude: 174.768477, bird_density: 10, metres_rad: 400},
+      {latitude: -41.268074, longitude: 174.770277, bird_density: 10, metres_rad: 400},
 
-
+      // PALMERSTON NORTH
+      {latitude: -40.356554, longitude: 175.611440, bird_density: 100, metres_rad: 10000},
 
     ]));
