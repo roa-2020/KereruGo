@@ -77,7 +77,7 @@ class Map extends React.Component {
   };
 
   geolocate = ({ coords }) => {
-    const diameter = 10000; // Proximity Area in Metres
+    const diameter = 100; // Proximity Area in Metres
     const metresToLatConversionFactor = 111111.111111111;
     const metresToLongConversionFactor = 83333.333333333;
     const latAdjust = diameter / 2 / metresToLatConversionFactor;
@@ -149,7 +149,7 @@ class Map extends React.Component {
                       You found a {this.state.selectedLocation.birdName}!
                     </p>
                     <p className="title is-6">
-                      <Link to={`/bird/${this.state.selectedLocation.birdId}`}>
+                      <Link to={`/bird/${this.state.selectedLocation.birdId}/encounter`}>
                         Learn More
                       </Link>
                     </p>
