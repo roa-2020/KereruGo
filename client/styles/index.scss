@@ -488,3 +488,10 @@ a {
     url('/images/navImage.jpg');
   background-size: cover;
 }
+
+.badge {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

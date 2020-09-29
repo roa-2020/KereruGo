@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import BackLink from './BackLink'
 
-import { apiGetOneBird, apiGetUserScrapbook, apiGetUserBadges  } from "../apis/index";
+import { apiGetOneBird, apiGetUserScrapbook, apiGetUserBadges } from "../apis/index";
 import { receiveScrapbook, saveProgress } from "../actions/scrapbook";
 import { receiveBadges } from '../actions/badges'
 
@@ -21,10 +21,10 @@ class Profile extends React.Component {
       this.props.dispatch(saveProgress(found, total));
     });
     apiGetUserBadges(this.props.auth.user.id)
-    .then(badges => {
-      console.log('test', badges)
-      this.props.dispatch(receiveBadges(badges))
-    })
+      .then(badges => {
+        console.log('test', badges)
+        this.props.dispatch(receiveBadges(badges))
+      })
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -37,14 +37,24 @@ class Profile extends React.Component {
       });
     }
   }
+ 
+
+    getMedal = (badge) => {
+    const foundCount = badge.currentCount
+    console.log(foundCount)
+      if (foundCount < 10 && foundCount > 0) {
+        return badge.badgeBronze
+      } else if (foundCount >= 10 && foundCount < 20) {
+        return badge.badgeSilver
+      } else if (foundCount >= 20) {
+        return badge.badgeGold
+      }
+    }
 
   render() {
     console.log(this.props, "     spacer     ");
     const userInfo = this.props.auth.user;
-    // const medal = this.props.scrapbook.map(())
-    // (this.props.scrapbook.birdName !== "???")
-    // ?<li>Medal</li>
-    // :<li>Not Medal</li>
+
     return (
       <>
         <div className="card is-centered mx-4 scrollable">
@@ -56,7 +66,7 @@ class Profile extends React.Component {
           )}
           <div>
             <h1 className="birdName has-text-centered capitalized">{userInfo.username}</h1>
-            <h3 className="has-text-centered">Birds Encountered</h3>
+            <h3 className="has-text-centered">Unique Birds Encountered</h3>
             <div className="progress">
               <progress
                 max={this.props.progress.totalBirds}
@@ -67,16 +77,32 @@ class Profile extends React.Component {
                 {this.props.progress.totalBirds}
               </span>
             </div>
-           
-            {/* <h5 className="has-text-centered">{userInfo.username}'s Badges</h5> */}
+
           </div>
-          <div className="image-container bronze-medal"><i class="fas fa-medal fa-3x"></i></div>
-          {/* <p>{medal}</p> */}
+          <br />
+
+
+          <div className="badge has-text-centered">
+            {this.props.badges.map(badge => {
+              console.log(this.getMedal(badge))
+              return (
+                <>
+                  <div className="badge-container">
+                    <h5>{badge.badgeName}</h5>
+                    <img src={this.getMedal(badge)} />
+                    <p>{badge.badgeTag}: {badge.currentCount} </p>
+                  </div>
+                </>
+              )
+            })}
+          </div>
+
+
           <BackLink
-          action={() => {
-            this.props.history.goBack();
-          }}
-        />
+            action={() => {
+              this.props.history.goBack();
+            }}
+          />
         </div>
       </>
     );
