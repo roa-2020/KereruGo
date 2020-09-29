@@ -76,4 +76,8 @@ exports.seed = (knex) =>
       // TINAKORI HILL
       {latitude: -41.272846, longitude: 174.768477, bird_density: 10, metres_rad: 400},
       {latitude: -41.268074, longitude: 174.770277, bird_density: 10, metres_rad: 400},
+
+      // PALMERSTON NORTH
+      {latitude: -40.356554, longitude: 175.611440, bird_density: 100, metres_rad: 10000},
+
     ]));
