@@ -34,14 +34,15 @@ class BirdProfile extends React.Component {
 
   render() {
     const bird = this.state.bird;
-
-    let rarityIcon = "";
-    if (this.state.bird.birdRarity == "common") {
-      rarityIcon = <i className="fas fa-smile mb-3"></i>;
-    } else if (bird.birdRarity == "vulnerable") {
-      rarityIcon = <i className="fas fa-meh mb-3"></i>;
-    } else if (bird.birdRarity == "extinct") {
-      rarityIcon = <i className="fas fa-grimace mb-3"></i>;
+    const audio = new Audio(this.state.bird.birdAudio);
+    
+    let rarityIcon = ''
+      if(this.state.bird.birdRarity == 'common'){
+      rarityIcon = <i className="fas fa-smile mb-3"></i>
+    } else if (bird.birdRarity == 'vulnerable'){
+      rarityIcon = <i className="fas fa-meh mb-3"></i>
+    } else if (bird.birdRarity == 'extinct'){
+      rarityIcon = <i className="fas fa-grimace mb-3"></i>
     } else {
       rarityIcon = <i className="fas fa-frown mb-3"></i>;
     }
@@ -63,9 +64,8 @@ class BirdProfile extends React.Component {
           <>
             <div className="bird-profile-img">
               <img
-                src={this.state.bird.birdImg && this.state.bird.birdImg}
-                alt="Image of bird"
-              ></img>
+                src={this.state.bird.birdImg && this.state.bird.birdImg}  
+                alt="Image of bird" />  
             </div>
             <div className="birdDetails mb-6">
               <h1 className="birdName title is-3 has-text-centered is-capitalized">
@@ -73,6 +73,13 @@ class BirdProfile extends React.Component {
               </h1>
               <h2 className="subtitle is-5 has-text-centered is-italic has-text-weight-light">
                 {bird.birdEnglishName}
+                &nbsp;
+                &nbsp;
+                  <i className="fas fa-volume-up"
+                    onClick = {() => {
+                      audio.play()
+                    }}
+                  ></i>
               </h2>
               <div className="birdIcons mb-4">
                 <div className="icon-group">
