@@ -43,6 +43,8 @@ test('/register fails for existing user', () => {
   })
 })
 
+
+// REGISTER FAILS FOR CREATE ERROR
 // test('/register fails for create error', () => {
 //   let expected = 'DATABASE_ERROR'
 
