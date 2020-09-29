@@ -5,12 +5,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { logoutUser } from "../actions/auth";
-<<<<<<< HEAD
-import { apiGetAllLocations, apiAddScrapbookEntry } from "../apis/index";
-=======
-// import {  Link } from 'react-router-dom'
 import { apiGetAllLocations, apiAddScrapbookEntry, apiCurrentCount } from "../apis/index";
->>>>>>> 1af6bb8714703ab28017330de0f2dc3ee1b3fcea
 import { receiveLocations, removeLocations } from "../actions/locations";
 import NavLink from "./NavLink";
 
