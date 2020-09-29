@@ -1,11 +1,15 @@
-import React, { useRef } from "react"
+import React, { useRef, useState, useEffect } from "react"
+import {Link} from 'react-router-dom'
 import ReactMapGL, { Marker, Popup } from "react-map-gl"
 import useSuperCluster from 'use-supercluster'
+import {apiAddScrapbookEntry, apiCurrentCount } from "../apis/index";
+import { receiveLocations, removeLocations } from "../actions/locations";
 // import "mapbox-gl/dist/mapbox-gl.css"
 
 function Clusters (props) {
-  const{locations, mapRef, viewport} = props
+  const{auth, locations, mapRef, viewport, userLat, userLong, minLat, minLong, maxLat, maxLong, removeLocations} = props
 
+  const [selectedLocation, setSelectedLocation] = useState({})
   // Prepare data for supercluster
   const points = locations.map(location => ( {
     type: "Feature",
@@ -13,7 +17,7 @@ function Clusters (props) {
       cluster: false,
       locationID: location.locId
     },
-    geometry: {type: "Point", coordinates: [location.long, location.lat]}
+    geometry: {type: "Point", coordinates: [location.long, location.lat], bird: location}
   }))
 
   const getBoundsArray = () => {
@@ -33,12 +37,38 @@ function Clusters (props) {
     points,
     zoom: viewport.zoom,
     bounds,
-    options: { radius: 75, maxZoom: 20}
+    options: { radius: 75, maxZoom: 15}
   })
-  console.log('clusters', clusters)
-  
+
+  const addToScrapbook = (bird) => {
+    apiAddScrapbookEntry(auth.user.id, bird.birdId).then(()=>{
+      setSelectedLocation(bird)
+    })
+    const badgeId = 1
+    apiCurrentCount(auth.user.id, badgeId)
+  }
+
+  const distantBird = (location, locId) => {
+    setSelectedLocation({
+        long: Number(location[0]),
+        lat: Number(location[1]),
+        birdImg: "/images/mystery-bird.png",
+        birdName: "Bird that is Too Far Away",
+        locId: locId,
+    })
+  }
+
+  const closePopup = (id, encountered) => {
+    setSelectedLocation({});
+
+    if (encountered) {
+      removeLocations(id);
+    }
+  };
+
+  let popupFunc
   return (
-  clusters.map(cluster => {
+  clusters.map((cluster, i) => {
     // Every  cluster point has coordinates
     const [longitude, latitude] = cluster.geometry.coordinates
     // A point is either a cluster or a single bird
@@ -49,7 +79,6 @@ function Clusters (props) {
 
     // Show a cluster
     if (isCluster) {
-      console.log('cluster')
       return (
         <Marker
         key={`cluster-${cluster.id}`}
@@ -59,28 +88,94 @@ function Clusters (props) {
         <div
           className="cluster-marker"
           style={{
-            width: `${10 + (pointCount / points.length) * 20}px`,
-            height: `${10 + (pointCount / points.length) * 20}px`
+            width: `${30 + (pointCount / points.length) * 30}px`,
+            height: `${30 + (pointCount / points.length) * 30}px`
           }}
         >
           {pointCount}
         </div>
       </Marker>
       )
-    }
-    console.log('spot')
-    return (
-      // null
+    } else {
+        
+      if (
+        minLat <= Number(cluster.geometry.coordinates[1]) &&
+        Number(cluster.geometry.coordinates[1]) <= maxLat &&
+        minLong <= Number(cluster.geometry.coordinates[0]) &&
+        Number(cluster.geometry.coordinates[0]) <= maxLong
+      ){
+        popupFunc = (e) => {
+          addToScrapbook(cluster.geometry.bird)
+        }
+      } else {
+        popupFunc = (e) => {
+          distantBird(cluster.geometry.coordinates, cluster.properties.locationID);
+        }
+      }
+
       
-      <Marker
-        className="marker-btn"
-        key={location.locId}
-        latitude={Number(location.lat)}
-        longitude={Number(location.long)}
-      >
-        <img src="/images/mystery-bird.png" onClick={popupFunc} />
-      </Marker>
+      return (
+        <React.Fragment key={`marker ${i} ${cluster}`}>
+          <Marker
+            className="marker-btn"
+            key={cluster.properties.locationID}
+            latitude={Number(cluster.geometry.coordinates[1])}
+            longitude={Number(cluster.geometry.coordinates[0])}
+          >
+            <img src="/images/mystery-bird.png" onClick={popupFunc} />
+          </Marker>
+
+          {selectedLocation.hasOwnProperty('lat') ? (
+  
+          <Popup
+            latitude= {selectedLocation.lat}
+            longitude= {selectedLocation.long}
+          >
+            <>
+              <img src={selectedLocation.birdImg} />
+
+              {selectedLocation.birdId && (
+                <>
+                  <p className="title is-5">
+                    You found a {selectedLocation.birdName}!
+                  </p>
+                  <p className="title is-6">
+                    <Link to={`/bird/${selectedLocation.birdId}/encounter`}>
+                      Learn More
+                    </Link>
+                  </p>
+                </>
+              )}
+
+              {!selectedLocation.birdId && (
+                <>
+                  <p className="title is-5">Too Far Away</p>
+                  <p className="title is-6">
+                    The bird you have found is too far away. Get closer to
+                    observe it.
+                  </p>
+                </>
+              )}
+        
+        {/* hasOwnProperty checks if the selected location has a birdId defined, and then passes true or false through as an arg */}
+              <a
+              className="closePopup" 
+              onClick={() =>
+                  
+                  closePopup(
+                    selectedLocation.locId,
+                    selectedLocation.hasOwnProperty("birdId")
+                  )
+                }
+              >
+                <i className="fas fa-times"></i>
+              </a>
+            </>
+          </Popup>
+        ) : null}
+      </React.Fragment>
     )
+    }
   })
  )
 }
