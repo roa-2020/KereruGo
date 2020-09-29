@@ -48,5 +48,19 @@ exports.seed = (knex) =>
        {id:39, latitude: -41.292284, longitude: 174.773070},
        {id:40, latitude: -41.291445, longitude: 174.784443},
 
+       //PORIRUA
+
+       {id:41, latitude: -41.127554, longitude: 174.850574},
+       {id:42, latitude: -41.127542, longitude: 174.850873},
+       {id:43, latitude: -41.127806, longitude: 174.850959},
+       {id:44, latitude: -41.127777, longitude: 174.850673},
+       {id:45, latitude: -41.127807, longitude: 174.850947},
+       {id:46, latitude: -41.127780, longitude: 174.851284},
+       {id:47, latitude: -41.127809, longitude: 174.851564},
+       {id:48, latitude: -41.127944, longitude: 174.850805},
+       {id:49, latitude: -41.127340, longitude: 174.850248},
+       {id:50, latitude: -41.127701, longitude: 174.851966},
+       {id:51, latitude: -41.124762, longitude: 174.852905},
+       {id:52, latitude: -41.128502, longitude: 174.848847},
 
     ]));

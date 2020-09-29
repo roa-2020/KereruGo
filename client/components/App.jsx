@@ -27,7 +27,7 @@ export class App extends React.Component {
         {/* <Router>
           <div
             id="body-content"
-            className="container content is-full has-background-primary"
+            className="container content is-full"
           >
             <h1 className="has-text-white pt-3 has-text-centered">
               <Link to="/">KererūGo</Link>

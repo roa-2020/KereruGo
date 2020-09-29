@@ -26,24 +26,52 @@ class BirdProfile extends React.Component {
       });
     }
   }
-
+  
   render() {
     const bird = this.state.bird;
+    let rarityIcon = ''
+      if(this.state.bird.birdRarity == 'common'){
+      rarityIcon = <i className="fas fa-smile mb-3"></i>
+    } else if (bird.birdRarity == 'vulnerable'){
+      rarityIcon = <i className="fas fa-meh mb-3"></i>
+    } else if (bird.birdRarity == 'extinct'){
+      rarityIcon = <i className="fas fa-grimace mb-3"></i>
+    } else {
+      rarityIcon = <i className="fas fa-frown mb-3"></i>
+    } 
+
     return (
       <div className="card is-centered mx-4 scrollable">
         {this.state.bird && (
-          <>
+            <>
             <div className="bird-profile-img">
               <img
                 src={this.state.bird.birdImg && this.state.bird.birdImg}
-                alt="Image of bird"
-              ></img>
+                alt="Image of bird">
+              </img>
             </div>
-            <div className="birdDetails">
-              <h1 className="birdName has-text-centered capitalized">
+            <div className="birdDetails mb-6">
+              <h1 className="birdName title is-3 has-text-centered is-capitalized">
                 {bird.birdName && bird.birdName}
               </h1>
-              <div className="subtitle">
+              <h2 className="subtitle is-5 has-text-centered is-italic has-text-weight-light">
+                {bird.birdEnglishName}
+              </h2>
+              <div className="birdIcons mb-4">
+                <div className="icon-group">
+                  {bird.birdNocturnal === 0 ? <i className="fas fa-sun mb-3"></i> : <i className="fas fa-moon mb-3"></i>}
+                  <p>AM/PM</p>
+                </div>
+                 <div className="icon-group">
+                  {rarityIcon}
+                  <p>Rarity</p>
+                </div>
+                <div className="icon-group">
+                  <i className="fab fa-pagelines mb-3"></i>
+                  <p>Habitat</p>
+                </div>
+              </div>
+              {/* <div className="subtitle">
                 {bird.birdEnglishName && (
                   <p className="capitalized">
                     English Name: {bird.birdEnglishName}
@@ -56,12 +84,13 @@ class BirdProfile extends React.Component {
                   Active Period:{" "}
                   {bird.birdNocturnal === 0 ? "Daylight" : "Night"}
                 </p>
-              </div>
+              </div> */}
 
               <p className="birdTag"> {bird.birdTag && bird.birdTag}</p>
-              <p className="birdInfo"> {bird.birdInfo && bird.birdInfo}</p>
-            </div>
-          </>
+              {/* <p className="birdInfo"> {bird.birdInfo && bird.birdInfo}</p> */}
+            
+           </div>
+           </>
         )}
         <BackLink
         inline='inline'

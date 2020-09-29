@@ -7,7 +7,6 @@ export default function reducer (state = [], action) {
       return action.locations
     
     case REMOVE_LOCATIONS:
-      console.log("reducer:", action.locId)
       // return state.filter((task) => task.id !==  action.task)
       return state.filter((location) => location.locId !== action.locId)
 
