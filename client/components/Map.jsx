@@ -57,8 +57,8 @@ class Map extends React.Component {
   distantBird = (location) => {
     this.setState({
       selectedLocation: {
-        lat: location.lat,
-        long: location.long,
+        lat: Number(location.lat),
+        long: Number(location.long),
         birdImg: "/images/mystery-bird.png",
         birdName: "Bird that is Too Far Away",
         locId: location.locId,
@@ -84,12 +84,12 @@ class Map extends React.Component {
     const longAdjust = diameter / 2 / metresToLongConversionFactor;
 
     this.setState({
-      userLat: coords.latitude,
-      userLong: coords.longitude,
-      minLat: coords.latitude - latAdjust,
-      maxLat: coords.latitude + latAdjust,
-      minLong: coords.longitude - longAdjust,
-      maxLong: coords.longitude + longAdjust,
+      userLat: Number(coords.latitude),
+      userLong: Number(coords.longitude),
+      minLat: Number(coords.latitude) - latAdjust,
+      maxLat: Number(coords.latitude) + latAdjust,
+      minLong: Number(coords.longitude) - longAdjust,
+      maxLong: Number(coords.longitude) + longAdjust,
     });
   };
 
