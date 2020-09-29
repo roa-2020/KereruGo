@@ -51,25 +51,16 @@ exports.seed = (knex) =>
 
        //CITY OR MISC
     
-       {latitude: -41.296926, longitude: 174.774268},
-       {latitude: -41.297769, longitude: 174.773163},
-       {latitude: -41.296201, longitude: 174.774314},
-       {latitude: -41.308096, longitude: 174.770909},
-       {latitude: -41.293385, longitude: 174.774941},
-       {latitude: -41.295095, longitude: 174.775434},
-       {latitude: -41.293406, longitude: 174.775757},
-       {latitude: -41.295630, longitude: 174.770862},
-       {latitude: -41.292284, longitude: 174.773070},
-       {latitude: -41.291445, longitude: 174.784443},
+      //  {latitude: -41.296926, longitude: 174.774268},
+      //  {latitude: -41.293385, longitude: 174.774941},
+      //  {latitude: -41.295630, longitude: 174.770862},
 
        //PORIRUA
 
        {latitude: -41.127554, longitude: 174.850574},
        {latitude: -41.127542, longitude: 174.850873},
-       {latitude: -41.127806, longitude: 174.850959},
        {latitude: -41.127777, longitude: 174.850673},
        {latitude: -41.124762, longitude: 174.852905},
-       {latitude: -41.128502, longitude: 174.848847},
 
       //ZEALANDIA
       {latitude: -41.291691, longitude: 174.748956},

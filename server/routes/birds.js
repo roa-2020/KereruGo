@@ -81,8 +81,8 @@ function getLocations(req, res) {
       let newId = locations.length + 951
       
       // random Lat and Long functions called when making new locations in the for loop
-      let randomLat = () => Math.random() * (0.0009 - 0.0001) + 0.0001
-      let randomLong = () => Math.random() * (0.0012 - 0.00012) + 0.00012
+      let randomLat = () => Math.random() * (0.0018 - 0.0009) + 0.0009
+      let randomLong = () => Math.random() * (0.0024 - 0.0012) + 0.0012
       // map over locations to make random surrounding locations
       locations.map(location => {
         let randomBirdCount = Math.ceil(Math.random() * (5 - 2) + 2)
