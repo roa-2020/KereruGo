@@ -36,7 +36,6 @@ function addToCount (newCount, id, db = connection) {
 }
 
 function addBadge (newBadge, db = connection) {
-  console.log(newBadge)
   return db('badges_users')
   .insert(newBadge)
 }
