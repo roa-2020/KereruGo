@@ -74,10 +74,43 @@ function getBird(req, res) {
 }
 
 function getLocations(req, res) {
+  // Fetch count of birds to use in random bird id generation
   return getBirdCount().then(({ count }) => {
+    // Get all seed locations
     return getAllLocations().then(locations => {
-      const fetchBirds = async (locations) => {
-        const birds = locations.map(() => {
+      // Define constants
+      const metresToLatConversionFactor = 111111.111111111
+      const metresToLongConversionFactor = 83333.333333333
+      
+      // Util Functions
+      const randomDirection = () => {if (Math.random() > 0.5) {return -1} else {return 1}}
+      
+      // Map over seed locations to make surrounding randomLocations
+      let randomLocations = []
+      let newId = locations.length + 1000
+      locations.map(location => {
+        const birdDensity = Number(location.bird_density) || Math.ceil(Math.random() * (5 - 2) + 2)
+        const metresRad = Number(location.metres_rad) || 100
+        const latSpread = metresRad / metresToLatConversionFactor
+        const longSpread = metresRad / metresToLongConversionFactor
+        const randomLat = () =>  Math.random() * latSpread * randomDirection()
+        const randomLong = () => Math.random() * longSpread * randomDirection()
+
+        for (i = 0; i < birdDensity; i++) {
+          newId++
+          randomLocations.push({ 
+              id: newId,
+              latitude: Number(location.latitude) + randomLat(),
+              longitude: Number(location.longitude) + randomLong(),
+              bird_density: Number(location.bird_density),
+              metres_rad: Number(location.metres_rad)
+          })
+        }
+      })
+          
+      // Below function calls the Promise.all function to get 1 random bird per randomLocation
+      const fetchBirds = async (randomLocations) => {
+          const birds = randomLocations.map(() => {
           return getBirdById(generateRandomBirdID(count))
             .then((bird) => {
               return bird
@@ -85,13 +118,18 @@ function getLocations(req, res) {
         })
         return Promise.all(birds)
       }
-      fetchBirds(locations)
-        .then(birds => {
-          const sanitized = locations.map((location, i) => {
+      // Call the above function
+      fetchBirds(randomLocations)
+      // Then map the two arrays together (birds and randomLocations)
+        .then((birds) => {
+          const sanitized = randomLocations.map((location, i) => {
+            console.log(location.bird_density)
             return ({
               locId: location.id,
               lat: location.latitude,
               long: location.longitude,
+              locMetresRad: location.metres_rad || 100,
+              locBirdDensity: location.bird_density || 5,
               birdId: birds[i].id,
               birdName: birds[i].bird_name,
               birdEnglishName: birds[i].bird_english_name,
