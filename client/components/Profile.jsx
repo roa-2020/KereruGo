@@ -22,7 +22,7 @@ export class Profile extends React.Component {
     });
     apiGetUserBadges(this.props.auth.user.id)
       .then(badges => {
-        console.log('test', badges)
+        
         this.props.dispatch(receiveBadges(badges))
       })
   }
@@ -40,16 +40,28 @@ export class Profile extends React.Component {
  
 
     getMedal = (badge) => {
-    const foundCount = badge.currentCount
-    console.log(foundCount)
-      if (foundCount < 10 && foundCount > 0) {
-        return badge.badgeBronze
-      } else if (foundCount >= 10 && foundCount < 20) {
-        return badge.badgeSilver
-      } else if (foundCount >= 20) {
-        return badge.badgeGold
-      }
+      const foundCount = badge.currentCount
+        if (foundCount < 10 && foundCount > 0) {
+          return <i className="fas fa-medal bronze-medal"></i>
+        } else if (foundCount >= 10 && foundCount < 20) {
+          return <i className="fas fa-medal silver-medal"></i>
+        } else if (foundCount >= 20) {
+          return <i className="fas fa-medal fa-3x gold-medal"></i>
+        }
     }
+
+    getMedalName = (badge) => {
+      const foundCount = badge.currentCount
+  
+        if (foundCount < 10 && foundCount > 0) {
+          return badge.bronzeReq
+        } else if (foundCount >= 10 && foundCount < 20) {
+          return badge.silverReq
+        } else if (foundCount >= 20) {
+          return badge.goldReq
+        }
+      }
+
 
   render() {
     console.log(this.props, "     spacer     ");
@@ -60,13 +72,14 @@ export class Profile extends React.Component {
         <div className="card is-centered mx-4 scrollable">
           {this.props.scrapbook && (
             <div className="bird-profile-img">
-              {console.log(this.props.auth.user)}
-              <img src={this.props.auth.user.user_image || '/images/mystery-bird.png'} alt="Image of user"></img>
+              
+              {/* <img src={this.props.auth.user.user_image || '/images/mystery-bird.png'} alt="Image of user"></img */}
+              {this.props.auth.user.user_image || <i className="user-icon fas fa-user fa-7x"></i>}
             </div>
           )}
           <div>
-            <h1 className="birdName has-text-centered capitalized">{userInfo.username}</h1>
-            <h3 className="has-text-centered">Unique Birds Encountered</h3>
+            <h1 className="user-name birdName has-text-centered has-text-weight-light">{userInfo.username}</h1>
+            <h3 className="has-text-centered has-text-weight-light">Unique Birds Encountered</h3>
             <div className="progress">
               <progress
                 max={this.props.progress.totalBirds}
@@ -84,13 +97,13 @@ export class Profile extends React.Component {
 
           <div className="badge has-text-centered">
             {this.props.badges.map(badge => {
-              console.log(this.getMedal(badge))
+            
               return (
                 <>
                   <div className="badge-container">
-                    <h5>{badge.badgeName}</h5>
-                    <img src={this.getMedal(badge)} />
-                    <p>{badge.badgeTag}: {badge.currentCount} </p>
+                    <h5 className="has-text-weight-light">You have earned a {this.getMedalName(badge)} medal!</h5>
+                    {this.getMedal(badge)}
+                    {/* <p>{badge.badgeTag}: {badge.currentCount} </p> */}
                   </div>
                 </>
               )
