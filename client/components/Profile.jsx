@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import BackLink from './BackLink'
 
-import { apiGetOneBird, apiGetUserScrapbook, apiGetUserBadges  } from "../apis/index";
+import { apiGetOneBird, apiGetUserScrapbook, apiGetUserBadges } from "../apis/index";
 import { receiveScrapbook, saveProgress } from "../actions/scrapbook";
 import { receiveBadges } from '../actions/badges'
 
@@ -11,6 +11,7 @@ export class Profile extends React.Component {
     bird: {},
     found: 0,
     total: 0,
+    // medalName: ''
   };
 
   componentDidMount() {
@@ -21,42 +22,50 @@ export class Profile extends React.Component {
       this.props.dispatch(saveProgress(found, total));
     });
     apiGetUserBadges(this.props.auth.user.id)
-    .then(badges => {
-      console.log('test', badges)
-      this.props.dispatch(receiveBadges(badges))
-    })
+      .then(badges => {
+        
+        this.props.dispatch(receiveBadges(badges))
+      })
   }
+ 
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps !== this.props) {
-      const id = this.props.scrapbook.findIndex(
-        (entry) => entry.birdId === Number(this.props.match.params.id)
-      );
-      this.setState({
-        bird: this.props.scrapbook[id],
-      });
+    getMedal = (badge) => {
+      const foundCount = badge.currentCount
+      const bronzeReq = Number(badge.bronzeReq)
+      const silverReq = Number(badge.silverReq)
+      const goldReq = Number(badge.goldReq)
+
+        if (foundCount < silverReq && foundCount >= bronzeReq) {
+          return ['bronze', <i className="fas fa-medal fa-3x bronze-medal"></i>]
+
+        } else if (foundCount >= silverReq && foundCount < goldReq) {
+          return ['silver', <i className="fas fa-medal fa-3x silver-medal"></i>]
+
+        } else if (foundCount >= goldReq) {
+          return ['gold', <i className="fas fa-medal fa-3x gold-medal"></i>]
+        } else {
+          return false
+        }
     }
-  }
+
 
   render() {
-    console.log(this.props, "     spacer     ");
+   
     const userInfo = this.props.auth.user;
-    // const medal = this.props.scrapbook.map(())
-    // (this.props.scrapbook.birdName !== "???")
-    // ?<li>Medal</li>
-    // :<li>Not Medal</li>
+
     return (
       <>
         <div className="card is-centered mx-4 scrollable">
           {this.props.scrapbook && (
             <div className="bird-profile-img">
-              {console.log(this.props.auth.user)}
-              <img src={this.props.auth.user.user_image || '/images/mystery-bird.png'} alt="Image of user"></img>
+              
+              {/* <img src={this.props.auth.user.user_image || '/images/mystery-bird.png'} alt="Image of user"></img */}
+              {this.props.auth.user.user_image || <i className="user-icon fas fa-user fa-7x"></i>}
             </div>
           )}
           <div>
-            <h1 className="birdName has-text-centered capitalized">{userInfo.username}</h1>
-            <h3 className="has-text-centered">Birds Encountered</h3>
+            <h1 className="user-name birdName has-text-centered has-text-weight-light">{userInfo.username}</h1>
+            <h3 className="has-text-centered has-text-weight-light">Unique Birds Encountered</h3>
             <div className="progress">
               <progress
                 max={this.props.progress.totalBirds}
@@ -67,16 +76,31 @@ export class Profile extends React.Component {
                 {this.props.progress.totalBirds}
               </span>
             </div>
-           
-            {/* <h5 className="has-text-centered">{userInfo.username}'s Badges</h5> */}
+
           </div>
-          {/* <div className="image-container"></div> */}
-          {/* <p>{medal}</p> */}
+          <br />
+
+
+          <div className="badge has-text-centered">
+        
+          {this.props.badges.map((badge, i) => {
+      
+           const getTheMedal = this.getMedal(badge)
+              return (
+                
+                  <div className="badge-container" key={`${i} ${getTheMedal}`}>
+                    <h5 className="has-text-weight-light">You have earned a {getTheMedal[0]} medal!</h5>
+                    {getTheMedal[1]}
+                  </div>
+                
+              )
+            })}
+          </div>
+
+
           <BackLink
-          action={() => {
-            this.props.history.goBack();
-          }}
-        />
+            destination="/nav"
+          />
         </div>
       </>
     );

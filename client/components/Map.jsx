@@ -80,19 +80,19 @@ class Map extends React.Component {
   // };
 
   geolocate = ({ coords }) => {
-    const diameter = 1000; // Proximity Area in Metres
+    const diameter = 100; // Proximity Area in Metres
     const metresToLatConversionFactor = 111111.111111111;
     const metresToLongConversionFactor = 83333.333333333;
     const latAdjust = diameter / 2 / metresToLatConversionFactor;
     const longAdjust = diameter / 2 / metresToLongConversionFactor;
 
     this.setState({
-      userLat: coords.latitude,
-      userLong: coords.longitude,
-      minLat: coords.latitude - latAdjust,
-      maxLat: coords.latitude + latAdjust,
-      minLong: coords.longitude - longAdjust,
-      maxLong: coords.longitude + longAdjust,
+      userLat: Number(coords.latitude),
+      userLong: Number(coords.longitude),
+      minLat: Number(coords.latitude) - latAdjust,
+      maxLat: Number(coords.latitude) + latAdjust,
+      minLong: Number(coords.longitude) - longAdjust,
+      maxLong: Number(coords.longitude) + longAdjust,
     });
   };
 
@@ -167,7 +167,7 @@ class Map extends React.Component {
                       You found a {this.state.selectedLocation.birdName}!
                     </p>
                     <p className="title is-6">
-                      <Link to={`/bird/${this.state.selectedLocation.birdId}`}>
+                      <Link to={`/bird/${this.state.selectedLocation.birdId}/encounter`}>
                         Learn More
                       </Link>
                     </p>
