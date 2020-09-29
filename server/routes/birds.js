@@ -123,7 +123,6 @@ function getLocations(req, res) {
       // Then map the two arrays together (birds and randomLocations)
         .then((birds) => {
           const sanitized = randomLocations.map((location, i) => {
-            console.log(location.bird_density)
             return ({
               locId: location.id,
               lat: location.latitude,
