@@ -5,7 +5,7 @@ import BackLink from './BackLink'
 import { apiGetOneBird, apiGetUserScrapbook } from "../apis/index";
 import { receiveScrapbook, saveProgress } from "../actions/scrapbook";
 
-class Profile extends React.Component {
+export class Profile extends React.Component {
   state = {
     bird: {},
     found: 0,
