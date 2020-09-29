@@ -57,8 +57,8 @@ class Map extends React.Component {
   distantBird = (location) => {
     this.setState({
       selectedLocation: {
-        lat: location.lat,
-        long: location.long,
+        lat: Number(location.lat),
+        long: Number(location.long),
         birdImg: "/images/mystery-bird.png",
         birdName: "Bird that is Too Far Away",
         locId: location.locId,
