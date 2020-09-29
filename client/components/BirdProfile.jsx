@@ -29,6 +29,7 @@ class BirdProfile extends React.Component {
   
   render() {
     const bird = this.state.bird;
+    const audio = new Audio(this.state.bird.birdAudio);
     
     let rarityIcon = ''
       if(this.state.bird.birdRarity == 'common'){
@@ -58,9 +59,9 @@ class BirdProfile extends React.Component {
             <>
             <div className="bird-profile-img">
               <img
-                src={this.state.bird.birdImg && this.state.bird.birdImg}
-                alt="Image of bird">
-              </img>
+                src={this.state.bird.birdImg && this.state.bird.birdImg}  
+                alt="Image of bird">  
+              </img>           
             </div>
             <div className="birdDetails mb-6">
               <h1 className="birdName title is-3 has-text-centered is-capitalized">
@@ -68,9 +69,17 @@ class BirdProfile extends React.Component {
               </h1>
               <h2 className="subtitle is-5 has-text-centered is-italic has-text-weight-light">
                 {bird.birdEnglishName}
+                &nbsp;
+                &nbsp;
+                  <i className="fas fa-volume-up"
+                    onClick = {() => {
+                      audio.play()
+                    }}
+                  ></i>
               </h2>
               <div className="birdIcons mb-4">
                 <div className="icon-group">
+                  {/* check if this is back to front */}
                   {bird.birdNocturnal === 0 ? <i className="fas fa-sun mb-3"></i> : <i className="fas fa-moon mb-3"></i>}
                   <p>{bird.birdNocturnal === 0 ? 'Noctural' : 'Diurnal' }</p>
                 </div>
@@ -97,8 +106,9 @@ class BirdProfile extends React.Component {
         </div>
            </>
         )}
+        {/* check this works on iphone */}
         <BackLink
-        inline='inline'
+        inline='inline'And 
           action={() => {
             this.props.history.goBack();
           }}
