@@ -29,6 +29,7 @@ class BirdProfile extends React.Component {
   
   render() {
     const bird = this.state.bird;
+    
     let rarityIcon = ''
       if(this.state.bird.birdRarity == 'common'){
       rarityIcon = <i className="fas fa-smile mb-3"></i>
@@ -38,6 +39,17 @@ class BirdProfile extends React.Component {
       rarityIcon = <i className="fas fa-grimace mb-3"></i>
     } else {
       rarityIcon = <i className="fas fa-frown mb-3"></i>
+    } 
+    
+    let rarity = ''
+      if(this.state.bird.birdRarity == 'common'){
+      rarity = 'Common'
+    } else if (bird.birdRarity == 'vulnerable'){
+      rarity = 'Vulnerable'
+    } else if (bird.birdRarity == 'extinct'){
+      rarity = 'Extinct'
+    } else {
+      rarity = 'Endangered'
     } 
 
     return (
@@ -60,36 +72,29 @@ class BirdProfile extends React.Component {
               <div className="birdIcons mb-4">
                 <div className="icon-group">
                   {bird.birdNocturnal === 0 ? <i className="fas fa-sun mb-3"></i> : <i className="fas fa-moon mb-3"></i>}
-                  <p>AM/PM</p>
+                  <p>{bird.birdNocturnal === 0 ? 'Noctural' : 'Diurnal' }</p>
                 </div>
                  <div className="icon-group">
                   {rarityIcon}
-                  <p>Rarity</p>
+                  <p>{rarity}</p>
                 </div>
                 <div className="icon-group">
                   <i className="fab fa-pagelines mb-3"></i>
-                  <p>Habitat</p>
+                  <p>Forest</p>
                 </div>
               </div>
-              {/* <div className="subtitle">
-                {bird.birdEnglishName && (
-                  <p className="capitalized">
-                    English Name: {bird.birdEnglishName}
-                  </p>
-                )}
-                {bird.birdRarity && (
-                  <p className="capitalized">Rarity: {bird.birdRarity}</p>
-                )}
-                <p>
-                  Active Period:{" "}
-                  {bird.birdNocturnal === 0 ? "Daylight" : "Night"}
-                </p>
-              </div> */}
 
               <p className="birdTag"> {bird.birdTag && bird.birdTag}</p>
-              {/* <p className="birdInfo"> {bird.birdInfo && bird.birdInfo}</p> */}
-            
-           </div>
+             
+             {/* Add a modal to display more info */}
+            {/* <div className="modal is-active">
+              <div className="modal-background"></div>
+              <div className="modal-content">
+                <p className="birdInfo"> {bird.birdInfo && bird.birdInfo}</p>
+              </div>
+              <button className="modal-close is-large" aria-label="close"></button>
+            </div> */}
+        </div>
            </>
         )}
         <BackLink
