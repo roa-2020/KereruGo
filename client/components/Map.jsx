@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { logoutUser } from "../actions/auth";
 // import {  Link } from 'react-router-dom'
-import { apiGetAllLocations, apiAddScrapbookEntry } from "../apis/index";
+import { apiGetAllLocations, apiAddScrapbookEntry, apiCurrentCount } from "../apis/index";
 import { receiveLocations, removeLocations } from "../actions/locations";
 import { receiveBirdProfile } from "../actions/bird_profile";
 import NavLink from "./NavLink";
@@ -48,8 +48,12 @@ class Map extends React.Component {
       this.setState({
         selectedLocation: location,
       })
-    );
-  };
+    )
+    const badgeId = 1
+    apiCurrentCount(this.props.auth.user.id, badgeId)
+  }
+
+  
 
   closePopup = (id) => {
     this.setState({
