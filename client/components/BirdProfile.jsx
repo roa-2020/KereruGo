@@ -8,12 +8,17 @@ import BackLink from "./BackLink";
 class BirdProfile extends React.Component {
   state = {
     bird: {},
+    destination: '/nav'
   };
 
   componentDidMount() {
     apiGetUserScrapbook(this.props.auth.user.id).then((scrapbook) => {
       this.props.dispatch(receiveScrapbook(scrapbook));
     });
+
+    if (this.props.match.path === '/bird/:id/encounter'){
+      this.setState({destination: '/'})
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -101,7 +106,7 @@ class BirdProfile extends React.Component {
             </div>
           </>
         )}
-        <BackLink inline="inline" destination="/scrapbook" />
+        <BackLink inline="inline" destination={this.state.destination} />
       </div>
     );
   }
