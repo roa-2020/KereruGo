@@ -8,7 +8,7 @@ import BackLink from "./BackLink";
 class BirdProfile extends React.Component {
   state = {
     bird: {},
-    destination: '/nav'
+    destination: '/scrapbook'
   };
 
   componentDidMount() {
