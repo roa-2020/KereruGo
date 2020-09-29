@@ -76,8 +76,30 @@ function getBird(req, res) {
 function getLocations(req, res) {
   return getBirdCount().then(({ count }) => {
     return getAllLocations().then(locations => {
-      const fetchBirds = async (locations) => {
-        const birds = locations.map(() => {
+      // randomly generate random locations surrounding seed locations
+      let randomLocations = []
+      let newId = locations.length + 951
+      
+      // random Lat and Long functions called when making new locations in the for loop
+      let randomLat = () => Math.random() * (0.0009 - 0.0001) + 0.0001
+      let randomLong = () => Math.random() * (0.0012 - 0.00012) + 0.00012
+      // map over locations to make random surrounding locations
+      locations.map(location => {
+        let randomBirdCount = Math.ceil(Math.random() * (5 - 2) + 2)
+        for (i = 0; i < randomBirdCount; i++) {
+          newId++
+          randomLocations.push({ 
+              id: newId,
+              latitude: location.latitude + randomLat(),
+              longitude: location.longitude + randomLong()
+             })
+            }
+          })
+          
+        // the fetchBirds function waits for everything to finish (using Promises.all) to 
+         //... then execute the 'dot-then' found below it(approx line 110)
+        const fetchBirds = async (randomLocations) => {
+          const birds = randomLocations.map(() => {
           return getBirdById(generateRandomBirdID(count))
             .then((bird) => {
               return bird
@@ -85,9 +107,9 @@ function getLocations(req, res) {
         })
         return Promise.all(birds)
       }
-      fetchBirds(locations)
-        .then(birds => {
-          const sanitized = locations.map((location, i) => {
+      fetchBirds(randomLocations)
+        .then((birds) => {
+          const sanitized = randomLocations.map((location, i) => {
             return ({
               locId: location.id,
               lat: location.latitude,
