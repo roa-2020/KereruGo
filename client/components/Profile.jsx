@@ -6,7 +6,7 @@ import { apiGetOneBird, apiGetUserScrapbook, apiGetUserBadges } from "../apis/in
 import { receiveScrapbook, saveProgress } from "../actions/scrapbook";
 import { receiveBadges } from '../actions/badges'
 
-class Profile extends React.Component {
+export class Profile extends React.Component {
   state = {
     bird: {},
     found: 0,
