@@ -1,16 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ReactMapGL, { GeolocateControl, Marker, Popup } from "react-map-gl";
-import { HashRouter as Router, Route, Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { logoutUser } from "../actions/auth";
-// import {  Link } from 'react-router-dom'
 import { apiGetAllLocations, apiAddScrapbookEntry, apiCurrentCount } from "../apis/index";
 import { receiveLocations, removeLocations } from "../actions/locations";
-import { receiveBirdProfile } from "../actions/bird_profile";
 import NavLink from "./NavLink";
-import BirdProfile from "./BirdProfile";
 
 class Map extends React.Component {
   state = {
@@ -35,7 +32,9 @@ class Map extends React.Component {
   }
 
   viewportChange = (viewport) => {
-    this.setState({ viewport });
+    this.setState({
+      viewport,
+    });
   };
 
   // changeLocation = (location) => {
@@ -55,11 +54,43 @@ class Map extends React.Component {
 
   
 
-  closePopup = (id) => {
+  distantBird = (location) => {
+    this.setState({
+      selectedLocation: {
+        lat: location.lat,
+        long: location.long,
+        birdImg: "/images/mystery-bird.png",
+        birdName: "Bird that is Too Far Away",
+        locId: location.locId,
+      },
+    });
+  };
+
+  closePopup = (id, encountered) => {
     this.setState({
       selectedLocation: null,
     });
-    this.props.removeLocations(id);
+
+    if (encountered) {
+      this.props.removeLocations(id);
+    }
+  };
+
+  geolocate = ({ coords }) => {
+    const diameter = 100; // Proximity Area in Metres
+    const metresToLatConversionFactor = 111111.111111111;
+    const metresToLongConversionFactor = 83333.333333333;
+    const latAdjust = diameter / 2 / metresToLatConversionFactor;
+    const longAdjust = diameter / 2 / metresToLongConversionFactor;
+
+    this.setState({
+      userLat: coords.latitude,
+      userLong: coords.longitude,
+      minLat: coords.latitude - latAdjust,
+      maxLat: coords.latitude + latAdjust,
+      minLong: coords.longitude - longAdjust,
+      maxLong: coords.longitude + longAdjust,
+    });
   };
 
   render() {
@@ -67,67 +98,98 @@ class Map extends React.Component {
 
     return (
       <div className="card is-centered mx-4 mapContainer">
-        
-          <ReactMapGL
-            {...this.state.viewport}
-            mapboxApiAccessToken={
-              "pk.eyJ1IjoibWVldGpvaG5ncmF5IiwiYSI6ImNrZWJ5amJoYzAxeG4zNWs5ankxdHh5MWwifQ.7-Lg9dp4OdYmLML1jy5CDw"
+        <ReactMapGL
+          {...this.state.viewport}
+          mapboxApiAccessToken={
+            "pk.eyJ1IjoibWVldGpvaG5ncmF5IiwiYSI6ImNrZWJ5amJoYzAxeG4zNWs5ankxdHh5MWwifQ.7-Lg9dp4OdYmLML1jy5CDw"
+          }
+          mapStyle="mapbox://styles/meetjohngray/ckfk9geqz34xv19po854t66dz"
+          onViewportChange={this.viewportChange}
+        >
+          {this.props.locations.map((location) => {
+            const lat = Number(location.lat);
+            const long = Number(location.long);
+            let popupFunc;
+            if (
+              this.state.minLat <= lat &&
+              lat <= this.state.maxLat &&
+              this.state.minLong <= long &&
+              long <= this.state.maxLong
+            ) {
+              popupFunc = (e) => this.addToScrapbook(location);
+            } else {
+              popupFunc = (e) => {
+                this.distantBird(location);
+              };
             }
-            mapStyle="mapbox://styles/meetjohngray/ckfk9geqz34xv19po854t66dz"
-            onViewportChange={this.viewportChange}
-          >
-            {this.props.locations.map((location) => {
-              return (
-                <Marker
-                  className="marker-btn"
-                  key={location.locId}
-                  latitude={Number(location.lat)}
-                  longitude={Number(location.long)}
-                >
-                  <img
-                    src="/images/mystery-bird.png"
-                    onClick={(e) => this.addToScrapbook(location)}
-                  />
-                </Marker>
-              );
-            })}
 
-            {this.state.selectedLocation !== null ? (
-              <Popup
-                latitude={Number(this.state.selectedLocation.lat)}
-                longitude={Number(this.state.selectedLocation.long)}
-                //  onClose={this.closePopup}
+            return (
+              <Marker
+                className="marker-btn"
+                key={location.locId}
+                latitude={Number(location.lat)}
+                longitude={Number(location.long)}
               >
-                <>
-                  <img src={this.state.selectedLocation.birdImg} />
-                  <p className="title is-5">
-                    You found a {this.state.selectedLocation.birdName}!
-                  </p>
-                  <p className="title is-6">
-                    <Link to={`/bird/${this.state.selectedLocation.birdId}`}>
-                      Learn More
-                    </Link>
-                    {/* <Redirect to={`/bird/${this.state.selectedLocation.birdId}`}>Learn More</Redirect>  */}
-                  </p>
-                  <a
-                    onClick={() =>
-                      this.closePopup(this.state.selectedLocation.locId)
-                    }
-                    className="closePopup"
-                  >
-                    <i className="fas fa-times"></i>
-                  </a>
-                </>
-              </Popup>
-            ) : null}
+                <img src="/images/mystery-bird.png" onClick={popupFunc} />
+              </Marker>
+            );
+          })}
 
-            <GeolocateControl
-              positionOptions={{ enableHighAccuracy: true }}
-              trackUserLocation={true}
-              auto={true}
-            />
-          </ReactMapGL>
-          <NavLink />
+          {this.state.selectedLocation !== null ? (
+            <Popup
+              latitude={Number(this.state.selectedLocation.lat)}
+              longitude={Number(this.state.selectedLocation.long)}
+            >
+              <>
+                <img src={this.state.selectedLocation.birdImg} />
+
+                {this.state.selectedLocation.birdId && (
+                  <>
+                    <p className="title is-5">
+                      You found a {this.state.selectedLocation.birdName}!
+                    </p>
+                    <p className="title is-6">
+                      <Link to={`/bird/${this.state.selectedLocation.birdId}`}>
+                        Learn More
+                      </Link>
+                    </p>
+                  </>
+                )}
+
+                {!this.state.selectedLocation.birdId && (
+                  <>
+                    <p className="title is-5">Too Far Away</p>
+                    <p className="title is-6">
+                      The bird you have found is too far away. Get closer to
+                      observe it.
+                    </p>
+                  </>
+                )}
+                
+                {/* hasOwnProperty checks if the selected location has a birdId defined, and then passes true or false through as an arg */}
+                <a
+                  onClick={() =>
+                    this.closePopup(
+                      this.state.selectedLocation.locId,
+                      this.state.selectedLocation.hasOwnProperty("birdId")
+                    )
+                  }
+                  className="closePopup"
+                >
+                  <i className="fas fa-times"></i>
+                </a>
+              </>
+            </Popup>
+          ) : null}
+
+          <GeolocateControl
+            positionOptions={{ enableHighAccuracy: true }}
+            trackUserLocation={true}
+            auto={true}
+            onGeolocate={this.geolocate}
+          />
+        </ReactMapGL>
+        <NavLink />
       </div>
     );
   }
