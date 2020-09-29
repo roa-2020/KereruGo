@@ -149,7 +149,7 @@ class Map extends React.Component {
                       You found a {this.state.selectedLocation.birdName}!
                     </p>
                     <p className="title is-6">
-                      <Link to={`/bird/${this.state.selectedLocation.birdId}`}>
+                      <Link to={`/bird/${this.state.selectedLocation.birdId}/encounter`}>
                         Learn More
                       </Link>
                     </p>

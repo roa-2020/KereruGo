@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { HashRouter as Router, Link } from "react-router-dom";
+import { HashRouter as Router, Link} from "react-router-dom";
 import { apiGetUserScrapbook } from "../apis/index";
 import { receiveScrapbook } from "../actions/scrapbook";
 import BackLink from './BackLink'
@@ -11,7 +11,6 @@ export class Scrapbook extends React.Component {
       this.props.dispatch(receiveScrapbook(scrapbook))
     );
   }
-
   render() {
     return (
       <div className='card is-centered mx-4 scrollable scrapbook'>
@@ -35,10 +34,7 @@ export class Scrapbook extends React.Component {
           })}
         </div>
         <BackLink
-        inline='inline'
-          action={() => {
-            this.props.history.goBack();
-          }}
+          destination='/nav'
         />
       </div>
     );

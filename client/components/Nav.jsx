@@ -1,12 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { logoutUser } from "../actions/auth";
 import BackLink from "./BackLink";
 import Home from "./Home";
 // import {HashRouter as Router, Route, Link} from 'react-router-dom'
 
 class Nav extends React.Component {
+  back = () => {
+    return <Redirect to="/" />
+  }
   render() {
     const { auth, logout } = this.props;
     return (
@@ -21,9 +24,7 @@ class Nav extends React.Component {
               Logout
             </Link>
             <BackLink
-              action={() => {
-                this.props.history.goBack();
-              }}
+              destination='/'
             />
           </>
         ) : (

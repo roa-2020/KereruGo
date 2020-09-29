@@ -67,7 +67,6 @@ export function logoutUser (confirmSuccess) {
 }
 
 export function registerUserRequest (creds, confirmSuccess) {
-  console.log('are you here?', creds)
   return (dispatch) => {
     register(creds)
       .then(userInfo => {
