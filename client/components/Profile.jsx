@@ -11,7 +11,7 @@ export class Profile extends React.Component {
     bird: {},
     found: 0,
     total: 0,
-    medalName: ''
+    // medalName: ''
   };
 
   componentDidMount() {
@@ -27,50 +27,30 @@ export class Profile extends React.Component {
         this.props.dispatch(receiveBadges(badges))
       })
   }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps !== this.props) {
-      const id = this.props.scrapbook.findIndex(
-        (entry) => entry.birdId === Number(this.props.match.params.id)
-      );
-      this.setState({
-        bird: this.props.scrapbook[id],
-      });
-    }
-  }
  
 
     getMedal = (badge) => {
       const foundCount = badge.currentCount
-        if (foundCount < badge.silverReq && foundCount >= badge.bronzeReq) {
-          this.setState({medalName: 'bronze'})
-          return <i className="fas fa-medal fa-3x bronze-medal"></i>
+      const bronzeReq = Number(badge.bronzeReq)
+      const silverReq = Number(badge.silverReq)
+      const goldReq = Number(badge.goldReq)
 
-        } else if (foundCount >= badge.silverReq && foundCount < badge.goldReq) {
-          this.setState({medalName: 'silver'})
-          return <i className="fas fa-medal fa-3x silver-medal"></i>
+        if (foundCount < silverReq && foundCount >= bronzeReq) {
+          return ['bronze', <i className="fas fa-medal fa-3x bronze-medal"></i>]
 
-        } else if (foundCount >= badge.goldReq) {
-          this.setState({medalName: 'gold'})
-          return <i className="fas fa-medal fa-3x gold-medal"></i>
+        } else if (foundCount >= silverReq && foundCount < goldReq) {
+          return ['silver', <i className="fas fa-medal fa-3x silver-medal"></i>]
+
+        } else if (foundCount >= goldReq) {
+          return ['gold', <i className="fas fa-medal fa-3x gold-medal"></i>]
+        } else {
+          return false
         }
     }
 
-    // getMedalName = (badge) => {
-    //   const foundCount = badge.currentCount
-  
-    //     if (foundCount < 10 && foundCount > 0) {
-    //       return badge.bronzeReq
-    //     } else if (foundCount >= 10 && foundCount < 20) {
-    //       return badge.silverReq
-    //     } else if (foundCount >= 20) {
-    //       return badge.goldReq
-    //     }
-    //   }
-
 
   render() {
-    console.log(this.props, "     spacer     ");
+   
     const userInfo = this.props.auth.user;
 
     return (
@@ -102,16 +82,17 @@ export class Profile extends React.Component {
 
 
           <div className="badge has-text-centered">
-            {this.props.badges.map(badge => {
-            
+        
+          {this.props.badges.map((badge, i) => {
+      
+           const getTheMedal = this.getMedal(badge)
               return (
-                <>
-                  <div className="badge-container">
-                    <h5 className="has-text-weight-light">You have earned a {this.state.medalName} medal!</h5>
-                    {this.getMedal(badge)}
-                    {/* <p>{badge.badgeTag}: {badge.currentCount} </p> */}
+                
+                  <div className="badge-container" key={`${i} ${getTheMedal}`}>
+                    <h5 className="has-text-weight-light">You have earned a {getTheMedal[0]} medal!</h5>
+                    {getTheMedal[1]}
                   </div>
-                </>
+                
               )
             })}
           </div>
