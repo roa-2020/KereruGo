@@ -2,6 +2,7 @@ const express = require('express')
 const { getTokenDecoder } = require('authenticare/server')
 const {
   getAllHabitats,
+  getHabitatsByBirdId,
   getAllBirdTypes,
   generateRandomBirdID,
   getBirdCount,
@@ -33,7 +34,6 @@ function getHabitats(req, res) {
         habitatName: habitat.habitat_name
       }
     })
-
     return res.json(sanitized)
   })
 }
@@ -123,7 +123,6 @@ function getLocations(req, res) {
       // Then map the two arrays together (birds and randomLocations)
         .then((birds) => {
           const sanitized = randomLocations.map((location, i) => {
-            console.log(location.bird_density)
             return ({
               locId: location.id,
               lat: location.latitude,
@@ -151,7 +150,21 @@ function getScrapbook(req, res) {
   return getScrapbookEntries(user_id).then(entries => {
     return getAllBirdTypes()
       .then(birds => {
-        const sanitized = birds.map(bird => {
+        // Promise All function to get habitats for birds
+        const fetchHabitats = async (birds) => {
+          const birdsWithHabitats = birds.map(bird => {
+          return getHabitatsByBirdId(bird.id)
+            .then(habitats => {
+              bird.habitats = habitats
+              return bird
+            })
+          })
+          return Promise.all(birdsWithHabitats)
+        }
+      // Call the above Promise All  
+      fetchHabitats(birds)
+      .then((birdsWithHabitats) => {
+        const sanitized = birdsWithHabitats.map(bird => {
           const foundIndex = entry => {
             return entry.bird_id === bird.id
           }
@@ -164,7 +177,10 @@ function getScrapbook(req, res) {
               birdRarity: bird.bird_rarity,
               birdNocturnal: bird.bird_nocturnal,
               birdTag: bird.bird_tag,
-              birdInfo: bird.bird_info
+              birdInfo: bird.bird_info,
+              birdHabitats: [
+                bird.habitats.map(habitat => habitat.habitat_name)
+              ]
             }
           } else {
             return {
@@ -177,12 +193,12 @@ function getScrapbook(req, res) {
         })
         return res.json(sanitized)
       })
+      })
       .catch(errorHandler)
   })
 }
 
 function addCurrentCount(req, res) {
-
   const user_id = parseInt(req.params.id)
   const badgeId = req.body.badgeId
 
@@ -190,16 +206,11 @@ function addCurrentCount(req, res) {
     .then(badges => {
       badges.filter(badge => badge.badge_id == badgeId)
       const badge = badges[0]
-
-
       if (badge) {
         const newCount = badge.current_count + 1
-
         return addToCount(newCount, badge.id)
           .then(res.send('add1'))
-
       } else {
-
         const newBadge = {
           user_id: user_id,
           badge_id: 1,
@@ -208,7 +219,6 @@ function addCurrentCount(req, res) {
         return addBadge(newBadge)
           .then(res.send('addbadge'))
       }
-
     })
     .catch(errorHandler)
 }
@@ -252,4 +262,5 @@ function errorHandler(err, req, res, next) {
     res.status(500).json({ message: 'Something went RATHER wrong. Shame.' })
   }
 }
+
 module.exports = router
