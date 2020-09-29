@@ -112,9 +112,7 @@ export class Profile extends React.Component {
 
 
           <BackLink
-            action={() => {
-              this.props.history.goBack();
-            }}
+            destination="/nav"
           />
         </div>
       </>
