@@ -26,42 +26,76 @@ class BirdProfile extends React.Component {
       });
     }
   }
-
+  
   render() {
     const bird = this.state.bird;
+    
+    let rarityIcon = ''
+      if(this.state.bird.birdRarity == 'common'){
+      rarityIcon = <i className="fas fa-smile mb-3"></i>
+    } else if (bird.birdRarity == 'vulnerable'){
+      rarityIcon = <i className="fas fa-meh mb-3"></i>
+    } else if (bird.birdRarity == 'extinct'){
+      rarityIcon = <i className="fas fa-grimace mb-3"></i>
+    } else {
+      rarityIcon = <i className="fas fa-frown mb-3"></i>
+    } 
+    
+    let rarity = ''
+      if(this.state.bird.birdRarity == 'common'){
+      rarity = 'Common'
+    } else if (bird.birdRarity == 'vulnerable'){
+      rarity = 'Vulnerable'
+    } else if (bird.birdRarity == 'extinct'){
+      rarity = 'Extinct'
+    } else {
+      rarity = 'Endangered'
+    } 
+
     return (
       <div className="card is-centered mx-4 scrollable">
         {this.state.bird && (
-          <>
+            <>
             <div className="bird-profile-img">
               <img
                 src={this.state.bird.birdImg && this.state.bird.birdImg}
-                alt="Image of bird"
-              ></img>
+                alt="Image of bird">
+              </img>
             </div>
-            <div className="birdDetails">
-              <h1 className="birdName has-text-centered capitalized">
+            <div className="birdDetails mb-6">
+              <h1 className="birdName title is-3 has-text-centered is-capitalized">
                 {bird.birdName && bird.birdName}
               </h1>
-              <div className="subtitle">
-                {bird.birdEnglishName && (
-                  <p className="capitalized">
-                    English Name: {bird.birdEnglishName}
-                  </p>
-                )}
-                {bird.birdRarity && (
-                  <p className="capitalized">Rarity: {bird.birdRarity}</p>
-                )}
-                <p>
-                  Active Period:{" "}
-                  {bird.birdNocturnal === 0 ? "Daylight" : "Night"}
-                </p>
+              <h2 className="subtitle is-5 has-text-centered is-italic has-text-weight-light">
+                {bird.birdEnglishName}
+              </h2>
+              <div className="birdIcons mb-4">
+                <div className="icon-group">
+                  {bird.birdNocturnal === 0 ? <i className="fas fa-sun mb-3"></i> : <i className="fas fa-moon mb-3"></i>}
+                  <p>{bird.birdNocturnal === 0 ? 'Diurnal' : 'Nocturnal' }</p>
+                </div>
+                 <div className="icon-group">
+                  {rarityIcon}
+                  <p>{rarity}</p>
+                </div>
+                <div className="icon-group">
+                  <i className="fab fa-pagelines mb-3"></i>
+                  <p>Forest</p>
+                </div>
               </div>
 
               <p className="birdTag"> {bird.birdTag && bird.birdTag}</p>
-              <p className="birdInfo"> {bird.birdInfo && bird.birdInfo}</p>
-            </div>
-          </>
+             
+             {/* Add a modal to display more info */}
+            {/* <div className="modal is-active">
+              <div className="modal-background"></div>
+              <div className="modal-content">
+                <p className="birdInfo"> {bird.birdInfo && bird.birdInfo}</p>
+              </div>
+              <button className="modal-close is-large" aria-label="close"></button>
+            </div> */}
+        </div>
+           </>
         )}
         <BackLink
         inline='inline'

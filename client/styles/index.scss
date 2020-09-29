@@ -1,21 +1,21 @@
 @charset "utf-8";
 
 // Import a Google Font
-@import url("https://fonts.googleapis.com/css?family=Lato:400,700");
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
 
 // Import custom variables and Bulma overides
-@import "./variables.scss";
+@import './variables.scss';
 
 // Import only what you need from Bulma
-@import "../../node_modules/bulma/sass/utilities/_all.sass";
-@import "../../node_modules/bulma/sass/base/_all.sass";
-@import "../../node_modules/bulma/sass/elements/button.sass";
-@import "../../node_modules/bulma/sass/elements/container.sass";
-@import "../../node_modules/bulma/sass/elements/title.sass";
-@import "../../node_modules/bulma/sass/form/_all.sass";
-@import "../../node_modules/bulma/sass/components/navbar.sass";
-@import "../../node_modules/bulma/sass/layout/hero.sass";
-@import "../../node_modules/bulma/sass/layout/section.sass";
+@import '../../node_modules/bulma/sass/utilities/_all.sass';
+@import '../../node_modules/bulma/sass/base/_all.sass';
+@import '../../node_modules/bulma/sass/elements/button.sass';
+@import '../../node_modules/bulma/sass/elements/container.sass';
+@import '../../node_modules/bulma/sass/elements/title.sass';
+@import '../../node_modules/bulma/sass/form/_all.sass';
+@import '../../node_modules/bulma/sass/components/navbar.sass';
+@import '../../node_modules/bulma/sass/layout/hero.sass';
+@import '../../node_modules/bulma/sass/layout/section.sass';
 
 // Fix for transparent background on active nav items
 a.navbar-item:focus,
@@ -34,7 +34,6 @@ a.navbar-item.is-active,
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  
 }
 
 #app {
@@ -54,40 +53,113 @@ a.navbar-item.is-active,
   height: 90vh;
   max-height: 90.1vh;
   border-radius: 15px;
-  // background-color: #7e8055;
-  background-color: rgb(238, 255, 206);
+  background-color: rgb(246, 255, 206);
 
+  &.auth {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 
-  @media screen and (max-width: 600px) {
-    &.scrollable {
-      overflow-y: scroll;
+  &.scrollable {
+    overflow-y: scroll;
 
-      &::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-        background-color: rgba(255, 255, 255, 0);
-        margin: 1em 0px;
-        border-radius: 10px;
+    &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      background-color: rgba(255, 255, 255, 0);
+      margin: 1em 0px;
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar {
+      width: 10px;
+      background-color: rgba(255, 255, 255, 0);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $color-mostly-transparent;
+      border-radius: 10px;
+      background-image: -webkit-linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.5) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0.5) 75%,
+        transparent 75%,
+        transparent
+      );
+    }
+  }
+}
+
+.authForm {
+  width: 90%;
+  margin: 0 auto;
+
+  .columns {
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @media screen and (min-width: 840px) {
+      flex-direction: row;
+      input:nth-of-type(2) {
+        margin-left: 1em;
       }
+    }
+  }
 
-      &::-webkit-scrollbar {
-        width: 10px;
-        background-color: rgba(255, 255, 255, 0);
-      }
+  input {
+    font-family: inherit;
+    margin-bottom: 1em;
+    border-radius: 15px;
+    background-color: $card-bg;
+    color: $bg-color;
 
-      &::-webkit-scrollbar-thumb {
+    &::placeholder {
+      color: $bg-color-transparent;
+    }
+
+    &.button {
+      border: solid 1px $color-semi-transparent;
+      background-color: $color-semi-transparent;
+      color: $light-color;
+      font-weight: bold;
+      &:hover,
+      &:active {
         background-color: $color-mostly-transparent;
-        border-radius: 10px;
-        background-image: -webkit-linear-gradient(
-          0deg,
-          rgba(255, 255, 255, 0.5) 25%,
-          transparent 25%,
-          transparent 50%,
-          rgba(255, 255, 255, 0.5) 50%,
-          rgba(255, 255, 255, 0.5) 75%,
-          transparent 75%,
-          transparent
-        );
+        color: $light-color;
       }
+    }
+  }
+}
+
+.redirect {
+  
+  text-align: center;
+  font-size: 0.9em;
+  place-self: center;
+  margin-bottom: 2em;
+  
+
+  a {
+    display: block;
+    background-color: $color-mostly-transparent;
+    border: solid 1px $color-semi-transparent;
+    border-radius: 15px;
+    color: $light-color;
+    padding: 0.5em;
+
+    &:hover, &:active {
+      opacity: 0.8;
+    }
+
+    p {
+      padding: 0em;
+      margin: 0px !important;
     }
   }
 }
@@ -135,7 +207,7 @@ h1.has-text-white {
   border: solid 1px lightgrey;
   border-radius: 1em;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  background-color: rgba(225, 225, 225, 0.6);
+  background-color: $card-bg;
 
   &:hover {
     background-color: #dedede;
@@ -153,9 +225,11 @@ h1.has-text-white {
     max-height: 300px;
   }
 }
+
 .birdDetails {
   padding: 1em;
 }
+
 // .mapboxgl-map button {
 //   display: block;
 //   width: 2em !important;
@@ -167,10 +241,6 @@ h1.has-text-white {
 .button {
   text-transform: uppercase;
 }
-.login-redirect,
-.register-redirect {
-  text-align: center;
-}
 
 .navigation {
   display: flex;
@@ -178,12 +248,7 @@ h1.has-text-white {
   place-items: center;
   justify-content: center;
   width: auto;
-  background-image: linear-gradient(
-      rgba(121, 38, 5, 0.404),
-      rgba(121, 38, 5, 0.404)
-    ),
-    url("/images/navImage.jpg");
-    background-size: cover;
+
   a {
     width: 100px;
     padding: 0.5em;
@@ -230,6 +295,7 @@ h1.has-text-white {
 }
 
 a {
+  color: $color-semi-transparent;
   &:hover {
     opacity: 0.9;
   }
@@ -243,28 +309,71 @@ a {
   background: none;
   border: none;
   cursor: pointer;
-}
 
-.marker-btn img {
-  width: 100px;
-  height: 100px;
+  img {
+  width: 75px;
+  height: 75px;
   border-radius: 50%;
-  // transform: translate(-50%, -50%)
+  }
 }
 
-.mapboxgl-popup-content {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  margin-top: -25vh;
-  margin-left: -25vw;
-  width: 75vw;
-  height: 50vh;
-  background: #fff;
-  border-radius: 3px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  padding: 10px 10px 15px;
-  pointer-events: auto;
+.overlays {
+  position: relative;
+
+  .mapboxgl-marker {
+    z-index: 4;
+  }
+
+  .mapboxgl-popup {
+    position: absolute;
+    top: 25% !important;
+    left: 15% !important;
+    margin: 0px;
+    width: 70%;
+    background: $card-bg;
+    border-radius: 15px;
+    padding: 1em;
+    transform: none !important;
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    z-index: 5;
+
+    @media only screen and (min-width: 800px) {
+      left: 25% !important;
+      width: 50%;
+    }
+
+    .mapboxgl-popup-content {
+      box-shadow: none;
+      padding: 0px;
+      background-color: transparent;
+
+      img {
+        max-width: 200px;
+        @media only screen and (min-width: 800px) {
+          max-width: 300px;
+        }
+      }
+
+      p.title.is-6 {
+        padding-bottom: 0px;
+        margin-bottom: 0px;
+      }
+
+      a.closePopup {
+        color: rgba(200, 100, 100, 0.9);
+        border: solid 1px rgba(200, 100, 100, 0.9);
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+      }
+    }
+  }
 }
 
 .progress {
@@ -315,21 +424,98 @@ a {
   }
 }
 
-.content h1.birdName {
-  border-bottom: solid 1px lightgrey;
-  margin-bottom: 0px;
-}
-.subtitle {
+.birdIcons {
+  height: 4rem;
   display: flex;
-  justify-content: space-between;
-  font-size: 1.4em;
-  font-weight: bold;
-  p {
-    margin-top: 0px;
-    padding-top: 0px;
+  align-items: center;
+  justify-content: space-around;
+  i {
+    font-size: 2rem;
   }
+}
+
+.birdTag {
+  text-align: center;
 }
 
 .mapboxgl-popup-close-button {
   display: none;
+}
+
+.mapboxgl-ctrl {
+  &.mapboxgl-ctrl-group {
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    display: inline-block;
+    justify-self: flex-end;
+    width: auto;
+    border-radius: 50%;
+  }
+}
+
+.mapContainer {
+  div:first-child {
+    border-radius: 15px;
+  }
+}
+.icon-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+// .content h1.birdName {
+//   border-bottom: solid 1px lightgrey;
+//   margin-bottom: 0px;
+// }
+// .subtitle {
+//   display: flex;
+//   justify-content: space-between;
+//   font-size: 1.4em;
+//   font-weight: bold;
+//   p {
+//     margin-top: 0px;
+//     padding-top: 0px;
+//   }
+// }
+.birdBackground {
+  background-image: linear-gradient(
+      rgba(121, 38, 5, 0.404),
+      rgba(121, 38, 5, 0.404)
+    ),
+    url('/images/navImage.jpg');
+  background-size: cover;
+}
+
+.user-name {
+  text-transform: uppercase;
+}
+
+.bird-profile-img {
+  padding-top: 100px;
+}
+
+.badge {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.bronze-medal {
+  color: #AD8A56;
+}
+
+.silver-medal {
+  color: #B4B4B4;
+}
+
+.gold-medal {
+  color: #C9B037;
+}
+
+.user-icon {
+  font-size: 150px;
 }

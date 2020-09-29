@@ -10,6 +10,7 @@ const {
   getScrapbookEntries,
   addScrapbookEntry
 } = require('../db/birds')
+const { getUserBadges, addToCount, addBadge } = require('../db/users')
 
 const router = express.Router()
 
@@ -19,10 +20,12 @@ router.get('/bird/:id', getTokenDecoder(), getBird)
 router.get('/locations', getTokenDecoder(), getLocations)
 router.get('/scrapbook/:id', getTokenDecoder(), getScrapbook)
 router.post('/scrapbook', getTokenDecoder(), addEntry)
+router.post('/badges/:id', getTokenDecoder(), addCurrentCount)
+router.get('/badges/:id', getTokenDecoder(), getBadges)
 
 router.use(errorHandler)
 
-function getHabitats (req, res) {
+function getHabitats(req, res) {
   return getAllHabitats().then(habitats => {
     const sanitized = habitats.map(habitat => {
       return {
@@ -35,7 +38,7 @@ function getHabitats (req, res) {
   })
 }
 
-function getBirdTypes (req, res) {
+function getBirdTypes(req, res) {
   return getAllBirdTypes().then(birdTypes => {
     const sanitized = birdTypes.map(bird => {
       return {
@@ -53,7 +56,7 @@ function getBirdTypes (req, res) {
   })
 }
 
-function getBird (req, res) {
+function getBird(req, res) {
   const id = req.params.id
   return getBirdById(id).then(bird => {
     const sanitized = {
@@ -70,25 +73,63 @@ function getBird (req, res) {
   })
 }
 
-function getLocations (req, res) {
+function getLocations(req, res) {
+  // Fetch count of birds to use in random bird id generation
   return getBirdCount().then(({ count }) => {
+    // Get all seed locations
     return getAllLocations().then(locations => {
-      const fetchBirds = async (locations) => {
-        const birds = locations.map(() => {
-              return getBirdById(generateRandomBirdID(count))
-                .then((bird) => {
-                return bird
-                })
+      // Define constants
+      const metresToLatConversionFactor = 111111.111111111
+      const metresToLongConversionFactor = 83333.333333333
+      
+      // Util Functions
+      const randomDirection = () => {if (Math.random() > 0.5) {return -1} else {return 1}}
+      
+      // Map over seed locations to make surrounding randomLocations
+      let randomLocations = []
+      let newId = locations.length + 1000
+      locations.map(location => {
+        const birdDensity = Number(location.bird_density) || Math.ceil(Math.random() * (5 - 2) + 2)
+        const metresRad = Number(location.metres_rad) || 100
+        const latSpread = metresRad / metresToLatConversionFactor
+        const longSpread = metresRad / metresToLongConversionFactor
+        const randomLat = () =>  Math.random() * latSpread * randomDirection()
+        const randomLong = () => Math.random() * longSpread * randomDirection()
+
+        for (i = 0; i < birdDensity; i++) {
+          newId++
+          randomLocations.push({ 
+              id: newId,
+              latitude: Number(location.latitude) + randomLat(),
+              longitude: Number(location.longitude) + randomLong(),
+              bird_density: Number(location.bird_density),
+              metres_rad: Number(location.metres_rad)
+          })
+        }
+      })
+          
+      // Below function calls the Promise.all function to get 1 random bird per randomLocation
+      const fetchBirds = async (randomLocations) => {
+          const birds = randomLocations.map(() => {
+          return getBirdById(generateRandomBirdID(count))
+            .then((bird) => {
+              return bird
             })
+        })
         return Promise.all(birds)
       }
-      fetchBirds(locations)
-        .then(birds => {
-          const sanitized = locations.map((location, i) => {
+      // Call the above function
+      fetchBirds(randomLocations)
+      // Then map the two arrays together (birds and randomLocations)
+        .then((birds) => {
+          const sanitized = randomLocations.map((location, i) => {
+            console.log(location.bird_density)
             return ({
               locId: location.id,
               lat: location.latitude,
               long: location.longitude,
+              locMetresRad: location.metres_rad || 100,
+              locBirdDensity: location.bird_density || 5,
               birdId: birds[i].id,
               birdName: birds[i].bird_name,
               birdEnglishName: birds[i].bird_english_name,
@@ -101,11 +142,11 @@ function getLocations (req, res) {
           })
           res.json(sanitized)
         })
-      })
+    })
   })
 }
 
-function getScrapbook (req, res) {
+function getScrapbook(req, res) {
   const user_id = req.params.id
   return getScrapbookEntries(user_id).then(entries => {
     return getAllBirdTypes()
@@ -140,7 +181,62 @@ function getScrapbook (req, res) {
   })
 }
 
-function addEntry (req, res) {
+function addCurrentCount(req, res) {
+
+  const user_id = parseInt(req.params.id)
+  const badgeId = req.body.badgeId
+
+  return getUserBadges(user_id)
+    .then(badges => {
+      badges.filter(badge => badge.badge_id == badgeId)
+      const badge = badges[0]
+
+
+      if (badge) {
+        const newCount = badge.current_count + 1
+
+        return addToCount(newCount, badge.id)
+          .then(res.send('add1'))
+
+      } else {
+
+        const newBadge = {
+          user_id: user_id,
+          badge_id: 1,
+          current_count: 1
+        }
+        return addBadge(newBadge)
+          .then(res.send('addbadge'))
+      }
+
+    })
+    .catch(errorHandler)
+}
+
+function getBadges(req, res) {
+  const user_id = parseInt(req.params.id)
+  return getUserBadges(user_id)
+    .then(badges => {
+      const sanitized = badges.map(badge => {
+        return {
+          badgeId: badge.id,
+          badgeName: badge.badge_name,
+          badgeTag: badge.badge_tag,
+          badgeBronze: badge.badge_bronze,
+          badgeSilver: badge.badge_silver,
+          badgeGold: badge.badge_gold,
+          bronzeReq: badge.bronze_req,
+          silverReq: badge.silver_req,
+          goldReq: badge.gold_req,
+          currentCount: badge.current_count
+        }
+      })
+      return res.json(sanitized)
+    })
+}
+
+
+function addEntry(req, res) {
   const entry = {
     user_id: req.body.user_id,
     bird_id: req.body.bird_id
@@ -148,7 +244,7 @@ function addEntry (req, res) {
   addScrapbookEntry(entry).then(count => res.json(count[0]))
 }
 
-function errorHandler (err, req, res, next) {
+function errorHandler(err, req, res, next) {
   console.log(err)
   if (err.name === 'UnauthorizedError') {
     res.status(401).json({ message: 'Access denied.' })

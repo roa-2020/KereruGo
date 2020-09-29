@@ -1,16 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ReactMapGL, { GeolocateControl, Marker, Popup } from "react-map-gl";
-import { HashRouter as Router, Route, Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { logoutUser } from "../actions/auth";
-// import {  Link } from 'react-router-dom'
-import { apiGetAllLocations, apiAddScrapbookEntry } from "../apis/index";
+import { apiGetAllLocations, apiAddScrapbookEntry, apiCurrentCount } from "../apis/index";
 import { receiveLocations, removeLocations } from "../actions/locations";
-import { receiveBirdProfile } from "../actions/bird_profile";
 import NavLink from "./NavLink";
-import BirdProfile from "./BirdProfile";
 
 class Map extends React.Component {
   state = {
@@ -27,15 +24,17 @@ class Map extends React.Component {
   };
 
   componentDidMount() {
-    if (this.props.auth.isAuthenticated){
-    apiGetAllLocations()
-    .then(locations => this.props.saveLocations(locations))
-    .catch((err) => console.log(err))
+    if (this.props.auth.isAuthenticated) {
+      apiGetAllLocations()
+        .then((locations) => this.props.saveLocations(locations))
+        .catch((err) => console.log(err));
     }
   }
 
   viewportChange = (viewport) => {
-    this.setState({ viewport });
+    this.setState({
+      viewport,
+    });
   };
 
   // changeLocation = (location) => {
@@ -49,24 +48,56 @@ class Map extends React.Component {
         selectedLocation: location,
       })
     )
-  }
-
-  closePopup = (id) => {
-    this.setState({
-      selectedLocation: null,
-    })
-    console.log("Close Pop:", id )
-    this.props.removeLocations(id)
+    const badgeId = 1
+    apiCurrentCount(this.props.auth.user.id, badgeId)
   }
 
   
+
+  distantBird = (location) => {
+    this.setState({
+      selectedLocation: {
+        lat: Number(location.lat),
+        long: Number(location.long),
+        birdImg: "/images/mystery-bird.png",
+        birdName: "Bird that is Too Far Away",
+        locId: location.locId,
+      },
+    });
+  };
+
+  closePopup = (id, encountered) => {
+    this.setState({
+      selectedLocation: null,
+    });
+
+    if (encountered) {
+      this.props.removeLocations(id);
+    }
+  };
+
+  geolocate = ({ coords }) => {
+    const diameter = 100; // Proximity Area in Metres
+    const metresToLatConversionFactor = 111111.111111111;
+    const metresToLongConversionFactor = 83333.333333333;
+    const latAdjust = diameter / 2 / metresToLatConversionFactor;
+    const longAdjust = diameter / 2 / metresToLongConversionFactor;
+
+    this.setState({
+      userLat: Number(coords.latitude),
+      userLong: Number(coords.longitude),
+      minLat: Number(coords.latitude) - latAdjust,
+      maxLat: Number(coords.latitude) + latAdjust,
+      minLong: Number(coords.longitude) - longAdjust,
+      maxLong: Number(coords.longitude) + longAdjust,
+    });
+  };
+
   render() {
     const { auth, logout, page } = this.props;
 
     return (
-      <div className="card is-centered mx-4">
-        <NavLink />
-
+      <div className="card is-centered mx-4 mapContainer">
         <ReactMapGL
           {...this.state.viewport}
           mapboxApiAccessToken={
@@ -76,6 +107,22 @@ class Map extends React.Component {
           onViewportChange={this.viewportChange}
         >
           {this.props.locations.map((location) => {
+            const lat = Number(location.lat);
+            const long = Number(location.long);
+            let popupFunc;
+            if (
+              this.state.minLat <= lat &&
+              lat <= this.state.maxLat &&
+              this.state.minLong <= long &&
+              long <= this.state.maxLong
+            ) {
+              popupFunc = (e) => this.addToScrapbook(location);
+            } else {
+              popupFunc = (e) => {
+                this.distantBird(location);
+              };
+            }
+
             return (
               <Marker
                 className="marker-btn"
@@ -83,10 +130,7 @@ class Map extends React.Component {
                 latitude={Number(location.lat)}
                 longitude={Number(location.long)}
               >
-                <img
-                  src="/images/mystery-bird.png"
-                  onClick={(e) => this.addToScrapbook(location)}
-                />
+                <img src="/images/mystery-bird.png" onClick={popupFunc} />
               </Marker>
             );
           })}
@@ -95,26 +139,46 @@ class Map extends React.Component {
             <Popup
               latitude={Number(this.state.selectedLocation.lat)}
               longitude={Number(this.state.selectedLocation.long)}
-              //  onClose={this.closePopup}
             >
-              <div>
+              <>
                 <img src={this.state.selectedLocation.birdImg} />
-                <p className="title is-5">
-                  You found a {this.state.selectedLocation.birdName}!
-                </p>
-                <p className="title is-6">
-                  <Link to={`/bird/${this.state.selectedLocation.birdId}`}>
-                    Learn More
-                  </Link>
-                  {/* <Redirect to={`/bird/${this.state.selectedLocation.birdId}`}>Learn More</Redirect>  */}
-                </p>
-                <button
-                  onClick={() => this.closePopup(this.state.selectedLocation.locId)}
-                  className="button is-small is-rounded"
+
+                {this.state.selectedLocation.birdId && (
+                  <>
+                    <p className="title is-5">
+                      You found a {this.state.selectedLocation.birdName}!
+                    </p>
+                    <p className="title is-6">
+                      <Link to={`/bird/${this.state.selectedLocation.birdId}`}>
+                        Learn More
+                      </Link>
+                    </p>
+                  </>
+                )}
+
+                {!this.state.selectedLocation.birdId && (
+                  <>
+                    <p className="title is-5">Too Far Away</p>
+                    <p className="title is-6">
+                      The bird you have found is too far away. Get closer to
+                      observe it.
+                    </p>
+                  </>
+                )}
+                
+                {/* hasOwnProperty checks if the selected location has a birdId defined, and then passes true or false through as an arg */}
+                <a
+                  onClick={() =>
+                    this.closePopup(
+                      this.state.selectedLocation.locId,
+                      this.state.selectedLocation.hasOwnProperty("birdId")
+                    )
+                  }
+                  className="closePopup"
                 >
-                  Close
-                </button>
-              </div>
+                  <i className="fas fa-times"></i>
+                </a>
+              </>
             </Popup>
           ) : null}
 
@@ -122,11 +186,12 @@ class Map extends React.Component {
             positionOptions={{ enableHighAccuracy: true }}
             trackUserLocation={true}
             auto={true}
+            onGeolocate={this.geolocate}
           />
         </ReactMapGL>
-        {/* <Link to='/' className="button is-rounded" onClick={() => logout()}>Logout</Link> */}
+        <NavLink />
       </div>
-    )
+    );
   }
 }
 
@@ -137,22 +202,22 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(logoutUser(confirmSuccess));
     },
     page: () => {
-      dispatch(togglePage("list", 1))
+      dispatch(togglePage("list", 1));
     },
     saveLocations: (locations) => {
-      dispatch(receiveLocations(locations))
+      dispatch(receiveLocations(locations));
     },
     removeLocations: (locId) => {
-      dispatch(removeLocations(locId))
-    }
-  }
-}
+      dispatch(removeLocations(locId));
+    },
+  };
+};
 
 const mapStateToProps = ({ auth, locations }) => {
   return {
     auth,
-    locations
-  }
-}
+    locations,
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);
