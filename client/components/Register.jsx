@@ -88,6 +88,7 @@ class Register extends React.Component {
               value={this.state.confirm_password}
             />
           </div>
+
           <input
             className="button is-large is-fullwidth"
             value="Register"

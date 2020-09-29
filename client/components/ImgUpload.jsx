@@ -1,20 +1,39 @@
 import React from "react";
+import { apiPostProfileImage } from "../apis/index";
 
 class ImgUploader extends React.Component {
+  // state = {
+  //   selectedFile: [],
+  // };
+
+  fileSelectedHandler = (e) => {
+    console.log(e.target.files[0]);
+    // this.setState({
+    //   selectedFile: e.target.files[0],
+    // });
+    let file = e.target.files[0];
+    apiPostProfileImage(file);
+  };
+
+  handleUpload() {
+    apiPostProfileImage(this.state.selectedFile);
+  }
+
   render() {
     return (
       <>
-        <form action="post">
-          <label for="profile-pic">Choose a file to upload</label>
-          <input
-            type="file"
-            name="profile-pic"
-            id="profile-pic"
-            name="profile_pic"
-            accept=".jpg, .jpeg, .png"
-          />
-          <button type="submit">Submit</button>
-        </form>
+        <label htmlFor="profile-pic">Choose a file to upload</label>
+        <input
+          id="file"
+          type="file"
+          accept="image/*"
+          name="profile-pic"
+          encType="multipart/form-data"
+          accept=".jpg, .jpeg, .png"
+          onChange={this.fileSelectedHandler}
+        />
+
+        <button onClick={this.handleUpload}> Upload </button>
       </>
     );
   }

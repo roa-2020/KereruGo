@@ -35,9 +35,20 @@ function addBadge(newBadge, db = connection) {
   return db("badges_users").insert(newBadge);
 }
 
-function addImg(newImg, id, db = connection) {
+//Write a function that gets user by ID, and then call it within getUserImage
+//Or use getUserbyUsername Function
+
+//This is how we will retrieve the data after it's saved.
+function getUserImage(db = connection) {
+  return db("users")
+    .join("images", "users.user_img", "images.user_img")
+    .where("users.user_img", user_id);
+}
+
+//The return needs to be adjusted with a new table that stores the location and name of the image.
+function addImg(newImg, db = connection) {
   console.log(newImg);
-  return db("users").where("id", id).insert(newImg);
+  return db("images").where("user_img", newImg).insert(newImg);
 }
 
 module.exports = {
@@ -48,4 +59,5 @@ module.exports = {
   addToCount,
   addBadge,
   addImg,
+  getUserImage,
 };

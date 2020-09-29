@@ -309,13 +309,13 @@ a {
   background: none;
   border: none;
   cursor: pointer;
-}
 
-.marker-btn img {
-  width: 100px;
-  height: 100px;
+  img {
+  width: 75px;
+  height: 75px;
   border-radius: 50%;
-  // transform: translate(-50%, -50%)
+  transform: translate(-50%, -50%)
+  }
 }
 
 .overlays {

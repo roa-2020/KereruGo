@@ -1,5 +1,7 @@
 const express = require("express");
 const { getTokenDecoder } = require("authenticare/server");
+//Beneath this line introduce Multer and upload middleware.
+
 const {
   getAllHabitats,
   getAllBirdTypes,
@@ -13,6 +15,11 @@ const {
 const { getUserBadges, addToCount, addBadge } = require("../db/users");
 
 const router = express.Router();
+const multer = require("multer");
+const upload = multer({ dest: __dirname + "/public/uploads/" });
+
+//Beneath this, we will write the post/get routes for the image upload.
+//we will pass it functions from the database
 
 router.get("/habitats", getTokenDecoder(), getHabitats);
 router.get("/birdTypes", getTokenDecoder(), getBirdTypes);
@@ -22,6 +29,17 @@ router.get("/scrapbook/:id", getTokenDecoder(), getScrapbook);
 router.post("/scrapbook", getTokenDecoder(), addEntry);
 router.post("/badges/:id", getTokenDecoder(), addCurrentCount);
 router.get("/badges/:id", getTokenDecoder(), getBadges);
+
+//Token Decoder = Connect to the server?
+//Second argument will be the function that gets fired
+//which will in turn call the database function
+router.get("/profile/:id", getTokenDecoder(), getProfileImage);
+router.post(
+  "/profile/:id",
+  getTokenDecoder(),
+  upload.single("file"),
+  addProfileImage
+);
 
 router.use(errorHandler);
 
@@ -76,16 +94,38 @@ function getBird(req, res) {
 function getLocations(req, res) {
   return getBirdCount().then(({ count }) => {
     return getAllLocations().then((locations) => {
-      const fetchBirds = async (locations) => {
-        const birds = locations.map(() => {
+      // randomly generate random locations surrounding seed locations
+      let randomLocations = [];
+      let newId = locations.length + 951;
+
+      // random Lat and Long functions called when making new locations in the for loop
+      let randomLat = () => Math.random() * (0.0018 - 0.0009) + 0.0009;
+      let randomLong = () => Math.random() * (0.0024 - 0.0012) + 0.0012;
+      // map over locations to make random surrounding locations
+      locations.map((location) => {
+        let randomBirdCount = Math.ceil(Math.random() * (5 - 2) + 2);
+        for (i = 0; i < randomBirdCount; i++) {
+          newId++;
+          randomLocations.push({
+            id: newId,
+            latitude: location.latitude + randomLat(),
+            longitude: location.longitude + randomLong(),
+          });
+        }
+      });
+
+      // the fetchBirds function waits for everything to finish (using Promises.all) to
+      //... then execute the 'dot-then' found below it(approx line 110)
+      const fetchBirds = async (randomLocations) => {
+        const birds = randomLocations.map(() => {
           return getBirdById(generateRandomBirdID(count)).then((bird) => {
             return bird;
           });
         });
         return Promise.all(birds);
       };
-      fetchBirds(locations).then((birds) => {
-        const sanitized = locations.map((location, i) => {
+      fetchBirds(randomLocations).then((birds) => {
+        const sanitized = randomLocations.map((location, i) => {
           return {
             locId: location.id,
             lat: location.latitude,
@@ -193,6 +233,16 @@ function addEntry(req, res) {
     bird_id: req.body.bird_id,
   };
   addScrapbookEntry(entry).then((count) => res.json(count[0]));
+}
+
+//Here we create a function that uses the DB (which inserts our image information into the table)
+//Which will get fired when we the image uploader function in the client API fires.
+
+function getProfileImage(req, res) {}
+
+function addProfileImage(req, res) {
+  const image = req.file;
+  console.log(image);
 }
 
 function errorHandler(err, req, res, next) {

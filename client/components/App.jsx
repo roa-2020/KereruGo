@@ -10,7 +10,6 @@ import BirdProfile from "./BirdProfile";
 import Profile from "./Profile";
 import Map from "./Map";
 import Scrapbook from "./Scrapbook";
-import ImgUploader from "./ImgUpload";
 
 import { checkAuth } from "../actions/auth";
 
@@ -24,11 +23,8 @@ export class App extends React.Component {
     const { auth } = this.props;
     return (
       <>
-        {/* <Router>
-          <div
-            id="body-content"
-            className="container content is-full"
-          >
+        <Router>
+          <div id="body-content" className="container content is-full">
             <h1 className="has-text-white pt-3 has-text-centered">
               <Link to="/">KererūGo</Link>
             </h1>
@@ -46,9 +42,7 @@ export class App extends React.Component {
             )}
             {!auth.isAuthenticated && <Route exact path="/" component={Nav} />}
           </div>
-        </Router> */}
-
-        <ImgUploader />
+        </Router>
       </>
     );
   }

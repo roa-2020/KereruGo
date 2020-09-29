@@ -1,12 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
-import BackLink from './BackLink'
+import BackLink from "./BackLink";
+import ImgUploader from "./ImgUpload";
 
-import { apiGetOneBird, apiGetUserScrapbook, apiGetUserBadges  } from "../apis/index";
+import {
+  apiGetOneBird,
+  apiGetUserScrapbook,
+  apiGetUserBadges,
+} from "../apis/index";
 import { receiveScrapbook, saveProgress } from "../actions/scrapbook";
-import { receiveBadges } from '../actions/badges'
+import { receiveBadges } from "../actions/badges";
 
-class Profile extends React.Component {
+export class Profile extends React.Component {
   state = {
     bird: {},
     found: 0,
@@ -17,14 +22,14 @@ class Profile extends React.Component {
     apiGetUserScrapbook(this.props.auth.user.id).then((scrapbook) => {
       this.props.dispatch(receiveScrapbook(scrapbook));
       const total = scrapbook.length;
-      const found = scrapbook.filter((entry) => entry.birdName !== "Unknown").length;
+      const found = scrapbook.filter((entry) => entry.birdName !== "Unknown")
+        .length;
       this.props.dispatch(saveProgress(found, total));
     });
-    apiGetUserBadges(this.props.auth.user.id)
-    .then(badges => {
-      console.log('test', badges)
-      this.props.dispatch(receiveBadges(badges))
-    })
+    apiGetUserBadges(this.props.auth.user.id).then((badges) => {
+      console.log("test", badges);
+      this.props.dispatch(receiveBadges(badges));
+    });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -51,11 +56,19 @@ class Profile extends React.Component {
           {this.props.scrapbook && (
             <div className="bird-profile-img">
               {console.log(this.props.auth.user)}
-              <img src={this.props.auth.user.user_image || '/images/mystery-bird.png'} alt="Image of user"></img>
+              <img
+                src={
+                  this.props.auth.user.user_image || "/images/mystery-bird.png"
+                }
+                alt="Image of user"
+              ></img>
             </div>
           )}
           <div>
-            <h1 className="birdName has-text-centered capitalized">{userInfo.username}</h1>
+            <ImgUploader />
+            <h1 className="birdName has-text-centered capitalized">
+              {userInfo.username}
+            </h1>
             <h3 className="has-text-centered">Birds Encountered</h3>
             <div className="progress">
               <progress
@@ -67,16 +80,16 @@ class Profile extends React.Component {
                 {this.props.progress.totalBirds}
               </span>
             </div>
-           
+
             {/* <h5 className="has-text-centered">{userInfo.username}'s Badges</h5> */}
           </div>
           {/* <div className="image-container"></div> */}
           {/* <p>{medal}</p> */}
           <BackLink
-          action={() => {
-            this.props.history.goBack();
-          }}
-        />
+            action={() => {
+              this.props.history.goBack();
+            }}
+          />
         </div>
       </>
     );
@@ -88,7 +101,7 @@ const mapStateToProps = (globalState) => {
     auth: globalState.auth,
     scrapbook: globalState.scrapbook,
     progress: globalState.progress,
-    badges: globalState.badges
+    badges: globalState.badges,
   };
 };
 export default connect(mapStateToProps)(Profile);
