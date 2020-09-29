@@ -112,7 +112,8 @@ class Map extends React.Component {
           ref={this.mapRef}
         >
           <Clusters locations={this.props.locations} mapRef={this.mapRef} viewport={this.state.viewport}/>
-          {this.props.locations.map((location) => {
+          
+          {/* {this.props.locations.map((location) => {
             const lat = Number(location.lat);
             const long = Number(location.long);
             let popupFunc;
@@ -127,9 +128,9 @@ class Map extends React.Component {
               popupFunc = (e) => {
                 this.distantBird(location);
               };
-            }
+            } */}
 
-            return (
+            {/* return (
               <Marker
                 className="marker-btn"
                 key={location.locId}
@@ -139,9 +140,9 @@ class Map extends React.Component {
                 <img src="/images/mystery-bird.png" onClick={popupFunc} />
               </Marker>
             );
-          })}
+          })} */}
 
-          {this.state.selectedLocation !== null ? (
+          {/* {this.state.selectedLocation !== null ? (
             <Popup
               latitude={Number(this.state.selectedLocation.lat)}
               longitude={Number(this.state.selectedLocation.long)}
@@ -160,9 +161,9 @@ class Map extends React.Component {
                       </Link>
                     </p>
                   </>
-                )}
+                )} */}
 
-                {!this.state.selectedLocation.birdId && (
+                {/* {!this.state.selectedLocation.birdId && (
                   <>
                     <p className="title is-5">Too Far Away</p>
                     <p className="title is-6">
@@ -170,10 +171,10 @@ class Map extends React.Component {
                       observe it.
                     </p>
                   </>
-                )}
+                )} */}
                 
                 {/* hasOwnProperty checks if the selected location has a birdId defined, and then passes true or false through as an arg */}
-                <a
+                {/* <a
                   onClick={() =>
                     this.closePopup(
                       this.state.selectedLocation.locId,
@@ -186,7 +187,7 @@ class Map extends React.Component {
                 </a>
               </>
             </Popup>
-          ) : null}
+          ) : null} */}
 
           <GeolocateControl
             positionOptions={{ enableHighAccuracy: true }}
