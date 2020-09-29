@@ -53,7 +53,7 @@ class BirdProfile extends React.Component {
     } 
 
     return (
-      <div className="card is-centered mx-4 scrollable">
+      <div className="card has-text-brown is-centered mx-4 scrollable">
         {this.state.bird && (
             <>
             <div className="bird-profile-img">
@@ -63,13 +63,13 @@ class BirdProfile extends React.Component {
               </img>
             </div>
             <div className="birdDetails mb-6">
-              <h1 className="birdName title is-3 has-text-centered is-capitalized">
+              <h1 className="birdName title is-3 has-text-centered has-text-brown is-capitalized">
                 {bird.birdName && bird.birdName}
               </h1>
               <h2 className="subtitle is-5 has-text-centered is-italic has-text-weight-light">
                 {bird.birdEnglishName}
               </h2>
-              <div className="birdIcons mb-4">
+              <div className="birdIcons has-text-white mb-4">
                 <div className="icon-group">
                   {bird.birdNocturnal === 0 ? <i className="fas fa-sun mb-3"></i> : <i className="fas fa-moon mb-3"></i>}
                   <p>{bird.birdNocturnal === 0 ? 'Diurnal' : 'Nocturnal' }</p>
@@ -84,7 +84,7 @@ class BirdProfile extends React.Component {
                 </div>
               </div>
 
-              <p className="birdTag"> {bird.birdTag && bird.birdTag}</p>
+              <p className="has-text-brown birdTag "> {bird.birdTag && bird.birdTag}</p>
              
              {/* Add a modal to display more info */}
             {/* <div className="modal is-active">
