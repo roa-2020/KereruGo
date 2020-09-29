@@ -5,7 +5,7 @@ import { apiGetUserScrapbook } from "../apis/index";
 import { receiveScrapbook } from "../actions/scrapbook";
 import BackLink from './BackLink'
 
-class Scrapbook extends React.Component {
+export class Scrapbook extends React.Component {
   componentDidMount() {
     apiGetUserScrapbook(this.props.auth.user.id).then((scrapbook) =>
       this.props.dispatch(receiveScrapbook(scrapbook))
