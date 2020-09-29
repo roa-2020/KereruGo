@@ -8,12 +8,17 @@ import BackLink from "./BackLink";
 class BirdProfile extends React.Component {
   state = {
     bird: {},
+    destination: '/scrapbook'
   };
 
   componentDidMount() {
     apiGetUserScrapbook(this.props.auth.user.id).then((scrapbook) => {
       this.props.dispatch(receiveScrapbook(scrapbook));
     });
+
+    if (this.props.match.path === '/bird/:id/encounter'){
+      this.setState({destination: '/'})
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -26,7 +31,7 @@ class BirdProfile extends React.Component {
       });
     }
   }
-  
+
   render() {
     const bird = this.state.bird;
     const audio = new Audio(this.state.bird.birdAudio);
@@ -39,29 +44,28 @@ class BirdProfile extends React.Component {
     } else if (bird.birdRarity == 'extinct'){
       rarityIcon = <i className="fas fa-grimace mb-3"></i>
     } else {
-      rarityIcon = <i className="fas fa-frown mb-3"></i>
-    } 
-    
-    let rarity = ''
-      if(this.state.bird.birdRarity == 'common'){
-      rarity = 'Common'
-    } else if (bird.birdRarity == 'vulnerable'){
-      rarity = 'Vulnerable'
-    } else if (bird.birdRarity == 'extinct'){
-      rarity = 'Extinct'
+      rarityIcon = <i className="fas fa-frown mb-3"></i>;
+    }
+
+    let rarity = "";
+    if (this.state.bird.birdRarity == "common") {
+      rarity = "Common";
+    } else if (bird.birdRarity == "vulnerable") {
+      rarity = "Vulnerable";
+    } else if (bird.birdRarity == "extinct") {
+      rarity = "Extinct";
     } else {
-      rarity = 'Endangered'
-    } 
+      rarity = "Endangered";
+    }
 
     return (
       <div className="card is-centered mx-4 scrollable">
         {this.state.bird && (
-            <>
+          <>
             <div className="bird-profile-img">
               <img
                 src={this.state.bird.birdImg && this.state.bird.birdImg}  
-                alt="Image of bird">  
-              </img>           
+                alt="Image of bird" />  
             </div>
             <div className="birdDetails mb-6">
               <h1 className="birdName title is-3 has-text-centered is-capitalized">
@@ -79,11 +83,14 @@ class BirdProfile extends React.Component {
               </h2>
               <div className="birdIcons mb-4">
                 <div className="icon-group">
-                  {/* check if this is back to front */}
-                  {bird.birdNocturnal === 0 ? <i className="fas fa-sun mb-3"></i> : <i className="fas fa-moon mb-3"></i>}
-                  <p>{bird.birdNocturnal === 0 ? 'Diurnal' : 'Nocturnal' }</p>
+                  {bird.birdNocturnal === 0 ? (
+                    <i className="fas fa-sun mb-3"></i>
+                  ) : (
+                    <i className="fas fa-moon mb-3"></i>
+                  )}
+                  <p>{bird.birdNocturnal === 0 ? "Diurnal" : "Nocturnal"}</p>
                 </div>
-                 <div className="icon-group">
+                <div className="icon-group">
                   {rarityIcon}
                   <p>{rarity}</p>
                 </div>
@@ -94,25 +101,19 @@ class BirdProfile extends React.Component {
               </div>
 
               <p className="birdTag"> {bird.birdTag && bird.birdTag}</p>
-             
-             {/* Add a modal to display more info */}
-            {/* <div className="modal is-active">
+
+              {/* Add a modal to display more info */}
+              {/* <div className="modal is-active">
               <div className="modal-background"></div>
               <div className="modal-content">
                 <p className="birdInfo"> {bird.birdInfo && bird.birdInfo}</p>
               </div>
               <button className="modal-close is-large" aria-label="close"></button>
             </div> */}
-        </div>
-           </>
+            </div>
+          </>
         )}
-        {/* check this works on iphone */}
-        <BackLink
-        inline='inline'And 
-          action={() => {
-            this.props.history.goBack();
-          }}
-        />
+        <BackLink inline="inline" destination={this.state.destination} />
       </div>
     );
   }
