@@ -38,7 +38,8 @@ export class App extends React.Component {
               <>
                 <Route exact path="/" component={Map} />
                 <Route path="/map" component={Map} />
-                <Route path="/bird/:id" component={BirdProfile} />
+                <Route exact path="/bird/:id" component={BirdProfile} />
+                <Route path="/bird/:id/encounter" component={BirdProfile} />
                 <Route path="/scrapbook" component={Scrapbook} />
                 <Route path="/profile" component={Profile} />
               </>
