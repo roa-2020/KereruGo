@@ -1,44 +1,43 @@
-const connection = require('./connection')
-const { generateHash } = require('authenticare/server')
+const connection = require("./connection");
+const { generateHash } = require("authenticare/server");
 
-function createUser (user, db = connection) {
-  const newUser = {...user}
-  return generateHash(newUser.password)
-    .then(passwordHash => {
-      newUser.hash = passwordHash
-      delete newUser.password
-      return db('users').insert(newUser)
-    })
+function createUser(user, db = connection) {
+  const newUser = { ...user };
+  return generateHash(newUser.password).then((passwordHash) => {
+    newUser.hash = passwordHash;
+    delete newUser.password;
+    return db("users").insert(newUser);
+  });
 }
 
-function userExists (username, db = connection) {
-  return db('users')
-    .where('username', username)
-    .then(users => users.length > 0)
+function userExists(username, db = connection) {
+  return db("users")
+    .where("username", username)
+    .then((users) => users.length > 0);
 }
 
-function getUserByUsername (username, db = connection) {
-  return db('users')
-    .where('username', username)
-    .first()
+function getUserByUsername(username, db = connection) {
+  return db("users").where("username", username).first();
 }
 
-function getUserBadges (user_id, db = connection) {
-  return db('badges')
-  .join('badges_users', 'badges.id', 'badges_users.badge_id')
-  .where('badges_users.user_id', user_id)
+function getUserBadges(user_id, db = connection) {
+  return db("badges")
+    .join("badges_users", "badges.id", "badges_users.badge_id")
+    .where("badges_users.user_id", user_id);
 }
 
-function addToCount (newCount, id, db = connection) {
-  return db('badges_users')
-  .where('id', id)
-  .update({current_count: newCount})
+function addToCount(newCount, id, db = connection) {
+  return db("badges_users").where("id", id).update({ current_count: newCount });
 }
 
-function addBadge (newBadge, db = connection) {
-  console.log(newBadge)
-  return db('badges_users')
-  .insert(newBadge)
+function addBadge(newBadge, db = connection) {
+  console.log(newBadge);
+  return db("badges_users").insert(newBadge);
+}
+
+function addImg(newImg, id, db = connection) {
+  console.log(newImg);
+  return db("users").where("id", id).insert(newImg);
 }
 
 module.exports = {
@@ -47,5 +46,6 @@ module.exports = {
   getUserByUsername,
   getUserBadges,
   addToCount,
-  addBadge
-}
+  addBadge,
+  addImg,
+};
