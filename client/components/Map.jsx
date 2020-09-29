@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import ReactMapGL, { GeolocateControl, Marker, Popup } from "react-map-gl";
 import { Link } from "react-router-dom";
 
@@ -8,25 +8,35 @@ import { logoutUser } from "../actions/auth";
 import { apiGetAllLocations, apiAddScrapbookEntry, apiCurrentCount } from "../apis/index";
 import { receiveLocations, removeLocations } from "../actions/locations";
 import NavLink from "./NavLink";
+import Clusters from "./Clusters";
 
 class Map extends React.Component {
+
+  constructor(props){
+    super(props)
+    this.mapRef = createRef()
+  }
+
   state = {
     viewport: {
       latitude: -41.294105529785156,
       longitude: 174.7752685546875,
       width: "100%",
       height: "100%",
-      zoom: 30,
+      zoom: 10
     },
     locations: [],
     selectedLocation: null,
     loaded: false,
+    clusters: []
   };
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       apiGetAllLocations()
-        .then((locations) => this.props.saveLocations(locations))
+        .then((locations) => {
+          this.props.saveLocations(locations)
+    })
         .catch((err) => console.log(err));
     }
   }
@@ -37,11 +47,6 @@ class Map extends React.Component {
     });
   };
 
-  // changeLocation = (location) => {
-  //   console.log(location)
-  //   this.setState({selectedLocation: location})
-  // }
-
   addToScrapbook = (location) => {
     apiAddScrapbookEntry(this.props.auth.user.id, location.birdId).then(
       this.setState({
@@ -51,8 +56,6 @@ class Map extends React.Component {
     const badgeId = 1
     apiCurrentCount(this.props.auth.user.id, badgeId)
   }
-
-  
 
   distantBird = (location) => {
     this.setState({
@@ -95,7 +98,7 @@ class Map extends React.Component {
 
   render() {
     const { auth, logout, page } = this.props;
-
+    
     return (
       <div className="card is-centered mx-4 mapContainer">
         <ReactMapGL
@@ -105,7 +108,10 @@ class Map extends React.Component {
           }
           mapStyle="mapbox://styles/meetjohngray/ckfk9geqz34xv19po854t66dz"
           onViewportChange={this.viewportChange}
+          // Use below to get map bounds for cluster above
+          ref={this.mapRef}
         >
+          <Clusters locations={this.props.locations} mapRef={this.mapRef} viewport={this.state.viewport}/>
           {this.props.locations.map((location) => {
             const lat = Number(location.lat);
             const long = Number(location.long);
