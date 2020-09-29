@@ -11,6 +11,7 @@ export class Profile extends React.Component {
     bird: {},
     found: 0,
     total: 0,
+    medalName: ''
   };
 
   componentDidMount() {
@@ -41,26 +42,31 @@ export class Profile extends React.Component {
 
     getMedal = (badge) => {
       const foundCount = badge.currentCount
-        if (foundCount < 10 && foundCount > 0) {
+        if (foundCount < badge.silverReq && foundCount >= badge.bronzeReq) {
+          this.setState({medalName: 'bronze'})
           return <i className="fas fa-medal fa-3x bronze-medal"></i>
-        } else if (foundCount >= 10 && foundCount < 20) {
+
+        } else if (foundCount >= badge.silverReq && foundCount < badge.goldReq) {
+          this.setState({medalName: 'silver'})
           return <i className="fas fa-medal fa-3x silver-medal"></i>
-        } else if (foundCount >= 20) {
+
+        } else if (foundCount >= badge.goldReq) {
+          this.setState({medalName: 'gold'})
           return <i className="fas fa-medal fa-3x gold-medal"></i>
         }
     }
 
-    getMedalName = (badge) => {
-      const foundCount = badge.currentCount
+    // getMedalName = (badge) => {
+    //   const foundCount = badge.currentCount
   
-        if (foundCount < 10 && foundCount > 0) {
-          return badge.bronzeReq
-        } else if (foundCount >= 10 && foundCount < 20) {
-          return badge.silverReq
-        } else if (foundCount >= 20) {
-          return badge.goldReq
-        }
-      }
+    //     if (foundCount < 10 && foundCount > 0) {
+    //       return badge.bronzeReq
+    //     } else if (foundCount >= 10 && foundCount < 20) {
+    //       return badge.silverReq
+    //     } else if (foundCount >= 20) {
+    //       return badge.goldReq
+    //     }
+    //   }
 
 
   render() {
@@ -101,7 +107,7 @@ export class Profile extends React.Component {
               return (
                 <>
                   <div className="badge-container">
-                    <h5 className="has-text-weight-light">You have earned a {this.getMedalName(badge)} medal!</h5>
+                    <h5 className="has-text-weight-light">You have earned a {this.state.medalName} medal!</h5>
                     {this.getMedal(badge)}
                     {/* <p>{badge.badgeTag}: {badge.currentCount} </p> */}
                   </div>
