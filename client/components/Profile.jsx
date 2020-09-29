@@ -42,9 +42,9 @@ export class Profile extends React.Component {
     getMedal = (badge) => {
       const foundCount = badge.currentCount
         if (foundCount < 10 && foundCount > 0) {
-          return <i className="fas fa-medal bronze-medal"></i>
+          return <i className="fas fa-medal fa-3x bronze-medal"></i>
         } else if (foundCount >= 10 && foundCount < 20) {
-          return <i className="fas fa-medal silver-medal"></i>
+          return <i className="fas fa-medal fa-3x silver-medal"></i>
         } else if (foundCount >= 20) {
           return <i className="fas fa-medal fa-3x gold-medal"></i>
         }
