@@ -4,6 +4,9 @@ exports.seed = (knex) =>
     .del()
 // Inserts seed entries
     .then(() => knex("locations").insert([
+      // EDA
+      {latitude: -41.296857, longitude: 174.774013, bird_density: 4, metres_rad: 200},
+
       // CAMBRIDGE TERRACE DATA CENTER
       {latitude: -41.293236, longitude: 174.783682, bird_density: 5, metres_rad: 50},
 
