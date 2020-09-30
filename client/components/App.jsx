@@ -28,6 +28,7 @@ export class App extends React.Component {
             <h1 className="has-text-white pt-3 has-text-centered">
               <Link to="/">KererūGo</Link>
             </h1>
+            
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/nav" component={Nav} />
