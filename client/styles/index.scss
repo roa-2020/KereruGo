@@ -53,7 +53,8 @@ a.navbar-item.is-active,
   height: 90vh;
   max-height: 90.1vh;
   border-radius: 15px;
-  background-color: rgb(246, 255, 206);
+  background-color: #b5bd91;
+  
 
   &.auth {
     display: flex;
@@ -165,13 +166,40 @@ a.navbar-item.is-active,
 }
 
 h1.has-text-white {
-  color: white;
+  color: rgb(49, 21, 27);
   font-style: italic;
 
   a {
     color: inherit;
   }
 }
+
+h1.has-text-brown,
+h5.has-text-brown {
+  color: rgb(49, 21, 27);
+  // font-style: italic;
+
+  a {
+    color: inherit;
+  }
+}
+
+div.has-text-brown {
+  color: rgb(49, 21, 27);
+  
+
+  a {
+    color: inherit;
+  }
+}
+
+div.has-text-white {
+  color: #efefef;
+  
+}
+
+
+
 
 .image-container {
   width: 115px;
@@ -228,6 +256,7 @@ h1.has-text-white {
 
 .birdDetails {
   padding: 1em;
+  
 }
 
 // .mapboxgl-map button {
@@ -391,7 +420,7 @@ a {
     border-radius: 1em;
 
     &::-webkit-progress-bar {
-      background-color: #f3f3f3;
+      background-color: #b5bd91;
       border: solid 1px $color-semi-transparent;
       border-radius: 1em;
     }
@@ -518,4 +547,17 @@ a {
 
 .user-icon {
   font-size: 150px;
+  color: $color-semi-transparent;
+}
+
+.main-title {
+  color: #b5bd91;
+}
+
+.bird-name {
+  color: rgba(121, 38, 5, 0.404);
+}
+
+.value {
+  color: #ece8e8;
 }
