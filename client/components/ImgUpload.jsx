@@ -3,6 +3,9 @@ import { apiPostProfileImage } from "../apis/index";
 import { connect } from "react-redux";
 
 class ImgUploader extends React.Component {
+  state = {
+    formVisible: false
+  }
   fileSelectedHandler = (e) => {
     console.log(e.target.files[0]);
     console.log(this.props.auth.user);
@@ -13,18 +16,21 @@ class ImgUploader extends React.Component {
   };
 
   render() {
+    const formClass = (this.state.formVisible ? '' : 'hidden')
     return (
       <>
-        <label htmlFor="profile-pic">Choose a file to upload</label>
+        <div className="imageToggle">
+        <i className="fas fa-pencil-alt" onClick={()=>{this.setState({formVisible: !this.state.formVisible})}}></i>
         <input
+          className={formClass}
           id="file"
           type="file"
           accept="image/*"
           name="profile-pic"
           encType="multipart/form-data"
-          accept=".jpg, .jpeg, .png"
           onChange={this.fileSelectedHandler}
         />
+        </div>
       </>
     );
   }

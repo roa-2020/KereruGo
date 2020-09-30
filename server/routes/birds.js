@@ -296,8 +296,10 @@ function addEntry(req, res) {
 }
 
 function insertImage(req, res) {
+  console.log('insertImage')
   const user_id = req.params.id;
-  const user_img = req.file.path.slice(56);
+  const indexOf = req.file.path.indexOf('/uploads')
+  const user_img = req.file.path.slice(indexOf);
   return addImage(user_id, user_img).then((res) => {
     res.body;
   });

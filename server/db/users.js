@@ -53,6 +53,7 @@ function getImage(id, file, db = connection) {
 }
 
 function addImage(user_id, user_img, db = connection) {
+  console.log('addImage')
   return db("users").where("id", user_id).update("user_img", user_img);
 }
 

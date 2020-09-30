@@ -32,6 +32,12 @@ export class Profile extends React.Component {
     });
   }
 
+  // componentDidUpdate(prevProps){
+  //   if(prevProps !== this.props){
+
+  //   }
+  // }
+
   getMedal = (badge) => {
     const foundCount = badge.currentCount;
     const bronzeReq = Number(badge.bronzeReq);
@@ -58,21 +64,24 @@ export class Profile extends React.Component {
       <>
         <div className="card is-centered mx-4 scrollable">
           {this.props.scrapbook && (
-            <div className="bird-profile-img">
+            <div className="user-profile-img">
+              <ImgUploader />
               <img
                 src={
                   this.props.auth.user.user_img || "/images/mystery-bird.png"
                 }
                 alt="Image of user"
               ></img>
+              
             </div>
           )}
           <div>
-            <ImgUploader />
+            
 
             <h1 className="user-name birdName has-text-centered has-text-weight-light">
-              {userInfo.username}
+              {userInfo.username} 
             </h1>
+            
             <h3 className="has-text-centered has-text-weight-light">
               Unique Birds Encountered
             </h3>

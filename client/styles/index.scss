@@ -535,6 +535,30 @@ a {
   padding-top: 100px;
 }
 
+.hidden {
+  display: none;
+}
+
+
+.user-profile-img {
+  position: relative;
+  display: grid;
+  padding-top: 100px;
+  place-items: center;
+  img {
+  width: 300px;
+  height: auto;
+  border-radius: 50%;
+  }
+  .imgToggle {
+    position: relative;
+    top: 0px;
+    left: 150px;
+
+    font-size: 2em;
+  }
+}
+
 .badge {
   display: flex;
   flex-direction: column;
