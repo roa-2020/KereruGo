@@ -7,7 +7,9 @@ import BackLink from "./BackLink";
 
 class BirdProfile extends React.Component {
   state = {
-    bird: {},
+    bird: {
+      birdHabitats: []
+    },
     destination: '/scrapbook'
   };
 
@@ -57,6 +59,32 @@ class BirdProfile extends React.Component {
     } else {
       rarity = "Endangered";
     }
+    
+    let habitat = ""
+    let habitatIcon = ''
+    console.log(this.state.bird.birdHabitats[0])
+    if (this.state.bird.birdHabitats[0] == "Coastal") {
+      habitat = "Coastal";
+      habitatIcon = <i className="fas fa-water"></i>
+    } else if (bird.birdHabitats[0] == "Inland Coastal") {
+      habitat = "Inland Coastal";
+      habitatIcon = <i className="fas fa-umbrella-beach"></i>
+    } else if (bird.birdHabitats[0] == "Forest") {
+      habitat = "Forest";
+      habitatIcon = <i className="fab fa-pagelines mb-3"></i>
+    } else if (bird.birdHabitats[0] == "Scrub") {
+      habitat = "Scrub";
+      habitatIcon = <i className="fas fa-seedling"></i>
+    } else if (bird.birdHabitats[0] == "Alpine") {
+      habitat = "Alpine";
+      habitatIcon = <i className="fas fa-mountain"></i>
+    } else if (bird.birdHabitats[0] == "River"){
+      habitat = "River";
+      habitatIcon = <i className="fas fa-water"></i>
+    } else {
+      habitat = "Forest";
+      habitatIcon = <i className="fab fa-pagelines mb-3"></i>
+    }
 
     return (
       <div className="card has-text-brown is-centered mx-4 scrollable">
@@ -95,8 +123,8 @@ class BirdProfile extends React.Component {
                   <p>{rarity}</p>
                 </div>
                 <div className="icon-group">
-                  <i className="fab fa-pagelines mb-3"></i>
-                  <p>Forest</p>
+                  {habitatIcon}
+                  <p>{habitat}</p>
                 </div>
               </div>
 

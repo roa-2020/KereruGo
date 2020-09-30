@@ -122,7 +122,8 @@ function Clusters (props) {
             latitude={Number(cluster.geometry.coordinates[1])}
             longitude={Number(cluster.geometry.coordinates[0])}
           >
-            <img src="/images/mystery-bird.png" onClick={popupFunc} />
+            <i className="fas fa-feather-alt" onClick={popupFunc}></i>
+            {/* <img src="/images/mystery-bird.png" onClick={popupFunc} /> */}
           </Marker>
 
           {selectedLocation.hasOwnProperty('lat') ? (
