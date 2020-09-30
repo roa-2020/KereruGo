@@ -45,7 +45,12 @@ export class App extends React.Component {
                 <Route path="/profile" component={Profile} />
               </>
             )}
-            {!auth.isAuthenticated && <Route exact path="/" component={Nav} />}
+            {!auth.isAuthenticated && 
+              <>
+                <Route exact path="/" component={Nav} />
+                <Redirect to='/' />
+              </>
+            }
           </div>
         </Router>
       </>
