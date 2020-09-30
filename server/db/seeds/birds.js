@@ -34,7 +34,7 @@ exports.seed = (knex) =>
         bird_audio: "/audio/roa.m4a",
         bird_rarity: "endangered",
         bird_nocturnal: true,
-        bird_tag: "They are fiercely territorial, and fight conspecifics with their sharp claws, resulting in a cloud of feathers on the ground.",
+        bird_tag: "They are fiercely territorial, and fight with their sharp claws, resulting in a cloud of feathers on the ground.",
         bird_info: "The female lays just one egg, which both parents then incubate. The great spotted kiwi was first described as Apteryx haastii by Thomas Potts, in 1872. The genus name, Apteryx, comes from the Ancient Greek words a 'without' or 'no', and pteryx, 'wing' and haasti is the Latin form of the last name of Sir Julius von Haast."
       },
       { 
