@@ -8,9 +8,9 @@ import BackLink from "./BackLink";
 class BirdProfile extends React.Component {
   state = {
     bird: {
-      birdHabitats: []
+      birdHabitats: [],
     },
-    destination: '/scrapbook'
+    destination: "/scrapbook",
   };
 
   componentDidMount() {
@@ -18,8 +18,8 @@ class BirdProfile extends React.Component {
       this.props.dispatch(receiveScrapbook(scrapbook));
     });
 
-    if (this.props.match.path === '/bird/:id/encounter'){
-      this.setState({destination: '/'})
+    if (this.props.match.path === "/bird/:id/encounter") {
+      this.setState({ destination: "/" });
     }
   }
 
@@ -37,14 +37,14 @@ class BirdProfile extends React.Component {
   render() {
     const bird = this.state.bird;
     const audio = new Audio(this.state.bird.birdAudio);
-    
-    let rarityIcon = ''
-      if(this.state.bird.birdRarity == 'common'){
-      rarityIcon = <i className="fas fa-smile mb-3"></i>
-    } else if (bird.birdRarity == 'vulnerable'){
-      rarityIcon = <i className="fas fa-meh mb-3"></i>
-    } else if (bird.birdRarity == 'extinct'){
-      rarityIcon = <i className="fas fa-grimace mb-3"></i>
+
+    let rarityIcon = "";
+    if (this.state.bird.birdRarity == "common") {
+      rarityIcon = <i className="fas fa-smile mb-3"></i>;
+    } else if (bird.birdRarity == "vulnerable") {
+      rarityIcon = <i className="fas fa-meh mb-3"></i>;
+    } else if (bird.birdRarity == "extinct") {
+      rarityIcon = <i className="fas fa-grimace mb-3"></i>;
     } else {
       rarityIcon = <i className="fas fa-frown mb-3"></i>;
     }
@@ -59,31 +59,35 @@ class BirdProfile extends React.Component {
     } else {
       rarity = "Endangered";
     }
-    
-    let habitat = ""
-    let habitatIcon = ''
-  
-    if (this.state.bird.birdHabitats[0] == "Coastal") {
-      habitat = "Coastal";
-      habitatIcon = <i className="fas fa-water"></i>
-    } else if (bird.birdHabitats[0] == "Inland Coastal") {
-      habitat = "Inland Coastal";
-      habitatIcon = <i className="fas fa-umbrella-beach"></i>
-    } else if (bird.birdHabitats[0] == "Forest") {
-      habitat = "Forest";
-      habitatIcon = <i className="fab fa-pagelines mb-3"></i>
-    } else if (bird.birdHabitats[0] == "Scrub") {
-      habitat = "Scrub";
-      habitatIcon = <i className="fas fa-seedling"></i>
-    } else if (bird.birdHabitats[0] == "Alpine") {
-      habitat = "Alpine";
-      habitatIcon = <i className="fas fa-mountain"></i>
-    } else if (bird.birdHabitats[0] == "River"){
-      habitat = "River";
-      habitatIcon = <i className="fas fa-water"></i>
+
+    let habitat = "";
+    let habitatIcon = "";
+    if (this.state.bird.birdHabitats) {
+      if (this.state.bird.birdHabitats[0] == "Coastal") {
+        habitat = "Coastal";
+        habitatIcon = <i className="fas fa-water"></i>;
+      } else if (bird.birdHabitats[0] == "Inland Coastal") {
+        habitat = "Inland Coastal";
+        habitatIcon = <i className="fas fa-umbrella-beach"></i>;
+      } else if (bird.birdHabitats[0] == "Forest") {
+        habitat = "Forest";
+        habitatIcon = <i className="fab fa-pagelines mb-3"></i>;
+      } else if (bird.birdHabitats[0] == "Scrub") {
+        habitat = "Scrub";
+        habitatIcon = <i className="fas fa-seedling"></i>;
+      } else if (bird.birdHabitats[0] == "Alpine") {
+        habitat = "Alpine";
+        habitatIcon = <i className="fas fa-mountain"></i>;
+      } else if (bird.birdHabitats[0] == "River") {
+        habitat = "River";
+        habitatIcon = <i className="fas fa-water"></i>;
+      } else {
+        habitat = "Forest";
+        habitatIcon = <i className="fab fa-pagelines mb-3"></i>;
+      }
     } else {
       habitat = "Forest";
-      habitatIcon = <i className="fab fa-pagelines mb-3"></i>
+      habitatIcon = <i className="fab fa-pagelines mb-3"></i>;
     }
 
     return (
@@ -92,8 +96,9 @@ class BirdProfile extends React.Component {
           <>
             <div className="bird-profile-img">
               <img
-                src={this.state.bird.birdImg && this.state.bird.birdImg}  
-                alt="Image of bird" />  
+                src={this.state.bird.birdImg && this.state.bird.birdImg}
+                alt="Image of bird"
+              />
             </div>
             <div className="birdDetails mb-6">
               <h1 className="birdName title is-3 has-text-centered has-text-brown is-capitalized">
@@ -101,13 +106,13 @@ class BirdProfile extends React.Component {
               </h1>
               <h2 className="subtitle is-5 has-text-centered is-italic has-text-weight-light">
                 {bird.birdEnglishName}
-                &nbsp;
-                &nbsp;
-                  <i className="fas fa-volume-up"
-                    onClick = {() => {
-                      audio.play()
-                    }}
-                  ></i>
+                &nbsp; &nbsp;
+                <i
+                  className="fas fa-volume-up"
+                  onClick={() => {
+                    audio.play();
+                  }}
+                ></i>
               </h2>
               <div className="birdIcons has-text-white mb-4">
                 <div className="icon-group">
@@ -128,10 +133,13 @@ class BirdProfile extends React.Component {
                 </div>
               </div>
 
-              <p className="has-text-brown birdTag "> {bird.birdTag && bird.birdTag}</p>
-             
-             {/* Add a modal to display more info */}
-            {/* <div className="modal is-active">
+              <p className="has-text-brown birdTag ">
+                {" "}
+                {bird.birdTag && bird.birdTag}
+              </p>
+
+              {/* Add a modal to display more info */}
+              {/* <div className="modal is-active">
               <p className="birdTag"> {bird.birdTag && bird.birdTag}</p>
 
               {/* Add a modal to display more info */}

@@ -110,7 +110,7 @@ export class Profile extends React.Component {
               })}
           </div>
 
-          <BackLink destination="/nav" />
+          <BackLink inline='inline' destination="/nav" />
         </div>
       </>
     );
