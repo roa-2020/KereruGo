@@ -64,8 +64,8 @@ export class Profile extends React.Component {
             </div>
           )}
           <div>
-            <h1 className="user-name birdName has-text-centered has-text-weight-medium">{userInfo.username}</h1>
-            <h3 className="has-text-centered has-text-weight-light is-size-5">Unique Birds Encountered:</h3>
+            <h1 className="user-name birdName has-text-centered has-text-brown has-text-weight-medium">{userInfo.username}</h1>
+            <h3 className="has-text-centered has-text-weight-light has-text-brown is-size-5">Unique Birds Encountered:</h3>
             <div className="progress">
               <progress
                 max={this.props.progress.totalBirds}
@@ -89,7 +89,7 @@ export class Profile extends React.Component {
                 return (
                   
                     <div className="badge-container" key={`${i} ${getTheMedal}`}>
-                      <h5 className="has-text-weight-medium">
+                      <h5 className="has-text-weight-medium has-text-brown">
                         You have earned a {getTheMedal[0]} medal for encountering {badge.currentCount} {(badge.currentCount == 1) ? ' bird' : ' birds'}!
                       </h5>
                       {getTheMedal[1]}
