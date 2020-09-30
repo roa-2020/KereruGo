@@ -334,6 +334,16 @@ a {
   }
 }
 
+.cluster-marker {
+  color: #fff;
+  background: #1978c8;
+  border-radius: 50%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .marker-btn {
   background: none;
   border: none;
@@ -341,7 +351,7 @@ a {
 
   img {
   width: 75px;
-  height: 75px;
+  height: auto;
   border-radius: 50%;
   }
 }

@@ -35,6 +35,7 @@ export class Scrapbook extends React.Component {
           })}
         </div>
         <BackLink
+          inline='inline'
           destination='/nav'
         />
       </div>
