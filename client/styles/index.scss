@@ -531,9 +531,7 @@ a {
   padding-top: 100px;
 }
 
-.hidden {
-  display: none;
-}
+
 
 
 .user-profile-img {
@@ -541,18 +539,24 @@ a {
   display: grid;
   padding-top: 100px;
   place-items: center;
+
   img {
   width: 300px;
   height: auto;
   border-radius: 50%;
   }
-  .imgToggle {
-    position: relative;
-    top: 0px;
-    left: 150px;
 
-    font-size: 2em;
-  }
+  
+}
+.imageToggle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 1em;
+}
+.hidden {
+  display: none;
 }
 
 .badge {

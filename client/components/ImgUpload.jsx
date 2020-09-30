@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 
 class ImgUploader extends React.Component {
   state = {
-    formVisible: false
-  }
+    formVisible: false,
+  };
   fileSelectedHandler = (e) => {
     console.log(e.target.files[0]);
     console.log(this.props.auth.user);
@@ -16,20 +16,28 @@ class ImgUploader extends React.Component {
   };
 
   render() {
-    const formClass = (this.state.formVisible ? '' : 'hidden')
+    const formClass = this.state.formVisible ? "" : "hidden";
     return (
       <>
         <div className="imageToggle">
-        <i className="fas fa-pencil-alt" onClick={()=>{this.setState({formVisible: !this.state.formVisible})}}></i>
-        <input
-          className={formClass}
-          id="file"
-          type="file"
-          accept="image/*"
-          name="profile-pic"
-          encType="multipart/form-data"
-          onChange={this.fileSelectedHandler}
-        />
+          <i
+            className="fas fa-pencil-alt"
+            onClick={() => {
+              this.setState({ formVisible: !this.state.formVisible });
+            }}
+          ></i>
+          <label className={formClass}>
+            Uploaded image will appear next time you log in.
+          </label>
+          <input
+            className={formClass}
+            id="file"
+            type="file"
+            accept="image/*"
+            name="profile-pic"
+            encType="multipart/form-data"
+            onChange={this.fileSelectedHandler}
+          />
         </div>
       </>
     );

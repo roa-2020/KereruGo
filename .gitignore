@@ -7,4 +7,3 @@ bundle.js*
 coverage
 server/public/styles*
 client/styles/*.css
-server/public/uploads/*
