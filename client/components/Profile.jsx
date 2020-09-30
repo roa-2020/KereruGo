@@ -65,7 +65,7 @@ export class Profile extends React.Component {
         <div className="card is-centered mx-4 scrollable">
           {this.props.scrapbook && (
             <div className="user-profile-img">
-              <ImgUploader />
+              {/* <ImgUploader /> */}
               <img
                 src={
                   this.props.auth.user.user_img || "/images/mystery-bird.png"
