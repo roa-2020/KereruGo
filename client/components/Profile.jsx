@@ -88,19 +88,24 @@ export class Profile extends React.Component {
             </div>
           </div>
           <br />
+        
 
           <div className="badge has-text-centered">
+        
             {this.props.badges.map((badge, i) => {
-              const getTheMedal = this.getMedal(badge);
-              return (
-                <div className="badge-container" key={`${i} ${getTheMedal}`}>
-                  <h5 className="has-text-weight-light">
-                    You have earned a {getTheMedal[0]} medal!
-                  </h5>
-                  {getTheMedal[1]}
-                </div>
-              );
-            })}
+        
+            const getTheMedal = this.getMedal(badge)
+                return (
+                  
+                    <div className="badge-container" key={`${i} ${getTheMedal}`}>
+                      <h5 className="has-text-weight-medium">
+                        You have earned a {getTheMedal[0]} medal for encountering {badge.currentCount} {(badge.currentCount == 1) ? ' bird' : ' birds'}!
+                      </h5>
+                      {getTheMedal[1]}
+                    </div>
+                  
+                )
+              })}
           </div>
 
           <BackLink destination="/nav" />

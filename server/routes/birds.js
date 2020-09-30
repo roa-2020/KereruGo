@@ -4,6 +4,7 @@ const { getTokenDecoder } = require("authenticare/server");
 
 const {
   getAllHabitats,
+  getHabitatsByBirdId,
   getAllBirdTypes,
   generateRandomBirdID,
   getBirdCount,
@@ -64,12 +65,11 @@ function getHabitats(req, res) {
     const sanitized = habitats.map((habitat) => {
       return {
         habitatId: habitat.id,
-        habitatName: habitat.habitat_name,
-      };
-    });
-
-    return res.json(sanitized);
-  });
+        habitatName: habitat.habitat_name
+      }
+    })
+    return res.json(sanitized)
+  })
 }
 
 function getBirdTypes(req, res) {
@@ -192,11 +192,25 @@ function getScrapbook(req, res) {
   const user_id = req.params.id;
   return getScrapbookEntries(user_id).then((entries) => {
     return getAllBirdTypes()
-      .then((birds) => {
-        const sanitized = birds.map((bird) => {
-          const foundIndex = (entry) => {
-            return entry.bird_id === bird.id;
-          };
+      .then(birds => {
+        // Promise All function to get habitats for birds
+        const fetchHabitats = async (birds) => {
+          const birdsWithHabitats = birds.map(bird => {
+          return getHabitatsByBirdId(bird.id)
+            .then(habitats => {
+              bird.habitats = habitats
+              return bird
+            })
+          })
+          return Promise.all(birdsWithHabitats)
+        }
+      // Call the above Promise All  
+      fetchHabitats(birds)
+      .then((birdsWithHabitats) => {
+        const sanitized = birdsWithHabitats.map(bird => {
+          const foundIndex = entry => {
+            return entry.bird_id === bird.id
+          }
           if (entries.findIndex(foundIndex) > -1) {
             return {
               birdId: bird.id,
@@ -208,7 +222,10 @@ function getScrapbook(req, res) {
               birdNocturnal: bird.bird_nocturnal,
               birdTag: bird.bird_tag,
               birdInfo: bird.bird_info,
-            };
+              birdHabitats: [
+                bird.habitats.map(habitat => habitat.habitat_name)
+              ]
+            }
           } else {
             return {
               birdId: bird.id,
@@ -220,23 +237,23 @@ function getScrapbook(req, res) {
         });
         return res.json(sanitized);
       })
-      .catch(errorHandler);
-  });
+      })
+      .catch(errorHandler)
+  })
 }
 
 function addCurrentCount(req, res) {
-  const user_id = parseInt(req.params.id);
-  const badgeId = req.body.badgeId;
+  const user_id = parseInt(req.params.id)
+  const badgeId = req.body.badgeId
 
   return getUserBadges(user_id)
-    .then((badges) => {
-      badges.filter((badge) => badge.badge_id == badgeId);
-      const badge = badges[0];
-
+    .then(badges => {
+      badges.filter(badge => badge.badge_id == badgeId)
+      const badge = badges[0]
       if (badge) {
-        const newCount = badge.current_count + 1;
-
-        return addToCount(newCount, badge.id).then(res.send("add1"));
+        const newCount = badge.current_count + 1
+        return addToCount(newCount, badge.id)
+          .then(res.send('add1'))
       } else {
         const newBadge = {
           user_id: user_id,
@@ -295,4 +312,4 @@ function errorHandler(err, req, res, next) {
   }
 }
 
-module.exports = router;
+module.exports = router
