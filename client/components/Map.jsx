@@ -10,13 +10,11 @@ import { receiveLocations, removeLocations } from "../actions/locations";
 import NavLink from "./NavLink";
 import Clusters from "./Clusters";
 
-class Map extends React.Component {
-
+export class Map extends React.Component {
   constructor(props){
     super(props)
     this.mapRef = createRef()
   }
-
   state = {
     viewport: {
       latitude: -41.294105529785156,
