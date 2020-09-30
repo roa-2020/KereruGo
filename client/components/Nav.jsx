@@ -14,6 +14,8 @@ class Nav extends React.Component {
     const { auth, logout } = this.props;
     return (
       <div className="card is-centered mx-4 navigation birdBackground">
+     
+       
         {auth.isAuthenticated ? (
           <>
             <Link to="/map">Map</Link>
@@ -29,6 +31,10 @@ class Nav extends React.Component {
           </>
         ) : (
           <>
+          <div>
+              <h1 className="tagline has-text-white has-text-weight-medium has-text-centered is-size-4">Encounters of the bird kind...</h1>
+              <h5 className="tagline has-text-white has-text-weight-bold has-text-centered is-size-5">Register to get close.</h5>
+          </div>
             <Link to="/login">Login</Link>
             <Link to="/register">Register</Link>
           </>

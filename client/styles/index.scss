@@ -53,7 +53,7 @@ a.navbar-item.is-active,
   height: 90vh;
   max-height: 90.1vh;
   border-radius: 15px;
-  background-color: #b5bd91;
+  background-color: #9e9364;
   
 
   &.auth {
@@ -198,9 +198,6 @@ div.has-text-white {
   
 }
 
-
-
-
 .image-container {
   width: 115px;
   height: 115px;
@@ -335,8 +332,8 @@ a {
 }
 
 .cluster-marker {
-  color: #fff;
-  background: #1978c8;
+  color: $light-color;
+  background: rgb(49, 21, 27);
   border-radius: 50%;
   padding: 10px;
   display: flex;
@@ -348,14 +345,13 @@ a {
   background: none;
   border: none;
   cursor: pointer;
-
-  img {
-  width: 75px;
-  height: auto;
-  border-radius: 50%;
-  }
 }
 
+.fa-feather-alt:before {
+  content: "\f56b";
+  font-size: 1.4rem;
+  color: #2D161B;
+}
 .overlays {
   position: relative;
 
