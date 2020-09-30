@@ -9,7 +9,7 @@ import { apiGetAllLocations, apiAddScrapbookEntry, apiCurrentCount } from "../ap
 import { receiveLocations, removeLocations } from "../actions/locations";
 import NavLink from "./NavLink";
 
-class Map extends React.Component {
+export class Map extends React.Component {
   state = {
     viewport: {
       latitude: -41.294105529785156,
