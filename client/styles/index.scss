@@ -314,7 +314,6 @@ a {
   width: 75px;
   height: 75px;
   border-radius: 50%;
-  transform: translate(-50%, -50%)
   }
 }
 
@@ -487,4 +486,36 @@ a {
     ),
     url('/images/navImage.jpg');
   background-size: cover;
+}
+
+.user-name {
+  text-transform: uppercase;
+}
+
+.bird-profile-img {
+  padding-top: 100px;
+}
+
+.badge {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.bronze-medal {
+  color: #AD8A56;
+}
+
+.silver-medal {
+  color: #B4B4B4;
+}
+
+.gold-medal {
+  color: #C9B037;
+}
+
+.user-icon {
+  font-size: 150px;
 }

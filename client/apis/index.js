@@ -82,16 +82,17 @@ export function apiGetUserBadges(userId) {
 
 //when this function is fired by the React Component it parses the data to the backend
 
-export function apiPostProfileImage(file) {
-  console.log("API Profile Console Log 1");
+export function apiPostProfileImage(user_id, file) {
   return request
-    .post(apiUrl + "/profile/")
+    .post(apiUrl + "/profile/" + user_id)
+    .set(prepHeaders())
     .attach("profile-pic", file)
+    .then((res) => res.body)
     .catch(errorHandler);
 }
 
 export function apiGetProfileImage(userId) {
-  return request.get(apiUrl + "profile/" + userId);
+  return request.get(apiUrl + "profile/");
 }
 
 // Global error handler for front end api's

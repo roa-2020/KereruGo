@@ -31,24 +31,29 @@ function addToCount(newCount, id, db = connection) {
 }
 
 function addBadge(newBadge, db = connection) {
-  console.log(newBadge);
   return db("badges_users").insert(newBadge);
 }
 
-//Write a function that gets user by ID, and then call it within getUserImage
-//Or use getUserbyUsername Function
+// matt's stuff here
+//Here we create a function that uses the DB (which inserts our image information into the table)
+//Which will get fired when we the image uploader function in the client API fires.
 
-//This is how we will retrieve the data after it's saved.
-function getUserImage(db = connection) {
+//Get user by username and POST or GET image
+
+function assignImage(id, db = connection) {
   return db("users")
     .join("images", "users.user_img", "images.user_img")
-    .where("users.user_img", user_id);
+    .where("users.id", id);
 }
 
-//The return needs to be adjusted with a new table that stores the location and name of the image.
-function addImg(newImg, db = connection) {
-  console.log(newImg);
-  return db("images").where("user_img", newImg).insert(newImg);
+function getImage(id, file, db = connection) {
+  // const file = req.file;
+  console.log(file);
+  return db("users").where("id", id).insert(file);
+}
+
+function addImage(user_id, user_img, db = connection) {
+  return db("users").where("id", user_id).update("user_img", user_img);
 }
 
 module.exports = {
@@ -58,6 +63,6 @@ module.exports = {
   getUserBadges,
   addToCount,
   addBadge,
-  addImg,
-  getUserImage,
+  addImage,
+  getImage,
 };

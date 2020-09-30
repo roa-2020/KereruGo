@@ -1,23 +1,16 @@
 import React from "react";
 import { apiPostProfileImage } from "../apis/index";
+import { connect } from "react-redux";
 
 class ImgUploader extends React.Component {
-  // state = {
-  //   selectedFile: [],
-  // };
-
   fileSelectedHandler = (e) => {
     console.log(e.target.files[0]);
-    // this.setState({
-    //   selectedFile: e.target.files[0],
-    // });
+    console.log(this.props.auth.user);
     let file = e.target.files[0];
-    apiPostProfileImage(file);
+    let id = this.props.auth.user.id;
+    console.log(id, file);
+    apiPostProfileImage(id, file);
   };
-
-  handleUpload() {
-    apiPostProfileImage(this.state.selectedFile);
-  }
 
   render() {
     return (
@@ -32,11 +25,15 @@ class ImgUploader extends React.Component {
           accept=".jpg, .jpeg, .png"
           onChange={this.fileSelectedHandler}
         />
-
-        <button onClick={this.handleUpload}> Upload </button>
       </>
     );
   }
 }
 
-export default ImgUploader;
+const mapStateToProps = (globalState) => {
+  return {
+    auth: globalState.auth,
+  };
+};
+
+export default connect(mapStateToProps)(ImgUploader);

@@ -13,10 +13,26 @@ const {
   addScrapbookEntry,
 } = require("../db/birds");
 const { getUserBadges, addToCount, addBadge } = require("../db/users");
+const { getImage, addImage } = require("../db/users");
 
 const router = express.Router();
+const path = require("path");
+
 const multer = require("multer");
-const upload = multer({ dest: __dirname + "/public/uploads/" });
+const uploadPath = path.join(__dirname, "../public", "uploads");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, uploadPath);
+  },
+  filename: function (req, file, cb) {
+    cb(null, new Date().toISOString() + file.originalname);
+  },
+});
+
+const upload = multer({
+  storage: storage,
+});
 
 //Beneath this, we will write the post/get routes for the image upload.
 //we will pass it functions from the database
@@ -33,12 +49,12 @@ router.get("/badges/:id", getTokenDecoder(), getBadges);
 //Token Decoder = Connect to the server?
 //Second argument will be the function that gets fired
 //which will in turn call the database function
-router.get("/profile/:id", getTokenDecoder(), getProfileImage);
+// router.get("/profile/:id", getTokenDecoder(), getImage);
 router.post(
   "/profile/:id",
   getTokenDecoder(),
-  upload.single("file"),
-  addProfileImage
+  upload.single("profile-pic"),
+  insertImage
 );
 
 router.use(errorHandler);
@@ -64,6 +80,7 @@ function getBirdTypes(req, res) {
         birdName: bird.bird_name,
         birdEnglishName: bird.bird_english_name,
         birdImg: bird.bird_img,
+        birdAudio: bird.bird_audio,
         birdRarity: bird.bird_rarity,
         birdNocturnal: bird.bird_nocturnal,
         birdTag: bird.bird_tag,
@@ -92,30 +109,49 @@ function getBird(req, res) {
 }
 
 function getLocations(req, res) {
+  // Fetch count of birds to use in random bird id generation
   return getBirdCount().then(({ count }) => {
+    // Get all seed locations
     return getAllLocations().then((locations) => {
-      // randomly generate random locations surrounding seed locations
-      let randomLocations = [];
-      let newId = locations.length + 951;
+      // Define constants
+      const metresToLatConversionFactor = 111111.111111111;
+      const metresToLongConversionFactor = 83333.333333333;
 
-      // random Lat and Long functions called when making new locations in the for loop
-      let randomLat = () => Math.random() * (0.0018 - 0.0009) + 0.0009;
-      let randomLong = () => Math.random() * (0.0024 - 0.0012) + 0.0012;
-      // map over locations to make random surrounding locations
+      // Util Functions
+      const randomDirection = () => {
+        if (Math.random() > 0.5) {
+          return -1;
+        } else {
+          return 1;
+        }
+      };
+
+      // Map over seed locations to make surrounding randomLocations
+      let randomLocations = [];
+      let newId = locations.length + 1000;
       locations.map((location) => {
-        let randomBirdCount = Math.ceil(Math.random() * (5 - 2) + 2);
-        for (i = 0; i < randomBirdCount; i++) {
+        const birdDensity =
+          Number(location.bird_density) ||
+          Math.ceil(Math.random() * (5 - 2) + 2);
+        const metresRad = Number(location.metres_rad) || 100;
+        const latSpread = metresRad / metresToLatConversionFactor;
+        const longSpread = metresRad / metresToLongConversionFactor;
+        const randomLat = () => Math.random() * latSpread * randomDirection();
+        const randomLong = () => Math.random() * longSpread * randomDirection();
+
+        for (i = 0; i < birdDensity; i++) {
           newId++;
           randomLocations.push({
             id: newId,
-            latitude: location.latitude + randomLat(),
-            longitude: location.longitude + randomLong(),
+            latitude: Number(location.latitude) + randomLat(),
+            longitude: Number(location.longitude) + randomLong(),
+            bird_density: Number(location.bird_density),
+            metres_rad: Number(location.metres_rad),
           });
         }
       });
 
-      // the fetchBirds function waits for everything to finish (using Promises.all) to
-      //... then execute the 'dot-then' found below it(approx line 110)
+      // Below function calls the Promise.all function to get 1 random bird per randomLocation
       const fetchBirds = async (randomLocations) => {
         const birds = randomLocations.map(() => {
           return getBirdById(generateRandomBirdID(count)).then((bird) => {
@@ -124,24 +160,30 @@ function getLocations(req, res) {
         });
         return Promise.all(birds);
       };
-      fetchBirds(randomLocations).then((birds) => {
-        const sanitized = randomLocations.map((location, i) => {
-          return {
-            locId: location.id,
-            lat: location.latitude,
-            long: location.longitude,
-            birdId: birds[i].id,
-            birdName: birds[i].bird_name,
-            birdEnglishName: birds[i].bird_english_name,
-            birdImg: birds[i].bird_img,
-            birdRarity: birds[i].bird_rarity,
-            birdNocturnal: birds[i].bird_nocturnal,
-            birdTag: birds[i].bird_tag,
-            birdInfo: birds[i].bird_info,
-          };
+      // Call the above function
+      fetchBirds(randomLocations)
+        // Then map the two arrays together (birds and randomLocations)
+        .then((birds) => {
+          const sanitized = randomLocations.map((location, i) => {
+            return {
+              locId: location.id,
+              lat: location.latitude,
+              long: location.longitude,
+              locMetresRad: location.metres_rad || 100,
+              locBirdDensity: location.bird_density || 5,
+              birdId: birds[i].id,
+              birdName: birds[i].bird_name,
+              birdEnglishName: birds[i].bird_english_name,
+              birdImg: birds[i].bird_img,
+              birdAudio: birds[i].bird_audio,
+              birdRarity: birds[i].bird_rarity,
+              birdNocturnal: birds[i].bird_nocturnal,
+              birdTag: birds[i].bird_tag,
+              birdInfo: birds[i].bird_info,
+            };
+          });
+          res.json(sanitized);
         });
-        res.json(sanitized);
-      });
     });
   });
 }
@@ -161,6 +203,7 @@ function getScrapbook(req, res) {
               birdName: bird.bird_name,
               birdEnglishName: bird.bird_english_name,
               birdImg: bird.bird_img,
+              birdAudio: bird.bird_audio,
               birdRarity: bird.bird_rarity,
               birdNocturnal: bird.bird_nocturnal,
               birdTag: bird.bird_tag,
@@ -235,14 +278,12 @@ function addEntry(req, res) {
   addScrapbookEntry(entry).then((count) => res.json(count[0]));
 }
 
-//Here we create a function that uses the DB (which inserts our image information into the table)
-//Which will get fired when we the image uploader function in the client API fires.
-
-function getProfileImage(req, res) {}
-
-function addProfileImage(req, res) {
-  const image = req.file;
-  console.log(image);
+function insertImage(req, res) {
+  const user_id = req.params.id;
+  const user_img = req.file.path.slice(56);
+  return addImage(user_id, user_img).then((res) => {
+    res.body;
+  });
 }
 
 function errorHandler(err, req, res, next) {
@@ -253,4 +294,5 @@ function errorHandler(err, req, res, next) {
     res.status(500).json({ message: "Something went RATHER wrong. Shame." });
   }
 }
+
 module.exports = router;
