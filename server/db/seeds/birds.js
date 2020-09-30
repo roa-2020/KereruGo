@@ -12,7 +12,7 @@ exports.seed = (knex) =>
         bird_audio: "/audio/kotare.m4a",
         bird_rarity: "common",
         bird_nocturnal: false,
-        bird_tag: "Chicks are fed for 7-10 days after leaving the nest and then start to catch food for themselves.",
+        bird_tag: "Native and found in Australia and parts of the Western Pacific. Said to be called the ‘Sacred Kingfisher’ due to their place in the philosophy of some pacific regions as able to influence the ocean waves.",
         bird_info: "Mostly recorded singly or in pairs. The breeding pair is the most normal social unit, only occasionally at the end of the breeding season will larger groups be observed. Based on limited banding in Wellington, kingfishers appear to have high fidelity to breeding sites. The same burrow has been reported in use for 20 consecutive years, but it is not known how many birds were involved. Kingfishers are fearless and aggressive, attacking other birds and mammals for food."
       },
       {
@@ -23,7 +23,7 @@ exports.seed = (knex) =>
         bird_audio: "/audio/piwakawaka.m4a",
         bird_rarity: "common",
         bird_nocturnal: false,
-        bird_tag: "In Māori mythology, the fantail was responsible for the presence of death in the world",
+        bird_tag: "In Māori mythology, the fantail is associated with the legend of Maui attempting to eradicate death by passing through a goddess - the fantail in the story laughs and wakes the goddess who kills Maui.",
         bird_info: "The fantail is one of the few native bird species in New Zealand that has been able to adapt to an environment greatly altered by humans. They sometimes hop around upside-down amongst tree ferns and foliage to pick insects from the underside of leaves. Fantails are quite vocal, except when it is particularly cold."
       },
       {
@@ -45,7 +45,7 @@ exports.seed = (knex) =>
         bird_audio: "/audio/hihi.m4a",
         bird_rarity: "endangered",
         bird_nocturnal: false,
-        bird_tag: "Their most common call, a tzit tzit sound, is believed to be the source of their common name, as Buller noted that it 'has a fanciful resemblance to the word stitch'.",
+        bird_tag: "Hīhī translates to 'rays of sun', the story being that the demigod Maui threw the bird into a fire after it refused to fetch him water, resulting in the male's yellow breast plumage.",
         bird_info: "In 2007 a new passerine family was erected to contain the stitchbird, the Notiomystidae. Before that they thought it was honeyeater. In 2005, 60 stitchbirds were released into Zealandia (wildlife sanctuary) near Wellington and in October that year, three stitchbird chicks hatched there, the first time for more than 120 years that a stitchbird chick had been born in captivity. The stitchbird was relatively common early in the European colonisation of New Zealand, and began to decline relatively quickly afterwards, being extinct on the mainland and many offshore islands by 1885."
       },
       {
@@ -78,7 +78,7 @@ exports.seed = (knex) =>
         bird_audio: "/audio/karearea.m4a",
         bird_rarity: "vulnerable",
         bird_nocturnal: false,
-        bird_tag: "Capable of flying at speeds over 100 km/h and catching prey larger than itself, the New Zealand falcon is one of our most spectacular birds.",
+        bird_tag: "Long ago New Zealand had other endemic birds of prey, but the giant Eyles' harrier disappeared soon after Māori arrived, the even bigger Haast’s eagle vanished with its Moa prey, and the laughing owl fell to mustelids.",
         bird_info: "Like all falcons, the New Zealand falcon does not build a nest. Rather, it makes a scrape on the ground, under a rocky outcrop or in an epiphyte in an emergent forest tree into which it lays its eggs. Often seen hunting small passerines in dramatic chases, they have long pointed wings and a long tail. They often hunt from a perch ¾ up a tree but also hunt along habitat edges or surprise prey by contour-flying close to the ground."
       },
       {
@@ -89,7 +89,7 @@ exports.seed = (knex) =>
         bird_audio: "/audio/pateke.m4a",
         bird_rarity: "vulnerable",
         bird_nocturnal: true,
-        bird_tag: "Brown teal are endemic to New Zealand and, in pre-human times, may have been the most widespread and numerous of New Zealand’s waterfowl.",
+        bird_tag: "Normally you'd think a duck would live in a lake, marsh or river. But with habitat loss and predation you'll only ever catch sight off the little Brown Teal off the coast.",
         bird_info: "Brown teal are monogamous and generally fiercely territorial. Most nesting is in late winter (July-September) but broods have been encountered in most months except late autumn. The mature ducklings are forcefully evicted from the territory on or about the time the parents start their post-breeding moult. Brown teal diet is diverse. A study from Great Barrier Island recorded 78 taxa including terrestrial, freshwater and marine invertebrates, fungi, and terrestrial and freshwater vegetation."
       },
       {
