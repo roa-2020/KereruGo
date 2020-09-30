@@ -62,7 +62,7 @@ class BirdProfile extends React.Component {
     
     let habitat = ""
     let habitatIcon = ''
-    console.log(this.state.bird.birdHabitats[0])
+  
     if (this.state.bird.birdHabitats[0] == "Coastal") {
       habitat = "Coastal";
       habitatIcon = <i className="fas fa-water"></i>
