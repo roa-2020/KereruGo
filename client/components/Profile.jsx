@@ -66,13 +66,13 @@ export class Profile extends React.Component {
           {this.props.scrapbook && (
             <div className="user-profile-img">
               {/* <ImgUploader /> */}
-              <img
+              {/* <img
                 src={
                   this.props.auth.user.user_img || "/images/mystery-bird.png"
                 }
                 alt="Image of user"
-              ></img>
-              
+              ></img> */}
+              <i className="fas fa-user fa-7x"></i>
             </div>
           )}
           <div>
